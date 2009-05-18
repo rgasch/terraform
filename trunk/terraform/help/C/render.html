@@ -1,0 +1,207 @@
+<HTML>
+<HEAD><TITLE>Terraform Render Users Guide</TITLE></HEAD>
+
+<BODY BGCOLOR=#FFFFFF TEXT=#000000 LINK=#000000 ALINK=#000000 VLINK=#000000>
+<H1>Terraform Render Users Guide</H1>
+
+<I>Author: Raymond Ostertag</I>,
+
+<P>
+This is the user's guide for terraform's render tool. Terraform use POV-Ray as renderer.
+</P>
+
+<HR NOSHADE>
+
+<H2>Table of Contents</H2>
+<UL>
+<LI><A HREF="#Settings">Settings</A>
+<LI><A HREF="#Render">Render Options</A>
+     <UL>
+      <LI><A HREF="#Output">Output</A>
+      <LI><A HREF="#Size">Size</A>
+      <LI><A HREF="#Quality">Quality</A>
+     </UL>
+<LI><A HREF="#Scene">Scene Options</A>
+     <UL>
+      <LI><A HREF="#Camera">Camera</A>
+      <LI><A HREF="#Scaling">Scaling</A>
+      <LI><A HREF="#Atmosphere">Atmosphere</A>
+      <LI><A HREF="#Sky">Sky</A>
+      <LI><A HREF="#Sea">Sea</A>
+      <LI><A HREF="#Povray">POV-Ray</A>
+    </UL>
+<LI><A HREF="#Terrain">More Scene Options</A>
+     <UL>
+      <LI><A HREF="#MoreSky">More Sky</A>
+      <LI><A HREF="#MoreSea">More Sea/Water</A>
+      <LI><A HREF="#MorePovray">More POV-Ray</A>
+     </UL>
+<LI><A HREF="#Links">Some useful links</A>
+</UL>
+
+<A NAME="Settings">
+<H2>Settings</H2>
+<P>
+Terraform use POV-Ray as renderer. It's important that a recent version of POV-Ray is installed on your machine.
+You can download the last version at <a href="http://www.povray.org">http://www.povray.org/</a> or
+in the Main window from the File menu choose the Options dialog and the POV-Ray tab and click on
+Download POV-Ray. Once POV-Ray is installed in an executable directory write here the name of your 
+executable (we suggest you the generic name povray).
+</P>
+
+<A NAME="Render">
+<H2>Render Options</H2>
+<P>
+The Render Options Dialog can be open from the Terrain Window and the Edit Menu.<br>
+Here you find the important settings for the renderer.
+<br><A NAME="Output"><br>
+<b>Output options</b> : The rendering image can be only display at screen, in this case there is no output fle.
+If you prefer have a copy of your image check the Output to file box, choose the format and the name of the file.
+The Bits per colour value is also called depth of the RGB channel, with the PNG you can specify different values,
+for exemple 16 bits per channel (Gimp 1.2 and 1.4 series can only read 8 bits per channel).
+<br><A NAME="Size"><br>
+<b>Size options</b> : Here you set the size in pixels of the output file. If you use a custom size don't forget that 
+the default camera of Terraform is in a 4/3 ratio, the output file should also be in 4/3 ratio to avoid deformations. 
+The Partial render can save you lot of time when you are doing some test and you just need to see a part of the image.
+<br><A NAME="Quality"><br>
+<b>Quality options</b> : Quality options are important things for the time and the result of the rendering. 
+If you don't know POV-Ray you have to know that with a low quality the rendering is very fast but the image is not
+complete. Quality 9 without antialiasing is a good choice for test renderings. The antialiasing is normally only used
+for the final rendering but be careful that some details may disappear (stars for example) and some textures may be
+smoothing and present a different aspect as without antialiasing. You can read the POV-Ray doc (it's given
+with the program or you can find an online and downloadable HTML version) for more informations.
+</P>
+
+<A NAME="Scene">
+<H2>Scene Options</H2>
+<P>
+The Scene Options Dialog can be open from the Terrain Window and the Edit Menu.<br>
+Here you find the important settings for the scene (camera, textures, lights).
+<br><A NAME="Camera"><br>
+<b>Camera</b> : The camera location is strictly the same used in POV-Ray scripting language. It's defined by the
+coordinates of two points Camera_location and Camera_look-at. Considering we are working on a 2D map the coordinate 
+system is so :</p>
+<ul>
+<li> X : left to right, 0 is the left border and 1 is the right border of the terrain 
+<li> Y : elevation, 0 is the bottom and 1 is the summit of the terrain
+<li> Z : up to down, 0 is the down border and 1 is the up border of the terrain
+</ul>
+<p>
+In 3D by convention X is the lateral, Y the vertical and Z the  forward/backward displacement.<br>
+You can set the camera values manually or you can clic with the mouse in the 2D map. Left click is for the Camera_location
+point and Right clic is for the Camera_look-at point. The Elevation offset value is added to the Y coordinate to be sure that
+the camera is not under the terrain. If you set the values manually it can happen that the camera goes down the terrain, in this
+case you'll see a black or very strange image because Terraform is not a tool for submarine or underground images ;-)
+<br><A NAME="Scaling"><br>
+<b>Scaling</b> : Nothing special here, this is for the X,Y,Z scales. Be careful that scales are not only for the terrain but
+also for the camera. You should considerer to choose the scale before doing a fine setting of the camera.
+<br><A NAME="Atmosphere"><br>
+<b>Atmosphere</b> : The Atmosphere tab is used for fog, haze and some other effects. The normal Atmosphere type is
+<i>Earth Fog</i>. With this type of atmosphere you can have a basic Fog, use the Fog Density and Fog Turbulence slides to
+perform different effects of fog. It's also possible to have a ground Fog, the Fog Offset slide increase or decrease the height
+of this fog and the Fog Alt rules how fast the fog disappear vertically in the atmosphere (0 it's like a wall). Other Atmosphere
+type is <i>Earth Haze</i>. It's purpose is to have some nice effect when the camera look at the sun or the moon. Without some
+direct light pointing to the camera you won't see interresants things. Fog Density and Fog Turbulence can be used to perform
+different effects. If you check the Rainbow box you'll see an additionnal rainbow feet in the background.
+<br><A NAME="Sky"><br>
+<b>Sky</b> : The Sky tab is used for lights, clouds, stars, celest objects and sky. It's a bit complex and the first thing to
+understand is what kind of Sky Types can be used and what their purpose are. In the Sky Type menu you'll found the following
+types :
+<br><br>
+<i>Earth Regular Sky</i> : the complet model including night and day lights, moon and sun. The clouds and the stars can be
+selected from the menus belows the Sky Type menu. In order to change the hours and the location of the sun and the moon you
+have to go to the <A HREF="#Povray">POV-Ray tab</A> and play with the Time of Day and North Direction values.
+<br>
+<i>Earth Static Sky</i> : a very simple model where it's always noon. The ligths are fixed like a studio enligthment. The clouds
+can be selected from the menu below the Sky Type menu. Stars are not visible. 
+<br><br>
+<i>Earth Dynamic Sky</i> : a simple model where the lights can be changed. The clouds can be selected from the menu below 
+the Sky Type menu. Stars are not visible. In order to change the lights you have to go to the <A HREF="#Povray">POV-Ray tab</A> 
+and play with the Time of Day and North Direction values. If you choose a Time of Day between 0-6 and 18-24 hours the power of
+the light is divided by two simulating a moon enlightment.
+<i>Mapped Sky</i> : as background you see a plane where a image is projected. The lights can not be changed, Clouds and Stars
+are not visible. To select the projected image jump to the chapter <A HREF="#More">More Scene options</A> 
+<br><A NAME="Sea"><br>
+<b>Sea</b> : The Sea tab is used for the sea but not for the rivers. In the Water Type menu you can select some themes for the sea.
+The values of the sea level and the sea clarity can be changed here. Uncheck the Filled Sea box can be useful in some kind of
+terrain but it should not often be used.
+<br><A NAME="Povray"><br>
+<b>POV-Ray</b> : The POV-Ray tab is used for different purpose. With the Terrain Theme menu you select how the terrain are textured. 
+The Auto-render is only unchecked if don't want a rendering image each time you clic on the Apply button.
+The Time of Day and North Direction values are only useful if you have selected a <i>Earth Regular</i> or <i>Earth Dynamic Sky</i>
+from the <A HREF="#Sky">Sky tab</A>. To locate the sun, first look at the horizon with the camera, then choose a very early 
+6.5 hours Time of Day and turn the North Direction 30° by 30° until the sun appears in the camera field. For exemple, if you look at 
+the Z- direction the North direction to see the sun is 270°. Now to see the moon only add 12 hours (6.5+12=18.5) at the Time of Day 
+value.</p>
+
+<A NAME="More">
+<H2>More Scene Options</H2>
+<P>The options that can be changed through the dialog box are the very useful one. But each image need its fine tuning and some
+additonnals parameters can be found and changed in a text file. The name of this file is <b>defaults.inc</b> and it can be found in the
+<i>/usr/local/share/terraform/include</i> or <i>/usr/share/terraform/include</i> directory. Make a secure copy of this file and then edit it with 
+your favorite text editor. The file is divided in sections according to the tab of the Scene Options dialog : Global, Camera, Atmosphere, 
+Sky, Water, POV-Ray. Each parameter has a short description : Level 1 or 2 (important or not), name of the parameter in the dialog
+box, type and commentar. Each value can be changed after the <b>#declare</b> statments. The Global, Camera, Scale and Atmosphere 
+Sections have no additonnal parameters that can not be found in the dialog box, so we begin the description from the Sky section.
+
+<br><A NAME="MoreSky"><br>
+<b>Sky section</b> : additonnal parameters
+<br><br><i>TF_SKY_COLORDESCRIPTION</i> : name of the file used to describe the sky coloration located in the 
+<i>include/skies/include</i>
+directory. Read  the <A HREF="theme.html">theme</a> document if you would create your own sky color files.
+<br><br><i>TF_SKY_COLORATION</i> : you can add a permanent coloration to the blue sky. To achieve this change the RGB color vector
+( amount of Red, amount of Green, amount of Blue ). For exemple to obtain a reddish sky : <i>#declare TF_SKY_COLORATION =  
+<1.0, 0.0, 0.0>;</i>.
+<br><br><i>TF_STARS_BRIGHTNESS</i> : here you can increase or decrease the brightness of the stars. Although you put a very high 
+brightness the stars will never be visible at day light between 7 and 15 hours (they are transparent).
+<br><br><i>TF_LIGHTS_DESCRIPTION</i> : in the <i>Earth Regular Sky</i> Sky Type there is a simulation for the global or ambient 
+illumination, you can change the name of the file used for this from there.
+<br><br><i>TF_HAVE_AMBIENT_LIGHT</i> : here you can suppress the ambient illumination.
+<br><br><i>TF_AMBIENT_LIGHT_LUMINOSITY</i> : it's a very important option. Here you change the power of the lights. This can
+radically change the aspect of the scene.
+<br><br><i>TF_HAVE_CAMERA_LIGHT</i> : here you can add a light over the camera if you used the <i>Earth Regular Sky</i> Sky Type
+<br><br><i>TF_CAMERA_LIGHT_LUMINOSITY</i> : the power of the previous camera light.
+<br><br><i>TF_HAVE_CLOUDS_ROOF</i> : create a clouds as object instead as texture. Experimental, no good results yet.
+<br><br><i>TF_SUN_APPARENT_SIZE</i> : here you can increase or decrease the size of the sun.
+<br><br><i>TF_SUN_LIGHT_COLOR</i> : here you can change the color of the light of the sun, not the color of the sun itself.
+<br><br><i>TF_MOON_IMAGE</i> : a real map of the moon is applied to the moon object. The map is in the <i>image_maps</i>
+directory. The format is PNG. Here you can change the name of the image applied to the moon object. The width of the image must be 
+the double of the height to avoid deformations.
+<br><br><i>TF_MOON_TIME_OFFSET</i> : the default offset value between sun and moon is 12 hours. You can change this
+here, for exemple if you wish a moon visible at day light
+<br><br><i>TF_MOON_LIGHT_COLOR</i> : here you can change the color of the light of the moon, not the color of the moon itself.
+<br><br><i>TF_MOON_APPARENT_SIZE</i> : here you can increase or decrease the size of the moon.
+<br><br><i>TF_MOON_[YZ]_ROT</i> : there is an algorithm that compute and adjust which point of the moon you are looking with the 
+camera. By default this point is always the center of the map applied to the moon object. You can change this here. Y rotation means moving the point along the width and Z rotation along the height of the map. It's similar at longitude and latitude coordinates.
+<br><br><i>TF_SKY_IMAGE</i> : the image mapped on the background plane for the <i>Mapped Sky</i> Sky Type. The format is TGA.
+The image is located in the <i>image_maps</i> directory. The width is 16/9 of the height to avoid deformations.
+<br><br><i>TF_SKY_IMAGE_SCALE</i> : here you can change the scale of the previous image. It's important if the image don't fill
+all the background.
+<br><br><i>TF_SKY_IMAGE_ELEVATION_OFFSET</i> : this option help you to adjust the image with the line of the horizon.
+
+<br><A NAME="MoreSea"><br>
+<b>Water section</b> : additonnal parameters
+<br><br><i>TF_WATER_COLOR</i> : here you can change the basic color of the water
+<br><br><i>TF_WATER_BOTTOMCOLOR</i> : with some Water Type you see the part of the terrain who is under the water. This option
+changed the color of the very deep underwater terrain.
+<br><br><i>TF_WATER_REFLECTION</i> : very important option. Here you can change the reflection factor of the water.
+<br><br><i>TF_WATER_FREQUENCY</i> : here you can change the frenquency ot the waves.
+<br><br><i>TF_WATER_HEIGTH</i> : the heigth of the waves, don't make a confusion with the water level.
+<br><br><i>TF_WATER_SMOOTHWAVE</i> : an additonnal optionnal wave that smooth the aspect of the water
+
+<br><A NAME="MorePovray"><br>
+<b>POV-Ray section</b> : additonnal parameters
+<br><br><i>TF_LANDSCAPE_TURBULENCE</i> : here you can change the global turbulence of the texture applied to the terrain.
+<br><br><i>TF_LANDSCAPE_DISTRIBUTION</i> : here you can change the distribution of each component (grass,snow,rock,..)
+of the texture applied to the terrain. Increase this and each component will cover a smaller part of the terrain.
+</P>
+
+<A NAME="Links">
+<H2>Some useful links</H2>
+<P>
+<A HREF="http://www.povray.org/">POV-Ray official site</A>
+<br><A HREF="http://www.povray.org/documentation/view/toc/">POV-Ray documentation, Table of contents</A>
+</P>
+
+</BODY>
+</HTML>

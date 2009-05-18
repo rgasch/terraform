@@ -1,0 +1,617 @@
+// This file was downloaded from http://www.povworld.org/objects/cat/
+// Because this collection is free it needs people to help it work. 
+// Visit and help them. Thank you.
+
+// Adapted for Terraform by Raymond Ostertag
+
+// ---------------------------------------------------
+// foliage.inc version 1.00
+// ---------------------------------------------------
+// this file created by : Derek Murphy  -- June/July 2001
+// I accept email only at : POVfoliage@hotmail.com
+// for use with POV Ray version 3.1 (written on PowerMac)
+// this INCLUDE file is Public Domain !!!!
+//
+// Known issues : 
+// well everything works well so far and the code 
+// is (Ahem) clear and concise - however
+// when rendering the trees the program tells me
+// that their is a csg union problem. It still
+// renders fine though . . . I think I have a 
+// merge somewhere that contains only one item
+// but I can't find it.
+//
+// this file contains the following objects :
+// -bushOne (a render intensive six sided bush)
+// -bushes (a simple leaf bush)
+// -flowerPatch (a simple flower generating macro)
+// -sevenBushes (a seven leaved bush)
+// -fPalmTrees ( a flat leaved palm tree)
+// -palmTrees (a palm tree generator)
+// ---------------------------------------------------
+//
+// ---------------------------------------------------
+// Foliage include syntax :
+/*
+-- The first bush is a render intensive one but looks good :
+bushOne (BushStemText,BushText)
+	BushStemText is the texture of the bush stem
+	BushText is the leaf texture
+-- The second bush is easily rendered and looks good when
+-- used in large close bunches :
+bushes(Wide,Deep,Dense,BushText)
+	Wide is how many bushes along +X axis
+	Deep is how many bushes along +Z axis 
+	Dense is how close each bush is to one another
+	BushText is what the texture is of the bush leaves
+-- This is just like the above macro how ever it has a flower in it
+-- with two colors :
+flowerPatch(Wide,Deep,Dense,Stem,LowColor,HighColor,BushText)
+	Wide is how many flower bushes along +X axis
+	Deep is how many flower bushes along +Z axis 
+	Dense is how close each flowers bush is to one another
+	LowColor is the lower flower bell texture
+	HighColor is the higher flower bell texture
+	BushText is what the texture is of the bush leaves
+-- This is a bush like the above but with a seven leaf spread :
+sevenBushes(Wide,Deep,Dense,BushText)
+	Wide is how many bushes along +X axis
+	Deep is how many bushes along +Z axis 
+	Dense is how close each bush is to one another
+	BushText is what the texture is of the bush leaves	
+-- This is a flat leaved palm tree that renders quick - looks OK :
+fPalmTrees(Wide,Deep,Dense,TrunkText,FLeafText)
+	Wide is how many trees along +X axis
+	Deep is how many trees along +Z axis 
+	Dense is how close each trees is to one another
+	TrunkText is the tree's trunk texture
+	FLeafText is what the texture is of the trees leaves
+-- This is a really nice (I think) rounded palm tree :
+palmTrees(Wide,Deep,Dense,TrunkText,LeafText,LeafEdge)
+	Wide is how many trees along +X axis
+	Deep is how many trees along +Z axis 
+	Dense is how close each trees is to one another
+	TrunkText is the tree's trunk texture
+	LeafText is what the texture is of the trees leaves
+	LeafEdge is what the texture is of the leaves edge ** required
+-- This is the some-what difficult macro to understand it's called
+-- randomObject , it takes any object above and randomly puts it
+-- in your scene :
+randomObject(XOne,ZOne,XTwo,ZTwo,ScaleLow,ScaleHigh,NumberOf,StartSeed,FoliageType)
+	XOne is the closest x position to place the objects
+	ZOne is the closest Z position to place the objects
+	XTwo is the farthest X position to place the objects
+	ZTwo is the farthest Z position to place the objects
+	ScaleLow is the smallest scale wanted for the object 
+	ScaleHigh is the largest scale wanted for the object
+	NumberOf is the number of objects wanted
+	StartSeed is ANY POSITIVE INTEGER AND CHANGE IT EACH TIME YOU
+		INVOKE THE randomObjest macro DON'T MAKE IT TOO HIGH either
+		start at 100 then go to 150 to 200
+	FoliageType is any object you want (i.e. a sphere , a triangle or
+		a group of bushes)
+// ---------------------------------------------------
+this is the end of the syntaxical explaination 
+// ---------------------------------------------------
+*/
+// ---------------------------------------------------
+//  . . . and now the actual code for the includes . . .
+//
+// ----- bushOne -----
+#macro startCyl(BushText) 
+difference {
+	cylinder {
+	<0,0,0>,
+	<0,2,0>,
+	0.5
+	texture {BushText}
+			}
+	cylinder {
+	<0,-0.1,0>,
+	<0,2.1,0>,
+	0.45
+	texture {BushText}
+			}
+	}
+#end
+
+#macro bushOneLeaf(BushText) 
+difference {
+	object {startCyl(BushText)} // starting cylinder
+	box {	// the cut out a large box from it
+	<0,-0.1,0>,
+	<2,4,2>
+	texture {BushText}
+	translate<-0.1,-0.5,-1>
+	rotate z*15
+		}
+	}
+#end
+//
+// now we add a stem
+#macro bushOneStem(BushStemText,BushText) 
+merge {
+	cone{
+		<-0.475,-0.5,0>,0.075
+		<-0.475,0,0>,0.025
+		texture {BushStemText}		
+		}
+	object{bushOneLeaf(BushText)}
+	scale <0.666,1,1>
+	rotate y*180
+	translate <0,0.5,0>
+	}
+#end
+//
+// this creates a ring of leaves that have stems
+#macro stemLeafRing(Tilt,BushStemText,BushText)
+merge {
+	#local Acount=0;
+	#while (Acount<6)
+		object {bushOneStem(BushStemText,BushText)
+			rotate z*Tilt
+			rotate (Acount*60)*y
+			}
+		#local Acount=Acount+1;
+	#end
+	}
+#end
+// 
+// the total bush is done
+#macro bushOne(BushStemText,BushText)
+merge {
+	object {stemLeafRing(70,BushStemText,BushText)}
+	object {stemLeafRing(55,BushStemText,BushText)}
+	object {stemLeafRing(40,BushStemText,BushText)}
+	}
+#end
+// ----- bushTwo -----
+// this is the single leaf for the bush
+#macro bushTwoLeaf(BushText) 
+	triangle {
+	<0.25,0,0>,<0,0,2>,<-0.25,0,0>
+	texture {BushText}
+	}
+#end
+//
+// leaf Ringer
+#macro leafRinger(Tilt,BushText)
+merge {
+	#local Acount=0;
+	#while (Acount<7)
+		object {bushTwoLeaf(BushText)
+			rotate x*(Tilt*-1)
+			rotate (Acount*120)*y
+			}
+		#local Acount=Acount+1;
+	#end
+	}
+#end
+//
+// a collection of the above rings
+#macro bushTwo(BushText) 
+merge {
+	object {leafRinger(30,BushText)}
+	object {leafRinger(40,BushText) rotate y*60}
+	object {leafRinger(50,BushText)}
+	}
+#end
+//
+// how many bushes along -- this is if you want only one row
+// the nestes while statements wouldn't
+#macro bushesWide(Wide,Dense,BushText)
+merge{
+	#local BushCountW=0;
+	#local Zfactor=0;
+	#local Xfactor=0;
+	#while (BushCountW<Wide)
+		#local Xfactor=(BushCountW*Dense);
+		object {bushTwo(BushText)
+		translate<Xfactor,0,0>}
+		#local BushCountW=BushCountW+1;
+	#end
+	}
+#end
+//
+// create lots of bushes in the form
+// # of bushes Wide(+X) , # of bushes Deep(+Z), how far apart
+#macro bushes(Wide,Deep,Dense,BushText)
+merge {
+	#local BushCountD=0;
+	#local Zfactor=0;
+	#while (BushCountD<Deep)
+		object{bushesWide(Wide,Deep,BushText) 
+				translate<0,0,Zfactor>}
+		#local BushCountD=BushCountD+1;
+		#local Zfactor=Zfactor+Dense;
+
+	#end
+	}
+#end
+//		
+// ----- the flower includes -----
+// ----- remember that the flower uses the bushTwo macros and objects
+// 
+// the center flower macro
+#macro flower(Stem,LowColor,HighColor)
+merge {
+	cylinder {
+		<0,-0.1,0>,
+		<0,2.0,0>,
+		0.025
+		texture {Stem}
+		}
+	cone {
+		<0,2.1,0>,0.05
+		<0,2.3,0>,0.20
+		open		
+		texture {LowColor}
+		}
+	cone {
+		<0,2.05,0>,0.1
+		<0,2.2,0>,0.3
+		texture {HighColor}
+		}
+	}
+#end
+//
+// how many flower bushes along -- this is if you want only one row
+// the nestes while statements wouldn't
+#macro flowers(Wide,Dense,Stem,LowColor,HighColor,BushText)
+merge{
+	#local BushCountW=0;
+	#local Zfactor=0;
+	#while (BushCountW<Wide)
+		object {bushTwo(BushText) 
+			translate<(BushCountW*Dense),0,0>}
+		object {flower(Stem,LowColor,HighColor)
+			 translate<(BushCountW*Dense),0,0>}
+		#local BushCountW=BushCountW+1;
+	#end
+	}
+#end
+
+//
+// create lots of flower bushes in the form
+// # of bushes Wide(+X) , # of bushes Deep(+Z), how far apart
+#macro flowerPatch(Wide,Deep,Dense,Stem,LowColor,HighColor,BushText)
+merge {
+	#local BushCountD=0;
+	#local Zfactor=0;
+	#while (BushCountD<Deep)
+		object{flowers(Wide,Deep,Stem,LowColor,HighColor,BushText) 
+			translate<0,0,Zfactor>}
+		#local BushCountD=BushCountD+1;
+		#local Zfactor=Zfactor+Dense;
+	#end
+	}
+#end
+//
+// ----- this is the seven bush  -----
+// ----- remeber that this bush also uses the bushTwo macros & objects
+//
+// the seven bush
+//
+// make ring of leaves leafRinger
+#macro sevenLeafRinger(tilt,BushText)
+merge {
+	#local Acount=0;
+	#while (Acount<7)
+		object {bushTwoLeaf(BushText)
+			rotate x*(tilt*-1)
+			rotate (Acount* 51.4285)*y
+			}
+		#local Acount=Acount+1;
+	#end
+	}
+#end
+
+#macro sevenBush(BushText)
+merge {
+	object {sevenLeafRinger(76,BushText)}
+	object {sevenLeafRinger(51,BushText) rotate y* 25.7142}
+	object {sevenLeafRinger(26,BushText)}
+	}
+#end
+//
+// seven leaved bushes in a row . . .
+#macro sevenBushesWide(Wide,Dense,BushText)
+merge{
+	#local BushCountW=0;
+	#local Zfactor=0;
+	#while (BushCountW<Wide)
+		object {sevenBush(BushText) translate<(BushCountW*Dense),0,0>}
+		#local BushCountW=BushCountW+1;
+	#end
+	}
+#end
+//
+// create lots of seven leaved bushes in the form
+// # of bushes Wide(+X) , # of bushes Deep(+Z), how far apart
+#macro sevenBushes(Wide,Deep,Dense,BushText)
+merge {
+	#local BushCountD=0;
+	#local Zfactor=0;
+	#while (BushCountD<Deep)
+		object{sevenBushesWide(Wide,Deep,BushText) translate<0,0,Zfactor>}
+		#local BushCountD=BushCountD+1;
+		#local Zfactor=Zfactor+Dense;
+
+	#end
+	}
+#end
+//
+// ----- Palm Trees -----
+//
+// ----- trunk of the tree ------
+// it's two cones -do remember that both the flat Palm and the round Palm
+// use this macro for their trunks
+#macro trunkStart(TrunkText,TreeTopText)
+merge {
+	cone { 				// bottom broad section of tree trunk
+		<0,0,0>,0.75 
+		<0,1,0>,0.5
+		open
+		texture{TrunkText}
+		}
+	cone {				// top section of tree trunk
+		<0,1,0>,0.5
+		<0,5,0>,0.1
+		open
+		texture{TrunkText}
+		}	
+	cone {				// the trunk's top 
+		<0,5.1,0>,0.25
+		<0,4.975,0>,0.05
+		texture{TreeTopText}
+		}
+	}// end of merge
+#end
+// 
+// total trunk with difference here . . .
+#macro trunk(TrunkText,TreeTopText) 
+difference {
+	object {trunkStart(TrunkText,TreeTopText)}
+	sphere {
+	<0,5.1,0>,
+	0.25
+	texture{TreeTopText}
+	scale <1,0.5,1>	
+		}
+	} // end of difference
+#end
+//
+// ----- Flat Palm Tree -----
+//
+// leaf of flat palm tree
+#macro fLeaf(FLeafText)
+difference {
+	cylinder {
+		<0,0,0>,
+		<4.1,0,0>, // add the trunk's top radius to leaf size
+		0.333
+		texture {FLeafText}
+		}
+	cylinder {
+		<-0.05,0,0>,
+		<4.15,0,0>, // add the trunk's top radius to leaf size
+		0.32
+		texture {FLeafText}
+		}
+
+	box {
+		<-0.1,-0.4,-0.4>,
+		<4.2,0,0.4>
+		texture {FLeafText}	
+		}
+	scale <1,0.5,1> // make the leaf appear flat
+	translate<-2.05,0,0> // move leaf into postion
+	}
+#end
+//
+// this is a ring of leaves
+#macro palmLeafRing(FLeafText) 
+merge{
+	object {fLeaf(FLeafText)}
+	object {fLeaf(FLeafText)
+			rotate y*60}
+	object {fLeaf(FLeafText) 
+			rotate y*-60}
+	}
+#end	
+//
+// this is the total top of the tree
+#macro treeTop(FLeafText)
+merge {
+	object {palmLeafRing(FLeafText) 
+			scale 0.666
+			rotate y*30}
+	object {palmLeafRing(FLeafText)
+			translate <0,0.25,0>}
+	}
+#end
+// 
+// the whole tree put together now . . .
+#macro flatPalm(TrunkText,FLeafText) 
+merge {
+	object {treeTop(FLeafText) translate<0,4.75,0>}
+	object {trunk(TrunkText,FLeafText)}
+	}
+#end
+//
+// more than one tree !!!
+// palms Wide ,density , then tree type
+#macro fPalmsWide(Wide,Dense,TrunkText,FLeafText)
+merge{
+	#local PCountW=0;
+	#local Zfactor=0;
+	#while (PCountW<Wide)
+		object {flatPalm(TrunkText,FLeafText)
+			 translate<(PCountW*Dense),0,0>}
+		#local PCountW=PCountW+1;
+	#end
+	}
+#end
+//
+// create lots of palm trees in the form :
+// # of palms Wide(+X) , # of palms Deep(+Z),
+// how far apart, then tree type
+#macro fPalmTrees(Wide,Deep,Dense,TrunkText,FLeafText)
+merge {
+	#local PCountD=0;
+	#local Zfactor=0;
+	#while (PCountD<Deep)
+		object{fPalmsWide(Wide,Dense,TrunkText,FLeafText)
+			 translate<0,0,Zfactor>}
+		#local PCountD=PCountD+1;
+		#local Zfactor=Zfactor+Dense;
+
+	#end
+	}
+#end
+//
+// ----- Palm Tree-----
+// 
+// this is the rounded version that is more render intensive
+//
+// start of palm leaves -- difference spheres
+#macro startBall(LeafText) 
+difference {
+	sphere {
+	<0,0,0>,0.5
+	texture {LeafText}
+	}
+	sphere {	// make the sphere "hollow"
+	<0,0,0>,0.485
+	texture {LeafText}
+	}
+	box {	// cut the sphere on one side
+	<-0.6,-0.6,-0.6>
+	<0.6,0.6,-0.25>
+	texture {LeafText}
+	}
+}
+#end	
+//
+// start of the leafs differencing
+#macro startLeaf(LeafText,LeafEdge) 
+intersection {
+	object {startBall(LeafText)}
+	cylinder{
+		<0,-0.6,0>,
+		<0,1.1,0>,0.375
+		open
+		texture{LeafEdge}
+		translate<0,0,0.16666>
+		scale <0.5,1,1>
+		}
+	}
+#end
+//
+// the full leaf is the start leaf differenced
+#macro leaf(LeafText,LeafEdge)
+difference {
+	object {startLeaf(LeafText,LeafEdge)}
+	box {	// cut the startleaf in half
+	<-0.6,-0.6,-0.6>
+	<0.6,0,0.6>
+	texture {LeafText}
+	}
+	rotate x*-72 // the angle is HERE
+	}
+#end	
+
+// 
+// create ring of leaves for the palm tree
+#macro leafRing(LeafText,LeafEdge)
+merge {
+	#local leafCount=0;
+	#while (leafCount<5)
+		object {leaf(LeafText,LeafEdge)
+			translate<0,0,-0.25>
+			rotate y*(leafCount*72)}
+		#local leafCount=leafCount+1;
+	#end
+	}
+#end
+//
+// the total palm tree declaration 
+#macro palmTree(TrunkText,LeafText,LeafEdge) 
+merge {
+	object {leafRing(LeafText,LeafEdge)
+		scale 2
+		translate<0,4.15,0>}
+	object{trunk(TrunkText,LeafText)}
+	}
+#end
+//
+// more than one tree !!!
+// palms Wide ,density , then tree type
+#macro palmsWide(Wide,Dense,TrunkText,LeafText,LeafEdge)
+merge{
+	#local PCountW=0;
+	#local Zfactor=0;
+	#while (PCountW<Wide)
+		object {palmTree(TrunkText,LeafText,LeafEdge)
+			 translate<(PCountW*Dense),0,0>}
+		#local PCountW=PCountW+1;
+	#end
+	}
+#end
+//
+// create lots of palm trees in the form :
+// # of palms Wide(+X) , # of palms Deep(+Z),
+// how far apart, then tree type
+#macro palmTrees(Wide,Deep,Dense,TrunkText,LeafText,LeafEdge)
+merge {
+	#local PCountD=0;
+	#local Zfactor=0;
+	#while (PCountD<Deep)
+		object{palmsWide(Wide,Dense,TrunkText,LeafText,LeafEdge)
+			 translate<0,0,Zfactor>}
+		#local PCountD=PCountD+1;
+		#local Zfactor=Zfactor+Dense;
+
+	#end
+	}
+#end
+//
+// ----- Random Object Macro -----
+//
+#macro randomObject(XOne,ZOne,XTwo,ZTwo,ScaleLow,ScaleHigh,NumberOf,StartSeed,FoliageType)
+merge {
+	#local RandCounter=0;
+	#local XFactor=(XTwo-XOne);				// total X variance
+	#local ZFactor=(ZTwo-ZOne)	;			// total Z variance
+	#local ScaleFactor=(ScaleHigh-ScaleLow);// total scale variance
+	#while (RandCounter<NumberOf)
+		#local SeedFactor=seed(StartSeed+RandCounter);
+		#local XRand=rand(SeedFactor);
+		#local XRand=XRand*XFactor;
+		#local SeedFactor=seed(((StartSeed+RandCounter)+NumberOf)+1);
+		#local ZRand=rand(SeedFactor);
+		#local ZRand=ZRand*ZFactor;
+		#local SeedFactor=seed(StartSeed+RandCounter+1+(NumberOf*3));
+		#local ScaleRand=rand(SeedFactor);
+		#local ScaleRand=ScaleRand*ScaleFactor;
+		#local SeedFactor=seed(StartSeed+RandCounter+2+(NumberOf*4));
+		#local Spin=rand(SeedFactor);
+		#local Spin=(Spin*360);
+		object {FoliageType
+				scale(ScaleRand)
+				translate<(XRand+XOne),0,(ZRand+ZOne)>
+				rotate y*Spin
+				}
+		#local RandCounter=RandCounter+1;
+	#end 									// end of while statement
+	} 										// end of merge
+#end 
+
+
+
+//
+// ---------------------------------------------------
+// foliage.inc : by Derek Murphy
+// ---------------------------------------------------
+
+

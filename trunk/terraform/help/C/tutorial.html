@@ -1,0 +1,86 @@
+<HTML>
+<HEAD><TITLE>Terraform Tutorial</TITLE></HEAD>
+
+<BODY BGCOLOR=#FFFFFF TEXT=#000000 LINK=#000000 ALINK=#000000 VLINK=#000000>
+<H1>Terraform Tutorial</H1>
+
+<I>Author: David A. Bartold</I>
+
+<P>
+This is a quick tutorial designed for the first time user.
+</P>
+
+<HR NOSHADE>
+
+<P>
+This is the main window:<BR>
+<IMG SRC="mainwindow.png" WIDTH=212 HEIGHT=328>
+</P>
+
+<P>
+The main window enables the user to open terrain windows.  The user may
+load a terrain from a file or create a new one.
+</P>
+
+<H2>Step 1:</H2>
+<P>
+There are various algorithms available for generating a new terrain.
+We will let Terraform choose one by selecting File > New > Random.
+This is the easiest way to make a new height field.
+</P>
+
+<P>
+The terrain window will look like this:<BR>
+<IMG SRC="terrainwindow.png" WIDTH=316 HEIGHT=394>
+</P>
+
+<H2>Step 2:</H2>
+<P>
+Select the 3D wireframe model view by choosing the View > Type > 3D Wire.
+Drag the cursor inside the viewport to rotate the wireframe as desired.
+Feel free to try out the other views.
+</P>
+
+<P>
+3D Wire view:<BR>
+<IMG SRC="wire.png" WIDTH=316 HEIGHT=360>
+</P>
+
+<H2>Step 3:</H2>
+Go to your main window and select File > Options.  The POV-Ray tab will
+display an executable name.  Make sure it points to an X capable
+version of POV-Ray 3.1.  Terraform will automatically search for
+the right executable if you click the "..." button.  This option is saved
+between sessions so you will only have to do this once.
+
+<H2>Step 4:</H2>
+<P>
+Go to your terrain window, select File > Render > POV-Ray and a raytracing
+window should appear.
+</P>
+
+<P>
+If you get an error message, there was a problem executing POV-Ray.  You may
+find out more information by clicking the "Details" button.
+Consult POV-Ray's documentation if the executable is found but POV-Ray
+reports an error.
+</P>
+
+<P>
+POV-Ray terrain render window:<BR>
+<IMG SRC="povray.png" WIDTH=412 HEIGHT=328>
+</P>
+
+<H2>Congratulations!</H2>
+<P>
+You have generated and rendered your first scene.
+</P>
+
+<P>
+From here, you may wish to save it to a *.terraform file or perform
+various operations on the terrain.  Consult the
+<A HREF="index.html">Users Guide</A> for more information.
+</P>
+
+</BODY>
+</HTML>

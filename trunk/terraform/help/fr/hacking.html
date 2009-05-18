@@ -1,0 +1,1063 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.77 [fr] (X11; U; Linux 2.4.3-20mdk i586) [Netscape]">
+   <title>FAQ: Hacking Terraform</title>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#000000" vlink="#000000" alink="#000000">
+
+<h1>
+FAQ: Modifier Terraform</h1>
+Terraform FAQ, version 0.1, Dec. 02, 1999 par cloister@hhhh.org
+<p>Terraform FAQ, version 0.2, May. 05, 2000, r&eacute;vis&eacute;e par
+<a href="mailto:r.gasch@chello.nl">RNG</a>
+<p>Traduction Raymond Ostertag
+<p>Ce document contient les conseils utiles pour quiconque est int&eacute;ress&eacute;
+pour agrandir ou modifier Terraform, ou simplement corriger des bogues.&nbsp;
+Ce document se concentre sur les types de modifications que je pense que
+les gens souhaitent le plus r&eacute;aliser. Ce que vous voulez faire n'est
+peut-&ecirc;tre pas dans ce document, mais vous devriez quand m&ecirc;me
+le lire pour avoir une id&eacute;e de comment vous pourrez proc&eacute;der.
+<ul>
+<li>
+<a href="#1">1. Classes majeures and types de donn&eacute;es</a></li>
+
+<ul>
+<li>
+<a href="#1.1">1.1 Types de donn&eacute;es simples</a></li>
+
+<li>
+<a href="#1.2">1.2 Conventions de nommage</a></li>
+
+<li>
+<a href="#1.3">1.3 La classe HeightField</a></li>
+
+<li>
+<a href="#1.4">1.4 La classe HeightFieldDraw</a></li>
+
+<li>
+<a href="#1.5">1.5 Les classes HeightFieldReader / HeightFieldWriter</a></li>
+
+<li>
+<a href="#1.6">1.6 La classe HeightFieldExport</a></li>
+</ul>
+
+<li>
+<a href="#2">2. Un tour rapide du code source de Terraform</a></li>
+
+<li>
+<a href="#3">3. Ajouter de nouveaux fichiers sources</a></li>
+
+<li>
+<a href="#4">4. Ajouter un nouveau type d'import (par exemple &eacute;tendre
+Fichier->Ouvrir)</a></li>
+
+<li>
+<a href="#5">5. Ajouter un nouveau type d'export (par exemple &eacute;tendre
+Fichier->Enregistrer sous)</a></li>
+
+<li>
+<a href="#6">6. Modifier le terrain</a></li>
+
+<li>
+<a href="#7">7. Ajouter un nouveau g&eacute;n&eacute;rateur de terrain</a></li>
+
+<li>
+<a href="#8">8. Support de d&eacute;boguage</a></li>
+
+<li>
+<a href="#9">9. Soumettre vos changements</a></li>
+</ul>
+
+<hr><a NAME="1"></a>
+<h1>
+1: Classes majeures et types de donn&eacute;es</h1>
+Cette section d&eacute;crit les classes centrales C++ et les types de donn&eacute;es
+sur lesquelles repose Terraform. Pour faire du travail s&eacute;rieux avec
+Terraform, vous aurez besoin d'&ecirc;tre familier avec ces types de fa&ccedil;on
+&agrave;&nbsp; faire que votre code compile facilement, interagisse correctement
+avec le reste de Terraform, et maintenir le niveau de portabilit&eacute;
+de Terraform.
+<p>Le code source de Terraform est compatible <a href="http://www.stack.nl/~dimitri/doxygen/">Doxygen</a>
+. Cel&agrave; signifie que ses commentaires ont &eacute;t&eacute; &eacute;tiquett&eacute;
+de tel fa&ccedil;on que doxygen peut g&eacute;n&eacute;rer une documentation
+class/code. Pour faire cel&agrave;, vous avez besoin de :
+<pre>cd terraform-x.x.x/src
+doxygen -g doxygen.rc</pre>
+Doxygen g&eacute;n&eacute;re une documentation Javadoc-style qui rend plus
+facile la consultation des hi&eacute;rarchies de classes. Si vous voulez
+travailler avec Terraform et &ecirc;tre capable de consulter le source,
+je recommende de faire cel&agrave; comme premi&egrave;re &eacute;tape.
+<br><a NAME="1.1"></a>
+<h2>
+1.1: Types de donn&eacute;es simples</h2>
+Comme beaucoup de projets de logiciels vastes qui essayent de ne pas d&eacute;pendre
+de d&eacute;finitions sp&eacute;cifiques d'une machine - ou d'un compilateur
+- pour les types de bases, Terraform d&eacute;finit quelques synonymes
+pour les types basiques pour &eacute;viter l'utilisation potentielle de
+mots cl&eacute;s non portables. Heureusement, il y en a quelques uns pour
+vous pour garder le tra&ccedil;age. Faites un effort pour utiliser ces
+synonymes dans votre code, ainsi votre code restera portable. Ces synonymes
+sont d&eacute;finis dans GlobalDefs.h et HeightFieldCore.h :
+<br>&nbsp;
+<table BORDER >
+<tr>
+<th>utilisez ceci:</th>
+
+<th>au lieu de ceci:</th>
+</tr>
+
+<tr>
+<td>PTYPE</td>
+
+<td>float, the type used to store Height Field elevation</td>
+</tr>
+
+<tr>
+<td>UI</td>
+
+<td>unsigned int</td>
+</tr>
+
+<tr>
+<td>UL</td>
+
+<td>unsigned long</td>
+</tr>
+
+<tr>
+<td>UF</td>
+
+<td>unsigned float</td>
+</tr>
+
+<tr>
+<td>UD</td>
+
+<td>unsigned double</td>
+</tr>
+
+<tr>
+<td>UC</td>
+
+<td>unsigned char</td>
+</tr>
+
+<tr>
+<td>BYTE</td>
+
+<td>unsigned char</td>
+</tr>
+
+<tr>
+<td>F</td>
+
+<td>float</td>
+</tr>
+
+<tr>
+<td>D</td>
+
+<td>Double</td>
+</tr>
+</table>
+
+<p>Notez que Terraform est en cours de d&eacute;veloppement, et n'adh&egrave;re
+pas toujours lui-m&ecirc;me &agrave; cette ligne de conduite. De futurs
+nettoyages du code porteront sur le sujet.
+<br><a NAME="1.2"></a>
+<h2>
+1.2: Conventions de nommage</h2>
+Typiquement,&nbsp; les membres d'un classe sont pr&eacute;fix&eacute;s
+par un texte court qui identifie le type/classe de la variable comme ce
+qui suit :
+<br>&nbsp;
+<table BORDER >
+<tr>
+<th>Prefix:</th>
+
+<th>Variable type/class:</th>
+</tr>
+
+<tr>
+<td>p_</td>
+
+<td>a pointer</td>
+</tr>
+
+<tr>
+<td>d_</td>
+
+<td>a non-pointer data member</td>
+</tr>
+
+<tr>
+<td>b_</td>
+
+<td>a boolean data member</td>
+</tr>
+
+<tr>
+<td>s_</td>
+
+<td>a static data member</td>
+</tr>
+</table>
+<a NAME="1.3"></a>
+<h2>
+1.3: La classe HeightField</h2>
+La classe HeightField stocke les donn&eacute;es d'&eacute;l&eacute;vation
+pour les terrains, ainsi que vous l'attendiez. Les donn&eacute;es et fonctions
+membres d&eacute;finies dans la classe HeightField elle-m&ecirc;me sont
+largement concern&eacute;s avec l'I/O des fichiers, le nommage, le support
+de la fonction Annuler, etc ... Il y a peu dans le HeightField lui-m&ecirc;me
+qui est int&eacute;ressant du point de vue des op&eacute;rations qui peuvent
+modifier ou vous informer sur les donn&eacute;es du terrain lui-m&ecirc;me.
+<p>La classe HeightField est d&eacute;riv&eacute;e de la classe HeightFieldCore
+, qui est elle-m&ecirc;me d&eacute;riv&eacute;e de la classe de r&eacute;f&eacute;rence
+Matrix2D. La classe HeightField est d&eacute;finie dans le produit fini
+qui apporte tous les services relatifs au HeightField dont l'application
+a besoin. La table suivante liste les fonctions membres publiques de HeightField
+qui ont un int&eacute;r&ecirc;t particulier.
+<h3>
+Fonctions membres 'Accessor' :</h3>
+
+<table BORDER WIDTH="100%" >
+<caption><colset><col width = "10%"><col width = "20%"><col width = "70%"></colset></caption>
+
+<tr>
+<th>Return Type</th>
+
+<th>Name</th>
+
+<th>Purpose</th>
+</tr>
+
+<tr>
+<td>PTYPE *</td>
+
+<td>getData()</td>
+
+<td>Returns a pointer to the heightfield data</td>
+</tr>
+
+<tr>
+<td>PTYPE&nbsp;</td>
+
+<td>getMin()</td>
+
+<td>Returns the minimum elevation level in the heightfield data</td>
+</tr>
+
+<tr>
+<td>PTYPE&nbsp;</td>
+
+<td>getMax()&nbsp;</td>
+
+<td>Returns the maximum elevation level in the heightfield data</td>
+</tr>
+
+<tr>
+<td>PTYPE&nbsp;</td>
+
+<td>getSealevel()</td>
+
+<td>Returns the current sealevel setting</td>
+</tr>
+
+<tr>
+<td>int&nbsp;</td>
+
+<td>getWidth()</td>
+
+<td>Returns the width of the heightfield</td>
+</tr>
+
+<tr>
+<td>int&nbsp;</td>
+
+<td>getHeight()</td>
+
+<td>Returns the height of the heightfield</td>
+</tr>
+
+<tr>
+<td>int&nbsp;</td>
+
+<td>getSize()</td>
+
+<td>Returns the total number of elements in the heightfield (width x height)</td>
+</tr>
+
+<tr>
+<td>PTYPE&nbsp;</td>
+
+<td>getEl(<i>n</i>)</td>
+
+<td>Returns the heightfield elevation at offset (n), which will be in the
+range of 0 to 1.</td>
+</tr>
+
+<tr>
+<td>PTYPE&nbsp;</td>
+
+<td>getEl(<i>x, y</i>)</td>
+
+<td>Returns the heightfield elevation at location (x,y), which will be
+in the range of 0 to 1.</td>
+</tr>
+
+<tr>
+<td>PTYPE&nbsp;</td>
+
+<td>getElSea(<i>x, y</i>)</td>
+
+<td>Returns the greater of the elevation at (x,y), and the current sealevel
+setting.</td>
+</tr>
+</table>
+
+<h3>
+Fonctions membres 'Mutator' :</h3>
+
+<table BORDER WIDTH="100%" >
+<caption><colset><col width = "10%"><col width = "20%"><col width = "70%"></colset></caption>
+
+<tr>
+<th>Return Type</th>
+
+<th>Name</th>
+
+<th>Purpose</th>
+</tr>
+
+<tr>
+<td>void&nbsp;</td>
+
+<td>setEl(<i>n</i>)</td>
+
+<td>Sets the heightfield elevation at offset (n).</td>
+</tr>
+
+<tr>
+<td>void&nbsp;</td>
+
+<td>setEl(<i>x, y</i>)</td>
+
+<td>Sets the heightfield elevation at location (x,y).</td>
+</tr>
+
+<tr>
+<td>void&nbsp;</td>
+
+<td>setData(PTYPE <i>*hf</i>, int <i>xsize</i>, int <i>ysize</i>, FALSE)</td>
+
+<td>Replaces the existing heightfield with new data.</td>
+</tr>
+</table>
+
+<p>La liste des m&eacute;thodes associ&eacute;es au HeightField donn&eacute;e
+ici n'est pas compl&egrave;te. HeightField.{h,cc} contient d'autres fonctions
+qui peuvent &ecirc;tre utiles lors de la manipulation de donn&eacute;es
+de Height Field . Pour plus d'informations, voyez HeightField.{h,cc} and
+HeightFieldCore.{h,cc}.
+<br><a NAME="1.4"></a>
+<h2>
+1.4: La classe HeightFieldDraw</h2>
+La classe HeightFieldDraw encapsule les op&eacute;rations ayant &agrave;
+voir avec le trac&eacute; du terrain &agrave; l'&eacute;cran. Si vous souhaitez
+ajouter un nouveau mode d'affichage, tel qu'une vue rendue avec POV-Ray,
+vous devez&nbsp; compl&eacute;tez HeightFieldDraw.{h,cc}.&nbsp; Quelques
+fonctions membres dans la classe HeightFieldOps re&ccedil;oivent des pointeurs
+HeightFieldDraw comme arguments, car ces fonctions ont occasionnellement
+besoin d'utiliser des informations sur les r&eacute;glages en cours du
+rendu, particuli&egrave;rement les couleurs. La table suivante liste les
+fonctions membres publiques de HeightFieldDraw qui ont un int&eacute;r&ecirc;t
+particulier :
+<h3>
+Fonctions membres :</h3>
+
+<table BORDER WIDTH="100%" >
+<caption><colset><col width = "10%"><col width = "20%"><col width = "70%"></colset></caption>
+
+<tr>
+<th>Return Type</th>
+
+<th>Name</th>
+
+<th>Purpose</th>
+</tr>
+
+<tr>
+<td>GuiColormap *</td>
+
+<td>getColormap()</td>
+
+<td>Returns the current color map.</td>
+</tr>
+
+<tr>
+<td>int&nbsp;</td>
+
+<td>setColormap()</td>
+
+<td>Sets the colormap.</td>
+</tr>
+
+<tr>
+<td>GdkColor&nbsp;</td>
+
+<td>getColor2d(<i>x, y</i>)</td>
+
+<td>Returns the color that heightfield location (x,y) will be draw with
+in the current colormap.</td>
+</tr>
+
+<tr>
+<td>GdkColor&nbsp;</td>
+
+<td>getColorElv(<i>Elv</i>)</td>
+
+<td>Returns the color that corresponds to elevation <i>Elv</i> in the current
+colormap.</td>
+</tr>
+
+<tr>
+<td>int&nbsp;</td>
+
+<td>draw()</td>
+
+<td>Draws the heightfield in whatever mode the user has selected.</td>
+</tr>
+
+<tr>
+<td>int&nbsp;</td>
+
+<td>getMode()</td>
+
+<td>Returns the current drawing mode.</td>
+</tr>
+
+<tr>
+<td>int&nbsp;</td>
+
+<td>setMode(char <i>*m</i>)</td>
+
+<td>Sets the current drawing mode to the mode named in <i>*m</i></td>
+
+<td>.</td>
+</tr>
+
+<tr>
+<td>void&nbsp;</td>
+
+<td>setFastWire(<i>bool f</i>)</td>
+
+<td>Turns fast wireframe mode on or off.</td>
+</tr>
+
+<tr>
+<td>void&nbsp;</td>
+
+<td>setEyePos(<i>D x, D y, D z</i>)</td>
+
+<td>Sets the view position for 3d drawing modes.</td>
+</tr>
+
+<tr>
+<td>void&nbsp;</td>
+
+<td>setLightPos(<i>D x, D y, D z</i>)</td>
+
+<td>Sets the position of the "sun" for 3-d viewing modes.</td>
+</tr>
+</table>
+
+<p>Pour plus d'informations, voyez HeightFieldDraw.{h,cc}.
+<br><a NAME="1.5"></a>
+<h2>
+1.5: Les classes HeightFieldReader / HeightFieldWriter</h2>
+Ces classes encapsulent les fonctionnalit&eacute;s associ&eacute;es &agrave;
+l'&eacute;criture et la lecture des terrains sous diff&eacute;rents formats
+de fichiers. Les formats actuellement support&eacute;s sont Poskanzer Gray
+Map (.pgm), Targa (.tga), Matlab (.mat), Octave ASCII (.oct), United States
+Geological Survey DEM format (.dem), GTOPO (.gtop), Portable Network Graphics
+(.png), Tagged Image File Format (.tiff), and Windows Bitmap (.bmp). Si
+vous souhaitez un support pour un format additionnel ou am&eacute;liorer
+le support pour l'un de ces formats, vous serez amen&eacute; &agrave; am&eacute;liorer
+les classes HeightFieldReader et/ou HeightFieldWriter. Notez que tous ces
+formats ne sont pas actuellement support&eacute;s pour &agrave; la fois
+la lecture et l'&eacute;criture.
+<p>HeightFieldReader est principalement un emplacement o&ugrave; se trouvent
+les diff&eacute;rents fichiers des fonctions de lecture, et o&ugrave; se
+trouve quelques fonctions d'aide additionnelle qui sont sont utiles pour
+l'impl&eacute;mentation du support d'un nouveau format de fichier. Les
+fonctions d'aide utiles sont :
+<table BORDER WIDTH="100%" >
+<caption><colset><col width = "10%"><col width = "20%"><col width = "70%"></colset></caption>
+
+<tr>
+<td>void</td>
+
+<td>checkRead(<i>points_read, npoints</i>)</td>
+
+<td>Check that the number of data points read from the input file matches
+the number of points in the heightfield. If the file did not contain enough
+points, set the unassigned points to zero elevation.</td>
+</tr>
+
+<tr>
+<td>void</td>
+
+<td>readOK()</td>
+
+<td>Copies the input file's name to the heightfield's d_name member, and
+collects some statistics about the new heightfield.</td>
+</tr>
+</table>
+
+<p>De fa&ccedil;on similaire, HeightFieldWriter existe principalement pour
+les diff&eacute;rents fichiers des fonctions d'&eacute;criture, et pour
+contenir quelques variables membres utiles. A l'inverse de HeightFieldReader,
+cette classe n'a pas de fonctions membres d'aide. Vous devriez, toutefois,
+faire usage des membres de classe d_Fio pour ouvrir un fichier enregistr&eacute;,
+pour acc&eacute;der aux informations du nom de fichier, si n&eacute;cessaire,
+et pour fermer le fichier enregistr&eacute;.
+<br><a NAME="1.6"></a>
+<h2>
+1.6: La classe HeightFieldExport</h2>
+La classe HeightFieldExport est l&agrave; pour contenir des fonctions qui
+produisent quelques&nbsp; types de donn&eacute;es "d&eacute;riv&eacute;e"
+en sortie. C'est difficile de donner une d&eacute;finition claire des "proc&eacute;d&eacute;s"
+qui ne font pas parti des fonctionnalit&eacute;s d&eacute;livr&eacute;es
+par HeightFieldWriter, mais en g&eacute;n&eacute;ral HeightFieldWriter
+devrait &ecirc;tre utilis&eacute; pour cr&eacute;er_exactes_repr&eacute;sentations
+du terrain qui peuvent, au moins en th&eacute;orie, &ecirc;tre relues par
+Terraform ou &ecirc;tre utilis&eacute;es dans des programmes du m&ecirc;me
+type. HeightFieldExport, en comparaison, est plus implicitement une transformation
+&agrave; "sens-unique". Par exemple, la m&eacute;thode HeightFieldExport::renderPOV
+cr&eacute;e des fichiers d'import POV-Ray bas&eacute;s sur les donn&eacute;es
+du terrain et puis lance POV-Ray pour faire le rendu du terrain. Le fichier
+d'export POV-Ray est d&eacute;riv&eacute; des donn&eacute;es du terrain
+mais n'est pas utilisable comme format d'entr&eacute;e par Terraform. De
+fa&ccedil;on analogue, le format g&eacute;n&eacute;r&eacute; par POV-Ray
+n'est pas exploitable par Terraform, en th&eacute;orie.
+<p>De fa&ccedil;on similaire,&nbsp; la m&eacute;thode HeightFieldExport::exportContourLinesToPS
+cr&eacute;e un fichier Postscript r&eacute;pr&eacute;sentant les lignes
+de contours g&eacute;n&eacute;r&eacute;es par la commande HF > Contour
+Line Map ( carte d'isobares ). Toutefois, cette fonction n'&eacute;crit
+seulement que les points s&eacute;lectionn&eacute;s du terrain dans le
+fichier Postscript, et ainsi le r&eacute;sultat n'est pas une repr&eacute;sentation
+exacte du terrain. Un tel fichier Postscript ne devrait pas, en th&eacute;orie,
+&ecirc;tre utilis&eacute; comme un fichier d'entr&eacute;e par Terraform
+car il ne contient pas une &eacute;l&eacute;vation pour chaque point du
+terrain.
+<p>Si vous souhaitez ajouter une fonction &agrave; Terraform qui ne rentre
+pas dans cette cat&eacute;gorie "processed data output", vous devrez travailler
+principalement dans HeightFieldExport.{h,cc}.
+<br>
+<hr><a NAME="2"></a>
+<h1>
+2: Un tour rapide du code source de Terraform</h1>
+La table suivante liste une br&egrave;ve description des fichiers, ou groupes
+de fichiers, dans l'arborescence des sources de Terraform.
+<table BORDER WIDTH="100%" >
+<caption><colset><col width="30%"><col width="80%"></colset></caption>
+
+<tr>
+<th>File(s)&nbsp;</th>
+
+<th>Purpose:</th>
+</tr>
+
+<tr>
+<td>FileIO.*&nbsp;</td>
+
+<td>High level file I/O operations.</td>
+</tr>
+
+<tr>
+<td>GlobalDefs.h&nbsp;</td>
+
+<td>Global definitions, data type defs, etc.</td>
+</tr>
+
+<tr>
+<td>GlobalSanityCheck.*&nbsp;</td>
+
+<td>Global bailout and warning functions.</td>
+</tr>
+
+<tr>
+<td>GlobalTrace.*&nbsp;</td>
+
+<td>A Global trace flag mechanism for debug output</td>
+</tr>
+
+<tr>
+<td>Gui*&nbsp;</td>
+
+<td>Gtk-- support routines, used by other dialog box code.</td>
+</tr>
+
+<tr>
+<td>HeightField*.*&nbsp;</td>
+
+<td>Core HeightField functionality</td>
+</tr>
+
+<tr>
+<td>Math*.*&nbsp;</td>
+
+<td>Support for various math functions.</td>
+</tr>
+
+<tr>
+<td>Matrix2D.h&nbsp;</td>
+
+<td>The base template class used to store, access and alter the HeightField
+data.</td>
+</tr>
+
+<tr>
+<td>MenuDefs.*&nbsp;</td>
+
+<td>Constants used by Terraform's menus.</td>
+</tr>
+
+<tr>
+<td>PrintOptions.*&nbsp;</td>
+
+<td>Constants used to support printing.</td>
+</tr>
+
+<tr>
+<td>RenderOptions.*&nbsp;</td>
+
+<td>Various options/settings used when rendering.</td>
+</tr>
+
+<tr>
+<td>TFBaseDialog.*,
+<br>TFDialog*.*</td>
+
+<td>All of Terraform's dialog boxes.</td>
+</tr>
+
+<tr>
+<td>TFCListMainWin.*&nbsp;</td>
+
+<td>Terraform's main window.</td>
+</tr>
+
+<tr>
+<td>TFFileRC.*&nbsp;</td>
+
+<td>Implements .rc file support.</td>
+</tr>
+
+<tr>
+<td>TFOpenGLArea.*&nbsp;</td>
+
+<td>Terraform's (alpha) OpenGL support.</td>
+</tr>
+
+<tr>
+<td>TFOptions*.*&nbsp;</td>
+
+<td>Run-time and .rc file options support.</td>
+</tr>
+
+<tr>
+<td>TFPreviewDialog.*&nbsp;</td>
+
+<td>Dialog boxes that show a heightfield preview.</td>
+</tr>
+
+<tr>
+<td>TFWindow*.*&nbsp;</td>
+
+<td>Code that defines various window types.</td>
+</tr>
+
+<tr>
+<td>Timer.*&nbsp;</td>
+
+<td>Support for timing and profiling operations.</td>
+</tr>
+
+<tr>
+<td>agename.*&nbsp;</td>
+
+<td>Support for file versioning.</td>
+</tr>
+
+<tr>
+<td>flexarray.*&nbsp;</td>
+
+<td>A template-based array type that can grow automatically to accomodate
+new elements.</td>
+</tr>
+
+<tr>
+<td>glib*.*&nbsp;</td>
+
+<td>Simple wrappers for some glib classes.</td>
+</tr>
+
+<tr>
+<td>strrep.*&nbsp;</td>
+
+<td>Memory safe string replace within another string.</td>
+</tr>
+</table>
+
+<hr><a NAME="3"></a>
+<h1>
+3: Ajouter de nouveaux fichiers source</h1>
+Si vos changements sont mineurs, tels qu'enlever un bogue, vous devriez
+vous efforcer de travailler avec le jeu existant de fichiers de code source.
+A moins que le bogue soit un d&eacute;faut fondamental de conception ou
+quelque chose d'aussi important, vous n'avez pas &agrave; ajouter ou enlever
+de fichiers source.&nbsp; Si vous estimez &ecirc;tre en pr&eacute;sence
+d'un bogue d'une port&eacute;e aussi significative, vous devriez probablement
+contacter <a href="mailto:r.gasch@chello.nl">RNG</a> avant de proc&eacute;der.
+<p>Beaucoup d'autres types de changement, par exemple ajouter une nouvelle
+op&eacute;ration de terrain comme Crat&egrave;re ou Erosion, peuvent aussi
+&ecirc;tre impl&eacute;ment&eacute;es dans la structure du code source
+Terraform existant. Si votre changement tombe dans la cat&eacute;gorie
+largement d&eacute;finie comme "quelque chose de pur terrain", alors il
+est probable que vous travaillerez presque exclusivement avec HeightFieldOps.cc
+and HeightFieldOps.h.
+<p>Si vous &ecirc;tes all&eacute; aussi loin et que vous &ecirc;tes toujours
+convaincu que vous avez besoin de cr&eacute;er quelques nouveaux fichiers
+de code source, pour des raisons de partage du code,&nbsp; en gardant les
+fonctionnalit&eacute;s isol&eacute;es dans des modules bien d&eacute;finis,
+alors c'est OK. Dans ce cas, vous devriez probablement contacter <a href="mailto:r.gasch@chello.nl">RNG</a>
+avant de proc&eacute;der, pour vous assurer qu'il n'a pas d&eacute;j&agrave;
+pris les noms de fichiers que vous proposez d'utiliser, et pour vous assurez
+que vos raisons pour ajouter des nouveaux fichiers sources sont s&eacute;rieuses.
+Gardez en m&eacute;moire que RNG est plus enclin &agrave; accepter des
+changements qui n'impliquent pas des changement radicaux du code de base.
+Le type de modification qui le plus commun&eacute;ment implique d'ajouter
+des nouveaux fichiers source est celle qui implique de cr&eacute;er des
+bo&icirc;tes de dialogue pour interagir avec l'utilisateur. C'est une cons&eacute;quence
+des m&eacute;thodes g&eacute;n&eacute;rales de l'&eacute;criture du code
+qui utilise les outils gdk/GTK. Bien s&ucirc;r, des nouvelles fonctionnalit&eacute;s
+impliquent presque toujours un quelconque type d'interaction avec l'utilisateur,
+ainsi si vous ajoutez des nouvelles fonctionnalit&eacute;s vous pouvez
+presque parier d'avoir &agrave; cr&eacute;er une ou deux bo&icirc;tes de
+dialogue et d'avoir quelques fichiers source pour faire cel&agrave;.
+<p>Terraform utilise le syst&egrave;me Autoconf pour g&eacute;n&eacute;rer
+ses Makefiles, ainsi ajouter de nouveaux fichiers source est facile. Mettez
+les simplement dans le r&eacute;pertoire Terraform src/, ajoutez le nom
+du ficher &agrave; src/Makefile.am et alors relancez le script configure
+dans votre r&eacute;pertoire Terraform de fa&ccedil;on &agrave; g&eacute;n&eacute;rer
+de nouveaux Makefiles qui vont reconnaitre vos nouveaux fichiers sources.
+<br>
+<hr><a NAME="4"></a>
+<h1>
+4: Ajouter un nouveau type d'import (par exemple &eacute;tendre Fichier->Ouvrir)</h1>
+Ajouter le support pour un nouveau format, si vous souhaitez lire des terrains
+depuis quelque type de fichier que Terraform ne supporte pas actuellement,
+n'est pas difficile. Le m&eacute;canisme d'importation de Terraform est
+bien con&ccedil;u pour supporter des types additionnelles. Vous travaillerez
+avec les classes HeightFieldReader et HeightFieldIO, d&eacute;finies dans
+HeightFieldReader.{h,cc} et HeightFieldIO.{h,cc}.
+<p>Supporter un nouveau format d'importation implique d'&eacute;crire une
+fonction qui analyse ce format, ajouter une d&eacute;tection logique du
+type du format des fichiers, et ajouter un apple vers votre fonction d'analyse
+de votre fichier.
+<p>Ajoutez votre fonction d'analyse &agrave; la classe HeightFieldReader
+. Donnez lui un nom de la forme "read<i>XXX</i>()", o&ugrave; <i>XXX</i>
+repr&eacute;sente le nouveau format de fichier. Des exemples sont readGIF,
+readPGM, etc... Vous pouvez aussi impl&eacute;menter des fonctions d'aide
+particuli&egrave;res&nbsp; dans la classe HeightFieldReader , si n&eacute;cessaire,
+pour assister votre fonction read<i>XXX</i>. Votre fonction aura besoin
+d'assigner au tableau de PTYPE assez large pour contenir les donn&eacute;es
+du fichier ( par exemple myarray = new PTYPE[width * height];), lire les
+donn&eacute;es du fichier et les convertir en PTYPEs dans l'intervalle
+0.0 &agrave; 1.0, stocker ces donn&eacute;es dans votre tableau, et finallement,
+votre fonction d'analyse devrait appeler HeightFieldReader::checkRead quand
+c'est fini de fa&ccedil;on &agrave; faire un peu de post-processing important
+sur le nouveau terrain.
+<p>Quand vous avez &eacute;crit votre fonction d'analyse, vous devez l'inclure
+dans la classe HeightFieldIO. Modifiez HeightFieldIO.h pour d&eacute;finir
+une nouvelle constante qui repr&eacute;sente votre type de fichier, si
+un type convenable n'est pas d&eacute;j&agrave; d&eacute;fini. Dans ce
+fichier vous trouverez les d&eacute;finitions pour les autres types de
+fichier que Terraform supporte d&eacute;j&agrave;. Dans HeightFieldIO.cc,
+vous devrez faire deux choses. Premi&egrave;rement, modifiez la fonction
+HeightFieldIO::getFileType() pour associer l'extension du fichier correcte
+avec votre type de fichier. Deuxi&egrave;mement, modifiez la fonction HeightFieldIO::read()
+pour ajouter un appel &agrave; votre fonction read<i>XXX</i>.
+<br>
+<hr><a NAME="5"></a>
+<h1>
+5: Ajouter un nouveau type d'export (par exemple &eacute;tendre Fichier->Enregistrer
+sous )</h1>
+Ajouter le support pour un nouveau format, si vous souhaitez &eacute;crire
+des terrains depuis quelque type de fichier que Terraform ne supporte pas
+actuellement, n'est pas difficile. Le m&eacute;canisme d'exportation de
+Terraform est bien con&ccedil;u pour supporter des types additionnelles.
+Vous travaillerez avec les classes HeightFieldWriter et HeightFieldIO,
+d&eacute;finies dans HeightFieldWriter.{h,cc} et HeightFieldIO.{h,cc}.
+<p>Supporter un nouveau format d'exportation requiert d'&eacute;crire une
+fonction qui convertit les donn&eacute;es du terrain en quelque autre format
+structur&eacute; appropri&eacute;, aussi bien qu'&eacute;crire manuellement
+les informations n&eacute;cessaires d'ent&ecirc;te et de bas de page de
+fichier, ajouter une d&eacute;tection logique de votre nouveau type de
+fichier bas&eacute;e sur le nom de fichier que l'utilisateur &agrave; choisi
+pour enregistrer le terrain, et ajouter un appel vers votre fonction d'&eacute;criture.
+<p>Ajoutez votre fonction d'&eacute;criture &agrave; la classe HeightFieldWriter.
+Donnez lui un nom de la forme "write<i>XXX</i>()", o&ugrave; <i>XXX</i>
+r&eacute;presente le nouveau format de fichier.
+<br>the new file format. Des exemples sont writeTGA, writePGM, etc... Vous
+pouvez aussi impl&eacute;menter des fonctions d'aide particuli&egrave;res&nbsp;
+dans la classe HeightFieldWriter , si n&eacute;cessaire, pour assister
+votre fonction write<i>XXX</i>.&nbsp; Votre fonction devra boucler sur
+toutes les donn&eacute;es du terrain ( rappel que vous pouvez utiliser
+la fonction HeightField::El() pour acc&eacute;der &agrave; ces donn&eacute;es),
+convertir dans le format appropri&eacute; &agrave; vote type de fichier,
+et l'&eacute;crire dans un fichier manipul&eacute; fourni par la classe
+HeightFieldWriter. Les donn&eacute;es de terrain que vous travaillerez
+seront stock&eacute;es comme PTYPEs dans l'intervalle 0.0 &agrave; 1.0.
+Finalement, votre fonction d'&eacute;criture devra fermer le fichier manipul&eacute;
+et appeler HeightField::setSaved(TRUE) quand termin&eacute;.
+<p>Quand vous avez &eacute;crit votre fonction d'&eacute;criture, vous
+devez l'inclure dans la classe HeightFieldIO. Modifiez HeightFieldIO.h
+pour d&eacute;finir une nouvelle constante qui repr&eacute;sente votre
+type de fichier, si un type convenable n'est pas d&eacute;j&agrave; d&eacute;fini.
+Dans ce fichier vous trouverez les d&eacute;finitions pour les autres types
+de fichier que Terraform supporte d&eacute;j&agrave;. Dans HeightFieldIO.cc,
+vous devrez faire deux choses. Premi&egrave;rement, modifiez la fonction
+HeightFieldIO::getFileType() pour associer l'extension du fichier correcte
+avec votre type de fichier. Deuxi&egrave;mement, modifiez la fonction HeightFieldIO::write()
+pour ajouter un appel &agrave; votre fonction write<i>XXX</i>.
+<br>
+<hr><a NAME="6"></a>
+<h1>
+6: Modifier le terrain</h1>
+Une classe de Terraform simple &agrave; modifier est celle des fonctions
+qui font quelque chose &agrave; un terrain existant, tel qu'ajouter un
+crat&egrave;re, inverser le terrain, l'agrandir ou le rapetisser, etc...
+Ces fonctions se trouvent typiquement dans la classe HeightFieldOps, qui
+est l'endroit o&ugrave; vous devriez impl&eacute;menter de telles fonctions.
+Ajoutez votre fonction comme une nouvelle fonction membre publique dans
+HeightFieldOps.h, et mettez votre fonction dans HeightFieldOps.cc. Votre
+fonction devra avoir cette structure g&eacute;n&eacute;rale :
+<pre>int HeightFieldOps::myFunc(args...)&nbsp;
+{
+&nbsp; // declare any variables you need
+&nbsp; PTYPE newElevation;
+
+&nbsp; // loop over the terrain and modify it:
+&nbsp; for(int x=0; x &lt; p_HF->getWidth(); x++)
+&nbsp;&nbsp;&nbsp; for(int y=0; y &lt; p_HF->getWidth(); y++)&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; newElevation = ... ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // do something cool...
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_HF->setEl(x,y, newElevation);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+
+&nbsp; // any broad-scale changes to the heightfield also need to do the following:
+&nbsp; p_HF->gatherStatistics();
+&nbsp; p_HF->setSaved(FALSE);
+
+&nbsp; // return a status code.
+&nbsp; return(0);
+}</pre>
+Bien s&ucirc;r, en fonction de l'algorithme que vous utilisez pour modifier
+le terrain, votre fonction interne peut ne pas contenir une structure en
+boucle interne comme celle ci-dessus. Utilisez n'importe quel&nbsp; code
+dont vous avez besoin pour faire les changements que vous souhaitez au
+terrain. Quand ce sera fini, appellez p_HF->gatherStatistics(); cel&agrave;
+va remettre le terrain entre les valeurs 0..1 et faire quelques v&eacute;rifications
+limit&eacute;es.
+<p>Si votre fonction est suffisamment complexe, vous aurez peut-&ecirc;tre
+besoin de cr&eacute;er une bo&icirc;te de dialogue, tel que d&eacute;crit
+ailleurs dans ce document, pour recueillir des param&egrave;tres de l'utilisateur
+avant d'appeler votre fonction. Finalement, vous devez patcher votre fonction
+ou bo&icirc;te de dialogue dans le menu contextuel de Terraform, celui
+qui est montr&eacute; quand vous cliquez sur une fen&ecirc;tre d'affichage
+du terrain. Vous devrez travaillee avec MenuDefs.h, TFWindow.cc, et TFWindowHandler.cc.
+Si vous ne voulez pas avoir &agrave; faire avec le code du menu et du dialogue,
+vous pouvez &eacute;crire &agrave; <a href="mailto:r.gasch@chello.nl">RNG</a>
+qui jusqu'&agrave; pr&eacute;sent &agrave; montr&eacute; de la bonne volont&eacute;
+&agrave; recevoir du nouveau et son support avec une bo&icirc;te de dialogue
+appropri&eacute;e.
+<p>Si vous sentez que vous allez ajouter un dialogue, faites ce qui suit
+: dans MenuDefs.h, cr&eacute;ez une nouvelle constante de la forme MENU_HF_<i>MyID</i>,
+qui liste la position du menu de votre fonction ou de votre bo&icirc;te
+de dialogue. Par exemple, la fonction HF-> rotate est d&eacute;finie comme
+:
+<pre>#define MENU_HF_ROTATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Rotate"</pre>
+Dans la fonction TFWindow::addMenus, ajoutez votre fonction&nbsp; avec
+les autres fonctions MENU_HF_*, avec un peu de code comme ceci :
+<pre>s=_(MENU_HF_ROTATE);
+MenuElem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hRotate (s, ACC_C,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SigC::bind(SigC::slot(this, &amp;TFWindow::hfMenuCallback),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; string (s)));
+mlHF.push_back (hRotate);</pre>
+Aussi, de fa&ccedil;on &agrave; supporter correctement l'internztionalisation,
+vous devez ajoutre vos nouveaux textes de menus &agrave; la d&eacute;finition
+de <i>char *foobar</i> au d&eacute;but de TFWindow.cc. Bien que le code
+de #ifdef ne soit jamais utilis&eacute;, GNU gettext s'attend &agrave;
+trouver ce genre de structure de fa&ccedil;on &agrave; g&eacute;n&eacute;rer
+proprement les fichiers language/ressource.
+<p>Finalement connectez vos articles de menu &agrave; la classe TFWindowHandler.
+Ajoutez une variable membre particuli&egrave;re &agrave; la fonction appropri&eacute;e
+type pointeur ( par exemple TFPreviewDialog *, TFBaseDialog *, ou juste
+int * si votre fonction n'utilise pas de bo&icirc;te de dialogue) pour
+repr&eacute;senter votre bo&icirc;te de dialogue ou fonction. Ensuite,
+ajoutez un if-statement &agrave; la fonction TFWindowHandler::hfMenuCallback
+, avec les autres if- statements lesquels sont s&eacute;lectionn&eacute;s
+parmi les articles de HF menu, comme ceci:
+<pre>if (!strcmp (menuitem, MENU_HF_MyID))
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!p_myDialog)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_myDialog= new TFDialogMyDialog (p_HF, p_HFD);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_myDialog->show ();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+else</pre>
+
+<hr><a NAME="7"></a>
+<h1>
+7: Ajouter un nouveau g&eacute;n&eacute;rateur de terrain</h1>
+Actuellement Terraform supporte deux g&eacute;n&eacute;rateurs de terrain
+diff&eacute;rents, le g&eacute;n&eacute;rateur de synth&egrave;se spectrale
+et le g&eacute;n&eacute;rateur de subdivision. Pour ajouter un nouveau
+g&eacute;n&eacute;rateur de terrain, faites ce qui suit :
+<dl>
+<dt>
+Cr&eacute;ez une classe pour encapsuler votre g&eacute;n&eacute;rateur.</dt>
+
+<dd>
+Votre classe doit supporter une m&eacute;thode, generate() en plus d'un
+constructeur et destructeur. Le constructeur recevra &agrave; pointeur
+HeightField que vous devrez enregistrer pour l'utiliser dans votre fonction
+g&eacute;n&eacute;ratrice. Votre fonction g&eacute;n&eacute;ratrice devra
+&eacute;tablir les membres de terrain d_xsize, d_ysize, et d_size (souvebez
+vous que, d_size est toujours &eacute;quale &agrave;&nbsp; d_xsize*d_ysize)
+, et cr&eacute;ez un tableau de PTYPEs de d_size (par exmeple myarray =
+new PTYPE[d_size];). Remplissez ce tableau avec des valeurs entre 0.0 &agrave;
+1.0 par quoi que ce soit que vous voulez, ensuite assignez le membre de
+terrain d_hf &agrave; votre tableau (par exemple d_hf = myarray;).</dd>
+
+<dt>
+Patchez votre g&eacute;n&eacute;rateur dans HeightFieldGenRandom.{h,cc}</dt>
+
+<dd>
+La classe HeightFieldGenRandom choisit simplement al&eacute;atoirement
+parmi les autres g&eacute;n&eacute;rateurs de terrain. Ainsi, vous devez
+renseigner HeightFieldGenRandom sur votre nouveau g&eacute;n&eacute;rateur
+de tel fa&ccedil;on &agrave; ce qu'il soit disponible lorsque l'utilisateur
+choisit de g&eacute;n&eacute;rer un terran al&eacute;atoire.</dd>
+
+<dt>
+Ajoutez votre g&eacute;n&eacute;rateur &agrave; la liste du sous-menu Fichier
+> Nouveau des g&eacute;n&eacute;rateurs de terrain.</dt>
+
+<dd>
+Vous devrez modifier MenuDefs.h, et TFWindowMain.*. Si votre g&eacute;n&eacute;rateur
+de terrain est suffisamment complexe pour requ&eacute;rir des donn&eacute;es
+de l'utilisatuer, vous aurez aussi besoin d'ajouter une paire de fichiers
+TFDialogGen*.{h.cc} pour impl&eacute;menter une bo&icirc;te de dialogue
+pour que l'utilisateur puisse choisir les param&egrave;tres pour votre
+g&eacute;n&eacute;rateur de terrain. Voyez TFDialogGenSubdiv.* pour un
+bon exemple sur comment faire cel&agrave;. Pour les g&eacute;n&eacute;rateurs
+de terrain qui n&eacute;cessitent une bo&icirc;te de dialogue, cette bo&icirc;te
+de dialogue sera responsable pour cr&eacute;er un nouvel objet de votre
+classe g&eacute;n&eacute;ratrice, obtenir les param&egrave;tres de l'utilisatuer,
+et passer ces param&egrave;tres &agrave; votre fonction g&eacute;n&eacute;ratrice.
+Si votre g&eacute;n&eacute;rateur est suffisamment simple pour ne pas avoir
+besoin de param&egrave;res, le code que vous allez ajouter &agrave; TFWindowMain
+pour impl&eacute;menter votre sous-menu Fichier > Nouveau devra cr&eacute;er
+le nouvel objet g&eacute;n&eacute;rateur et appeler sa fonction g&eacute;n&eacute;ratrice.</dd>
+</dl>
+
+<hr><a NAME="8"></a>
+<h1>
+8: Support de d&eacute;boguage</h1>
+Heureusement pour vous, Terraform vient avec des m&eacute;canismes de d&eacute;boguage
+assez robustes d&eacute;j&agrave; mis en place. Premi&egrave;rement, la
+classe GlobalTrace vous permet de r&eacute;gler ( et contr&ocirc;ler )
+diff&eacute;rents niveaux de sortie de tra&ccedil;ages, pour vous donner
+un contr&ocirc;le facile sur la quantit&eacute; d'informations de d&eacute;boguage
+que votre code g&eacute;n&egrave;re. Cette classe contient aussi la m&eacute;thode
+trace(), qui &eacute;crit vers la sortie standard si le niveau de d&eacute;boguage
+correspond au niveau sp&eacute;cifi&eacute; dans l'appel &agrave; trace().
+<p>Ensuite, la classe GlobalSanityCheck fournit des facilit&eacute;s pour
+que certaines conditions restent vraies et envoie ou imprime un signal
+si ce n'est pas le cas.&nbsp; GlobalSanityCheck devrait &ecirc;tre utilis&eacute;e
+pour v&eacute;rifier la validit&eacute; des hypoth&egrave;ses que votre
+code fait avant de tourner. En fait, tandis que vous naviguez &agrave;
+travers le code source de Terraform, vous trouverez des appels &agrave;
+GlobalSanityCheck::warning et GlobalSanityCheck::bailout dans les premi&egrave;res
+lignes de beaucoup de fonctions.
+<p>Finallement, comme une derni&egrave;re ligne de d&eacute;fense, Terraform
+impl&eacute;mente les manipulations des exceptions,&nbsp; pour intercepter
+les diff&eacute;rentes erreurs qui vont planter le programme et donner
+&agrave; l'utilisateur les choix sur quoi faire ensuite.&nbsp; Vous ne
+devriez pas &agrave; faire quoi que ce soit de sp&eacute;cial pour pouvoir
+utiliser cette fonctionnalit&eacute;,&nbsp; bien que si votre code provoque
+beaucoup de 'core dumps', vous pourriez bien devenir familier avec le support
+des manipulations d'exceptions de Terraform. Si vous voulez utiliser cette
+manipulation d'exceptions incluse, vous devez lancer <i>./configure --enable-debug</i>
+pour valider le code de manipulation d'exceptions.
+<p>Si vous compilez votre propre ex&eacute;cutable en tout cas, vous pourriez
+juste vouloir recompiler avec l'argument -g et ensuite utiliser gdb. Je
+pr&eacute;f&egrave;re cel&agrave; plut&ocirc;t que d'utiliser le support
+de d&eacute;boguage.
+<br>
+<hr><a NAME="9"></a>
+<h1>
+9: Soumettre vos changements</h1>
+Une fois que vous avez impl&eacute;ment&eacute; toutes vos modifications,
+que vous les avez validez dans la version la plus r&eacute;cente de Terraform,
+et d&eacute;bogu&eacute; votre travail, vous devriez soumettre votre nouveau
+code &agrave; la&nbsp; <a href="http://sourceforge.net/mail/?group_id=1765">Terraform
+Mailing List</a>. De cette fa&ccedil;on les utilisateurs peuvent voir et
+commenter votre code, et RNG peut, s'il le trouve valable, ajouter votre
+code &agrave; la distribution principale de Terraform. Voici une fa&ccedil;on
+de faire cel&agrave;, en utilisant tcsh, Il y a plein d'autres fa&ccedil;ons
+bien s&ucirc;r :
+<ol>
+<li>
+Faites un fichier tar gzipp&eacute; (.tgz) contenant les diifs entre chaque
+fichier chang&eacute; et la version originale de ces fichiers. Notez qu'&agrave;
+ce point ce serait opportun si vous gardiez une copie des fichiers originaux,
+dans quelque autre fichier.&nbsp; Chaque fois que je modifie un fichier
+source de Terraform, je le copie toujours par s&eacute;curit&eacute; sous
+le nom "original_nom.orig", comme dans "HeightFieldExport.cc.orig". Laissez-moi
+dire encore qu'il est hautement recommandable que votre diffs soit fait
+&agrave; partir de la version la plus r&eacute;cente du code source.</li>
+
+<pre>~/terraform-0.4.6/src/> foreach name (*.orig)
+foreach? set oldname=`basename $name .orig`
+foreach? diff $oldname $name > $oldname.diff
+foreach? end
+~/terraform-0.4.6/src/> cd ..
+~/terraform-0.4.6/> tar -czf myusername.0.4.6.tgz src/*.diff</pre>
+
+<li>
+Uuencode le fichier .tgz :</li>
+
+<pre>~/terraform-0.4.6/> uuencode myusername.0.4.6.tgz myusername.0.4.6.tgz > myusername.0.4.6.uu</pre>
+
+<li>
+Postez vos changements &agrave; la&nbsp; <a href="http://sourceforge.net/mail/?group_id=1765">terraform
+mailing list</a>:</li>
+
+<pre>~/terraform-0.4.6/> mail -s 'my spiffy terraform mods against v0.x.x' &lt; myusername.0.4.6.tgz</pre>
+</ol>
+Notez que votre fichier tar devrait &ecirc;tre nomm&eacute; avec votre
+nom d'utilisateur et la version de Terraform &agrave; laquelle vos changements
+s'appliquent, comme dans l'exemple pr&eacute;c&eacute;dent.&nbsp; De plus,
+si vous avez fait des changements cons&eacute;quents &agrave; n'importe
+quelle fichier source de Terraform tel qu'un diffs devienne impraticable,
+alors vous pouvez choisir d'inclure simplement le fichier complet dans
+le fichier .tgz. Toutefois, s'il vous pla&icirc;t, utilisez diffs aussi
+souvent que possible.
+</body>
+</html>

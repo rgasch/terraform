@@ -1,0 +1,291 @@
+<?xml version="1.0" standalone="no"?> <!--*- mode: xml -*-->
+<!DOCTYPE glade-interface SYSTEM "http://glade.gnome.org/glade-2.0.dtd">
+
+<glade-interface>
+<requires lib="gnome"/>
+
+<widget class="GtkWindow" id="main_window">
+  <property name="width_request">200</property>
+  <property name="height_request">300</property>
+  <property name="visible">False</property>
+  <property name="title" translatable="yes">Terraform</property>
+  <property name="type">GTK_WINDOW_TOPLEVEL</property>
+  <property name="window_position">GTK_WIN_POS_NONE</property>
+  <property name="modal">False</property>
+  <property name="resizable">True</property>
+  <property name="destroy_with_parent">False</property>
+  <signal name="delete_event" handler="on_main_window_delete_event"/>
+
+  <child>
+    <widget class="GtkVBox" id="vbox1">
+      <property name="visible">True</property>
+      <property name="homogeneous">False</property>
+      <property name="spacing">0</property>
+
+      <child>
+	<widget class="GtkMenuBar" id="main_menubar">
+	  <property name="visible">True</property>
+
+	  <child>
+	    <widget class="GtkMenuItem" id="main_file">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">_File</property>
+	      <property name="use_underline">True</property>
+	      <signal name="activate" handler="on_main_file_activate"/>
+
+	      <child>
+		<widget class="GtkMenu" id="main_file_menu">
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="main_new">
+		      <property name="visible">True</property>
+		      <property name="stock_item">GNOMEUIINFO_MENU_NEW_SUBTREE</property>
+		      <signal name="activate" handler="on_main_new_activate"/>
+
+		      <child>
+			<widget class="GtkMenu" id="main_new_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="chooser">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Chooser...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_chooser_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="main_random">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Random</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_main_random_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="separator8">
+			      <property name="visible">True</property>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="main_faulting">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Faultin_g...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_main_faulting_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="main_perlin_noise">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Perlin Noise...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_main_perlin_noise_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="main_spectral">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Spectral...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_main_spectral_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="main_subdivision">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Sub_division...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_main_subdivision_activate"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="open">
+		      <property name="visible">True</property>
+		      <property name="stock_item">GNOMEUIINFO_MENU_OPEN_ITEM</property>
+		      <signal name="activate" handler="on_main_open_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="separator9">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="erode_flowmap">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Flowmap Erosion ...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_erode_flowmap_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="join">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Join...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_main_join_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="merge">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Merge...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_main_merge_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="warp">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Warp...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_main_warp_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="separator1">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="main_options">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">O_ptions...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_main_options_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="main_print_settings">
+		      <property name="visible">True</property>
+		      <property name="stock_item">GNOMEUIINFO_MENU_PRINT_SETUP_ITEM</property>
+		      <signal name="activate" handler="on_main_print_settings_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="separator2">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="main_exit">
+		      <property name="visible">True</property>
+		      <property name="stock_item">GNOMEUIINFO_MENU_EXIT_ITEM</property>
+		      <signal name="activate" handler="on_main_exit_activate"/>
+		    </widget>
+		  </child>
+		</widget>
+	      </child>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkMenuItem" id="main_help">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">_Help</property>
+	      <property name="use_underline">True</property>
+	      <signal name="activate" handler="on_main_help_activate"/>
+
+	      <child>
+		<widget class="GtkMenu" id="main_help_menu">
+
+		  <child>
+		    <widget class="GtkMenuItem" id="tutorial">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Tutorial...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_tutorial_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="users_guide">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Users Guide...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_users_guide_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="separator6">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="main_about">
+		      <property name="visible">True</property>
+		      <property name="stock_item">GNOMEUIINFO_MENU_ABOUT_ITEM</property>
+		      <signal name="activate" handler="on_main_about_activate"/>
+		    </widget>
+		  </child>
+		</widget>
+	      </child>
+	    </widget>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">False</property>
+	  <property name="fill">False</property>
+	</packing>
+      </child>
+
+      <child>
+	<widget class="GtkScrolledWindow" id="scrolledwindow1">
+	  <property name="visible">True</property>
+	  <property name="hscrollbar_policy">GTK_POLICY_NEVER</property>
+	  <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+	  <property name="shadow_type">GTK_SHADOW_IN</property>
+	  <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
+
+	  <child>
+	    <widget class="GtkViewport" id="viewport2">
+	      <property name="visible">True</property>
+	      <property name="shadow_type">GTK_SHADOW_IN</property>
+
+	      <child>
+		<widget class="Custom" id="main_list">
+		  <property name="visible">True</property>
+		  <property name="creation_function">create_main_list</property>
+		  <property name="int1">0</property>
+		  <property name="int2">0</property>
+		  <property name="last_modification_time">Sat, 07 Jun 2003 20:11:39 GMT</property>
+		</widget>
+	      </child>
+	    </widget>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">True</property>
+	  <property name="fill">True</property>
+	</packing>
+      </child>
+    </widget>
+  </child>
+</widget>
+
+</glade-interface>

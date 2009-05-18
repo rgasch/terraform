@@ -1,0 +1,255 @@
+<?xml version="1.0" standalone="no"?> <!--*- mode: xml -*-->
+<!DOCTYPE glade-interface SYSTEM "http://glade.gnome.org/glade-2.0.dtd">
+
+<glade-interface>
+<requires lib="gnome"/>
+<requires lib="canvas"/>
+
+<widget class="GtkWindow" id="about_window">
+  <property name="visible">False</property>
+  <property name="title" translatable="yes">About Terraform</property>
+  <property name="type">GTK_WINDOW_TOPLEVEL</property>
+  <property name="window_position">GTK_WIN_POS_NONE</property>
+  <property name="modal">True</property>
+  <property name="resizable">True</property>
+  <property name="destroy_with_parent">False</property>
+
+  <child>
+    <widget class="GtkVBox" id="vbox2">
+      <property name="visible">True</property>
+      <property name="homogeneous">False</property>
+      <property name="spacing">0</property>
+
+      <child>
+	<widget class="GtkVBox" id="vbox105">
+	  <property name="visible">True</property>
+	  <property name="homogeneous">False</property>
+	  <property name="spacing">0</property>
+
+	  <child>
+	    <widget class="GtkFrame" id="about_frame">
+	      <property name="border_width">2</property>
+	      <property name="visible">True</property>
+	      <property name="label_xalign">0</property>
+	      <property name="label_yalign">0.5</property>
+	      <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
+
+	      <child>
+		<widget class="GtkImage" id="about_pixmap">
+		  <property name="visible">True</property>
+		  <property name="pixbuf">terraform_logo.xpm</property>
+		  <property name="xalign">0.5</property>
+		  <property name="yalign">0.5</property>
+		  <property name="xpad">0</property>
+		  <property name="ypad">0</property>
+		</widget>
+	      </child>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">True</property>
+	      <property name="fill">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkScrolledWindow" id="about_text">
+	      <property name="hscrollbar_policy">GTK_POLICY_NEVER</property>
+	      <property name="vscrollbar_policy">GTK_POLICY_ALWAYS</property>
+	      <property name="shadow_type">GTK_SHADOW_IN</property>
+	      <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
+
+	      <child>
+		<widget class="GtkTextView" id="text1">
+		  <property name="visible">True</property>
+		  <property name="can_focus">True</property>
+		  <property name="editable">False</property>
+		  <property name="justification">GTK_JUSTIFY_LEFT</property>
+		  <property name="wrap_mode">GTK_WRAP_WORD</property>
+		  <property name="cursor_visible">True</property>
+		  <property name="pixels_above_lines">0</property>
+		  <property name="pixels_below_lines">0</property>
+		  <property name="pixels_inside_wrap">0</property>
+		  <property name="left_margin">0</property>
+		  <property name="right_margin">0</property>
+		  <property name="indent">0</property>
+		  <property name="text" translatable="yes">Terraform is the work of many people over many years.
+This program would not exist without their contributions.
+
+Original Terraform application &amp; maintainer
+Copyright 1997-2002 Robert Gasch (r.gasch@chello.nl)
+
+Original POVRay themes, native renderer and reworked Terraform interface &amp; co-maintainer
+Copyright 1998-2001 David A. Bartold (foxx@mail.utexas.edu)
+
+Much User Interface work
+Koos Jan Niesink (koos_jan@hotpop.com)
+
+POVRay rendering design
+raymond ostertag (raymond.linux@free.fr)
+
+3D Display engine
+Inspired by HF-Lab by John Beale (beale@best.com)
+
+River Code
+Copyright 2002 Marcus Mueller &lt;marcusmm@web.de&gt;
+
+Crater filter
+Copyright 1995 Heiko Eissfeldt (heiko@colossus.escape.de)
+
+Recursive diamond subdivision generator
+Based on code by Leo Sutic (http://www.sutic.nu/voxels/)
+
+Connect filter
+Written by Kari (kari@kivisalo.net, http://www.kivisalo.net/)
+
+TGA reader/writer
+Derived from GIMP code by Gordon Matzigkeit (gord@gnu.ai.mit.edu)
+
+ACAD exporter
+Written by Ronald Reckel (reckel@stud.montefiore.ulg.ac.be)
+
+Perlin noise routines
+Adapted from code placed in the public domain by John Ratcliff (jratcliff@verant.com)
+
+Fautling routines
+Inspired by António Ramires Fernandes' descriptions at 
+http://www.lighthouse3d.com/opengl/terrain/index.php3?fault
+
+Iterative subdivision generation code
+Based on work by Carl Burke
+
+Fast Fourier Transform code
+Originally by RC Singleton
+
+Povworld Objects collection
+http://objects.povworld.org/
+Micha Riser (mriser@gmx.net)
+Remco de Korte (remco@onwijs.com)
+Derek Murphy
+Gordon Bentley
+Gilles Tran (gitran@wanadoo.fr)
+Kurt Bangert
+Bodo Gallinat (bodogallinat@web.de)
+Mick Hazelgrove
+
+Runevison GPL'd stuffs
+http://runevision.com/3d/include/
+(rune2003@runevision.com)</property>
+		</widget>
+	      </child>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">True</property>
+	      <property name="fill">True</property>
+	    </packing>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">True</property>
+	  <property name="fill">True</property>
+	</packing>
+      </child>
+
+      <child>
+	<widget class="GtkLabel" id="about_terraform_label">
+	  <property name="visible">True</property>
+	  <property name="label" translatable="yes">Development Version
+Licensed under the GPL</property>
+	  <property name="use_underline">False</property>
+	  <property name="use_markup">False</property>
+	  <property name="justify">GTK_JUSTIFY_CENTER</property>
+	  <property name="wrap">False</property>
+	  <property name="selectable">False</property>
+	  <property name="xalign">0.5</property>
+	  <property name="yalign">0.5</property>
+	  <property name="xpad">10</property>
+	  <property name="ypad">8</property>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">False</property>
+	  <property name="fill">False</property>
+	</packing>
+      </child>
+
+      <child>
+	<widget class="GtkHBox" id="hbox_hyperlinks">
+	  <property name="visible">True</property>
+	  <property name="homogeneous">True</property>
+	  <property name="spacing">0</property>
+
+	  <child>
+	    <placeholder/>
+	  </child>
+
+	  <child>
+	    <placeholder/>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">False</property>
+	  <property name="fill">False</property>
+	</packing>
+      </child>
+
+      <child>
+	<widget class="GtkHBox" id="hbox1">
+	  <property name="visible">True</property>
+	  <property name="homogeneous">True</property>
+	  <property name="spacing">0</property>
+
+	  <child>
+	    <widget class="GtkButton" id="about_ok">
+	      <property name="border_width">4</property>
+	      <property name="visible">True</property>
+	      <property name="can_default">True</property>
+	      <property name="has_default">True</property>
+	      <property name="can_focus">True</property>
+	      <property name="label">gtk-ok</property>
+	      <property name="use_stock">True</property>
+	      <property name="relief">GTK_RELIEF_NORMAL</property>
+	      <signal name="clicked" handler="on_generic_cancel_clicked"/>
+	      <accelerator key="Escape" modifiers="0" signal="clicked"/>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">False</property>
+	      <property name="fill">True</property>
+	      <property name="pack_type">GTK_PACK_END</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkButton" id="about_info">
+	      <property name="border_width">4</property>
+	      <property name="visible">True</property>
+	      <property name="can_default">True</property>
+	      <property name="can_focus">True</property>
+	      <property name="label" translatable="yes">Copyright Info</property>
+	      <property name="use_underline">True</property>
+	      <property name="relief">GTK_RELIEF_NORMAL</property>
+	      <signal name="clicked" handler="on_about_info_clicked"/>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">False</property>
+	      <property name="fill">True</property>
+	      <property name="pack_type">GTK_PACK_END</property>
+	    </packing>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">False</property>
+	  <property name="fill">False</property>
+	</packing>
+      </child>
+    </widget>
+  </child>
+</widget>
+
+</glade-interface>

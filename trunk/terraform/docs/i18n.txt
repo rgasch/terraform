@@ -1,0 +1,85 @@
+Terraform Internationalization User Info
+----------------------------------------
+
+For current version, only english is supported. 
+
+To configure your environment to make use of a language other than the 
+default one, set your environment as follows: 
+  - sh/ksh/bash users: 	export LANGUAGE=nl
+  - csh users: 		setenv LANGUAGE=nl
+
+Once you've done this Terraform will 'speak' Dutch. 
+
+Tips/Warnings:
+  - if LC_ALL is set (for example to en_US) it will override LANGUAGE. 
+	- unset LC_ALL to clear it
+  - if it still doesn't work, try also setting LANG=nl
+
+
+
+Terraform Internationalization Development Info
+-----------------------------------------------
+
+Terraform uses GNU gettext. All the language files are located in the 
+terraform/po directory. The file terraform.pot will handle all the
+english strings.
+
+To add support for another language, follow these steps. The example below 
+assumes that you want to add the Italian translation. 
+
+1. Copy terraform.pot to it.po ('it' is the language code for Italian)
+
+2. Now add the translations to your it.po file. This is very simple. 
+   For each `msgid "<string-to-translate>"' you have to fill the next
+   `msgstr ""' with the translation. 
+
+   For example:
+	msgid "Close"
+	msgstr ""
+
+   Will become:
+	msgid "Close"
+	msgstr "Chiudi"
+
+   When you do this, beware of Menu strings like
+	/File/_Open
+   The _ (underscore) character marks the accelerator. Terraform has code 
+   in place to automatically detect this marker and deal with it appropriately. 
+   You want to make sure however that no character is marked twice with the 
+   accellerator marker, as this will confuse the menu code. Ie: You don't 
+   want to end up with translations like "_Open" and "Rel_oad" (where the 
+   letter 'o' is marked twice). 
+
+3. Add 'it' to the ALL_LINGUAS definition in configure.in 
+
+4. Now run 'autoconf', 'configure', 'make' and 'make install'.
+
+5. Voila! You should now be able to run terraform with Italian messages.
+
+
+
+Extra Info/Tips/Tricks/Hints/Ramblings
+--------------------------------------
+
+1. If you hacked Terraform and added some strings, you will want to keep the 
+   translations already done. Easy.
+   Run `make' from the top terraform directory to generate a new terraform.pot
+   file. Once you have this file, use 'tupdate' to merge the new strings 
+   with the existing translations file. 
+	tupdate terraform.pot it.po > it.po.new
+
+   Since version 0.10.35 gettext doesn't provide 'tupdate' anymore. It has been 
+   replaced by 'msgmerge'. It works as follows.
+	msgmerge -v it.po terraform.pot > it.po.new
+
+2. After executing this commmand the following types of lines may occur:
+
+   #, fuzzy
+   This means that it is a "fuzzy" translation. Remove this to see the translation in the program.
+
+   # src/interface.c:12144
+   This kind of  lines can also be removed, the strings are no longer in these lines,
+   but in these
+
+   #: src/interface.c:1502
+   When the colon after the hash sign is removed the line can also be removed.

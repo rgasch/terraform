@@ -1,0 +1,127 @@
+<?xml version="1.0" standalone="no"?> <!--*- mode: xml -*-->
+<!DOCTYPE glade-interface SYSTEM "http://glade.gnome.org/glade-2.0.dtd">
+
+<glade-interface>
+<requires lib="gnome"/>
+<requires lib="canvas"/>
+
+<widget class="GtkMenu" id="preview_popup">
+  <property name="visible">True</property>
+  <signal name="selection_done" handler="on_preview_popup_selection_done"/>
+
+  <child>
+    <widget class="GtkMenuItem" id="view">
+      <property name="visible">True</property>
+      <property name="label" translatable="yes">_View</property>
+      <property name="use_underline">True</property>
+
+      <child>
+	<widget class="GtkMenu" id="view_menu">
+
+	  <child>
+	    <widget class="GtkRadioMenuItem" id="2d_plane">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">2D _Plane</property>
+	      <property name="use_underline">True</property>
+	      <property name="active">True</property>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkRadioMenuItem" id="2d_contour">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">2D _Contour</property>
+	      <property name="use_underline">True</property>
+	      <property name="active">False</property>
+	      <property name="group">2d_plane</property>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkRadioMenuItem" id="3d_wire">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">3D _Wire</property>
+	      <property name="use_underline">True</property>
+	      <property name="active">False</property>
+	      <property name="group">2d_plane</property>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkRadioMenuItem" id="3d_height">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">3D _Height</property>
+	      <property name="use_underline">True</property>
+	      <property name="active">False</property>
+	      <property name="group">2d_plane</property>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkRadioMenuItem" id="3d_light">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">3D _Light</property>
+	      <property name="use_underline">True</property>
+	      <property name="active">False</property>
+	      <property name="group">2d_plane</property>
+	    </widget>
+	  </child>
+	</widget>
+      </child>
+    </widget>
+  </child>
+
+  <child>
+    <widget class="GtkMenuItem" id="colormap">
+      <property name="visible">True</property>
+      <property name="label" translatable="yes">_Colormap</property>
+      <property name="use_underline">True</property>
+
+      <child>
+	<widget class="GtkMenu" id="colormap_menu">
+
+	  <child>
+	    <widget class="GtkRadioMenuItem" id="land">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">_Land</property>
+	      <property name="use_underline">True</property>
+	      <property name="active">True</property>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkRadioMenuItem" id="desert">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">_Desert</property>
+	      <property name="use_underline">True</property>
+	      <property name="active">False</property>
+	      <property name="group">land</property>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkRadioMenuItem" id="grayscale">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">_Grayscale</property>
+	      <property name="use_underline">True</property>
+	      <property name="active">False</property>
+	      <property name="group">land</property>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkRadioMenuItem" id="heat">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">_Heat</property>
+	      <property name="use_underline">True</property>
+	      <property name="active">False</property>
+	      <property name="group">land</property>
+	    </widget>
+	  </child>
+	</widget>
+      </child>
+    </widget>
+  </child>
+</widget>
+
+</glade-interface>
