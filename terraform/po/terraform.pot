@@ -1,0 +1,366 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-04-30 16:27+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/main.c:80
+msgid "Run terrain chooser upon startup"
+msgstr ""
+
+#: src/main.c:81
+msgid "type bitmap"
+msgstr ""
+
+#: src/main.c:83
+msgid "Set scaling factor for random generation"
+msgstr ""
+
+#: src/main.c:84
+msgid "factor"
+msgstr ""
+
+#: src/main.c:86
+msgid "Set gamma factor"
+msgstr ""
+
+#: src/main.c:87
+msgid "gamma_factor"
+msgstr ""
+
+#: src/main.c:89
+msgid "Generate random terrain upon startup"
+msgstr ""
+
+#: src/main.c:90 src/main.c:96
+msgid "size"
+msgstr ""
+
+#: src/main.c:92
+msgid "Installs Terraform files in home directory"
+msgstr ""
+
+#: src/main.c:93
+msgid "install"
+msgstr ""
+
+#: src/main.c:95
+msgid "Set the default terrain size"
+msgstr ""
+
+#: src/main.c:98
+msgid "Set terrain types for random generation"
+msgstr ""
+
+#: src/main.c:99
+msgid "type_bitmap"
+msgstr ""
+
+#: src/main.c:101
+msgid "Set the maximum size of the undo queue"
+msgstr ""
+
+#: src/main.c:102
+msgid "max_undo"
+msgstr ""
+
+#: src/main.c:164
+msgid "--factor command line option: Factor must be greater than 0"
+msgstr ""
+
+#: src/main.c:167
+msgid "--factor command line option: Factor must be smaller than 1"
+msgstr ""
+
+#: src/main.c:178
+msgid "--gamma command line option: Gamma must be greater than 0"
+msgstr ""
+
+#: src/main.c:181
+msgid "--gamma command line option: Gamma can not be more than 5"
+msgstr ""
+
+#: src/main.c:190
+msgid "--size command line option: Size must be at least 10"
+msgstr ""
+
+#. == 268435456 locations == +- 1 GB RAM
+#: src/main.c:193
+msgid "--size command line option: Size can not be more than 16384"
+msgstr ""
+
+#: src/main.c:206
+#, c-format
+msgid "--type command line option: Type must be less than %d"
+msgstr ""
+
+#: src/main.c:209
+msgid "--type command line option: Type must be at least 0"
+msgstr ""
+
+#: src/main.c:218
+msgid "--undo command line option: must be at least 1"
+msgstr ""
+
+#: src/main.c:221
+msgid "--undo command line option: can not be more than 50"
+msgstr ""
+
+#: src/main.c:244 src/callbacks.c:594 src/callbacks.c:4763
+msgid "Generate Random"
+msgstr ""
+
+#: src/main.c:257
+#, c-format
+msgid ""
+"Could not load the file:\n"
+"%s"
+msgstr ""
+
+#: src/main.c:268 src/callbacks.c:2591
+msgid "Load"
+msgstr ""
+
+#: src/callbacks.c:246
+#, c-format
+msgid ""
+"An error occurred while saving the file:\n"
+"%s."
+msgstr ""
+
+#: src/callbacks.c:250
+msgid "An error occurred while saving the file."
+msgstr ""
+
+#: src/callbacks.c:667
+msgid "Join"
+msgstr ""
+
+#: src/callbacks.c:817
+msgid "Warp"
+msgstr ""
+
+#: src/callbacks.c:990
+msgid "Merge"
+msgstr ""
+
+#: src/callbacks.c:1164
+msgid "Download POV-Ray..."
+msgstr ""
+
+#: src/callbacks.c:1218
+msgid "Terraform homepage"
+msgstr ""
+
+#: src/callbacks.c:1220
+msgid "Terraform development site"
+msgstr ""
+
+#: src/callbacks.c:1228
+#, c-format
+msgid ""
+"Development Version: %s\n"
+"Licensed under the GPL"
+msgstr ""
+
+#: src/callbacks.c:1351 src/callbacks.c:4739
+msgid "There was an error executing The GIMP"
+msgstr ""
+
+#: src/callbacks.c:1395
+msgid "Clone"
+msgstr ""
+
+#: src/callbacks.c:2204
+msgid "Tile"
+msgstr ""
+
+#: src/callbacks.c:2305
+msgid "Invert"
+msgstr ""
+
+#: src/callbacks.c:2388
+msgid "Flowmap"
+msgstr ""
+
+#: src/callbacks.c:2598
+#, c-format
+msgid ""
+"An error occurred while opening the file:\n"
+"%s."
+msgstr ""
+
+#: src/callbacks.c:2765
+msgid "There was an error executing POV-Ray"
+msgstr ""
+
+#: src/callbacks.c:2887
+msgid "Copyright Info"
+msgstr ""
+
+#: src/callbacks.c:2893
+msgid "Show Logo"
+msgstr ""
+
+#: src/callbacks.c:3247
+msgid "Show Details"
+msgstr ""
+
+#: src/callbacks.c:3249
+msgid "Hide Details"
+msgstr ""
+
+#: src/callbacks.c:3749
+msgid "Scale"
+msgstr ""
+
+#: src/callbacks.c:4071
+msgid "[No Objects Installed]"
+msgstr ""
+
+#: src/callbacks.c:4078 src/callbacks.c:6608
+#, c-format
+msgid "The terrain size is X=%.2f Y=%.2f Z=%.2f"
+msgstr ""
+
+#: src/callbacks.c:4304 src/callbacks.c:4389 src/callbacks.c:4448
+#: src/callbacks.c:4511
+msgid "Regenerate"
+msgstr ""
+
+#: src/callbacks.c:4305 src/callbacks.c:4390 src/callbacks.c:4449
+#: src/callbacks.c:4512
+msgid "Finish"
+msgstr ""
+
+#: src/callbacks.c:4312
+msgid "Subdivision Synthesis"
+msgstr ""
+
+#: src/callbacks.c:4397
+msgid "Faulting Synthesis"
+msgstr ""
+
+#: src/callbacks.c:4456
+msgid "Spectral Synthesis"
+msgstr ""
+
+#: src/callbacks.c:4519
+msgid "Perlin Noise"
+msgstr ""
+
+#: src/callbacks.c:4685
+msgid "An error occurred while exporting the view."
+msgstr ""
+
+#: src/callbacks.c:4863
+msgid "Roll Again"
+msgstr ""
+
+#: src/callbacks.c:5079
+msgid "Erode"
+msgstr ""
+
+#: src/callbacks.c:5279
+msgid "An error occurred while writing the file."
+msgstr ""
+
+#: src/callbacks.c:5657
+msgid "[No Terrain textures Installed]"
+msgstr ""
+
+#: src/callbacks.c:5684
+msgid "[No Clouds Installed]"
+msgstr ""
+
+#: src/callbacks.c:5711
+msgid "[No Stars Installed]"
+msgstr ""
+
+#: src/callbacks.c:5738
+msgid "[No Atmospheres Installed]"
+msgstr ""
+
+#: src/callbacks.c:5765
+msgid "[No Water Installed]"
+msgstr ""
+
+#: src/callbacks.c:5792
+msgid "[No Lights Installed]"
+msgstr ""
+
+#: src/callbacks.c:5819
+msgid "[No Scene themes Installed]"
+msgstr ""
+
+#: src/callbacks.c:5846
+msgid "[No Skycolors Installed]"
+msgstr ""
+
+#: src/callbacks.c:5873
+msgid "[No Background Image Installed]"
+msgstr ""
+
+#: src/callbacks.c:5900
+msgid "[No Moon Image Installed]"
+msgstr ""
+
+#: src/callbacks.c:5945 src/callbacks.c:5952
+msgid "Download ..."
+msgstr ""
+
+#: src/callbacks.c:6486
+msgid "Roughness Map"
+msgstr ""
+
+#: src/callbacks.c:6601
+msgid "[No TRACE Objects Installed]"
+msgstr ""
+
+#: src/callbacks.c:7268 src/callbacks.c:7304 src/callbacks.c:7329
+#: src/callbacks.c:7354 src/callbacks.c:7380
+msgid "Terrain Object List"
+msgstr ""
+
+#: src/support.c:60 src/support.c:85 src/support_modified.c:124
+#: src/support_modified.c:163
+#, c-format
+msgid "Couldn't find pixmap file: %s"
+msgstr ""
+
+#: src/support_modified.c:140
+#, c-format
+msgid "Couldn't create pixmap from file: %s"
+msgstr ""
+
+#: src/tterrain.c:142
+msgid " (not saved)"
+msgstr ""
+
+#: src/tterrainview.c:1430
+msgid "Zoom"
+msgstr ""
+
+#: src/tterrainview.c:1444
+msgid "Crop"
+msgstr ""
+
+#: src/tterrainview.c:1453
+msgid "Seed"
+msgstr ""
+
+#: src/tundo.c:336
+msgid "Available States"
+msgstr ""

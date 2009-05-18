@@ -1,0 +1,306 @@
+<!doctype book PUBLIC "-//Davenport//DTD DocBook V3.0//EN" [
+<!entity docownerFirst	"Robert">
+<!entity docownerLast	"Gasch">
+<!entity docownermail	"rng@chello.nl">
+<!entity tfversion	"0.6.6">
+<!entity wwwterraform	"http://terraform.sourceforge.net">
+<!entity wwwgtk		"http://www.gtk.org">
+<!entity wwwgtkmm	"http://gtkmm.sourceforge.net">
+<!entity wwwgtkthemes	"http://gtk.themes.org">
+<!entity wwwgtkbuffet	"http://metalab.unc.edu/pub/Linux/X11/apps/">
+<!entity wwwimlib	"http://www.labs.redhat.com/imlib">
+<!entity wwwgnome	"http://www.gnome.org">
+<!entity wwwgimp	"http://www.gimp.org">
+<!entity wwwgcc		"http://www.gni.ai.mit.edu/software/gcc/gcc.html">
+<!entity wwwegcs	"http://egcs.cygnus.com">
+<!entity wwwdocbook	"http://www.oasis-open.org/docbook">
+<!entity wwwdocbooktut	"http://nis-www.lanl.gov/~rosalia/mydocs/docbook-intro.html">
+<!entity wwwgnu		"http://www.gnu.org">
+<!entity wwwgnuGPL	"http://www.gnu.org/copyleft/gpl.html">
+]>
+
+<book id="Index">
+  <bookinfo>
+    <title>Terraform Users Guide</title>
+    <titleabbrev>Terraform Users Guide</titleabbrev>
+    <edition>v&tfversion</edition>
+    <authorgroup>
+      <author>
+	<firstname>&docownerFirst</firstname>
+	<surname>&docownerLast</surname>
+	<authorblurb>
+	  <para><email>&docownermail</email></para>
+	  <para><email>&wwwterraform</email></para>
+	</authorblurb>
+      </author>
+    </authorgroup>
+    <date>April 7, 2000</date>
+    <abstract>
+      <para>This is the user's guide for terraform, an interactive digital 
+	terran generator/modeller.</para>
+    </abstract>
+  </bookinfo>
+
+
+
+  <chapter id="Views">
+    <title>An Guide to the different Views</title>
+    <para>The different views/projections themselves should be 
+	self-explanatory. The "Fast Wireframe" thing might not be so, 
+	here's a short explanation: The default views all operate on 
+	the height field data directly and are designed to give good 
+	quality previews. When you select the "Fast Wireframe" option, 
+	terraform builds an index of the actual triangles making up your 
+	height field at the given resolution. This makes redrawing 
+	much faster, making it possible that you can rotate this preview by 
+	clicking and dragging your mouse. 
+    </para>
+    <para>When you're in "Fast Wireframe" mode, the 2DPlane, 3DHeight and 
+	3DLight views will be shown unaltered while the 3DWire view will 
+	switch to the fast wireframe mode.
+    </para>
+    <para>Generally, the height fields are much more fractal/rough than you 
+	would think from looking at the wireframe. The Wireframe view modes 
+	are really just an approximation of the general terrain type. The 
+	"Grayscale" colormap with "3D Light" view is the view type which 
+	best shows the terrain roughness. Export a few height fields to 
+	PovRay to get a feel for this. 
+    </para>
+  </chapter>
+
+
+
+  <chapter id="Rendering">
+    <title>Rendering</title>
+    <para>Terraform is designed to be flexible and allow the use of 
+	different rendering options. Currently terraform supports 
+	POVRay and OpenGL. More about these below ...
+    </para>
+
+    <sect1>
+    <title>The Render Options Dialog</title>
+    <para>Choose the menu <command>HF-RenderOptions</command> to acces 
+	the render options dialog. This dialog allows you to set certain 
+	basic scene settings and choose the type of output (POVRay or OpenGL). 
+    </para>
+    </sect1>
+
+    <sect1>
+    <title>Rendering in POVRay</title>
+    <para>Choose the menu <command>File-Export-POVRay</command> to render 
+	the current height field to POVRay directly. This will use the 
+	settings from the render options dialog to render the terrain 
+	in POVRay. This is still a bit rough but quite usable. 
+    </para>
+    </sect1>
+
+    <sect1>
+    <title>Rendering in OpenGL</title>
+    <para>Choose the menu <command>File-Export-OpenGL</command> to render 
+	the current height field to OpenGL directly. This will use the 
+	settings from the render options dialog to render the terrain 
+	using the OpenGL API. Currently this only displays the landscape 
+	in a shade of red; hopefully this will improve in the future. 
+    </para>
+    </sect1>
+  </chapter>
+
+
+
+  <chapter id="InteractiveTransformations">
+    <title>Interactive Height Field Transformations</title>
+    <para>This section covers the different transformations which support
+	a real-time preview.</para>
+
+    <sect1>
+      <title>Craters</title>
+      <para>Place the specified number of craters on the height field using
+	the specified parameters. This is a slightly modified version
+	of John Beale's hf-lab crater routines. On the crater dialog, if 
+	you reduce the number of craters to 1, you can specify the exact 
+	locaton of the crater.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Connect</title>
+      <para>This is the level connetor plug-in as used in the MS Windows
+	terrain editor <emphasis>leveller</emphasis>. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Fill</title>
+      <para> Fill the terrain object up to the specified elevation, using 
+	using the tightness parameter to determine how much the altered 
+	points are allowed to deviate from the specified elevation. Per
+	default, all the points beneath the fill level are altered. If 
+	you chose to "Keep zero elevation" values, points with an elevation 
+	of zero (typically there is just one such point) will remain 
+	unaltered. This is relevant since filling is followed by a rescale. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Fold</title>
+      <para> The 'fold' option allows you to create a margin at the edge 
+	of the height field which is submerged below the current 
+	sealevel. This is useful to force (a generated) height 
+	field to be integratable into a scene with a predictable 
+	horizon or sealevel and is probably best used in small multiple 
+	steps. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Gaussian Hill</title>
+      <para>
+	This creates a gaussian hill at the specified location with 
+	the specified parameters. You can use the 1st and 2nd mouse 
+	button to set the location parameters. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Linear Scale</title>
+      <para>
+	Picks a point and scales the surrounding terrain in a circular 
+	maner. Can be used to make all sorts of circular shapes. Still 
+	needs some work. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Mirror</title>
+      <para>
+	Mirror the height field along one of four axis. Horizontal (-), 
+	vertical (|), top-left bottom-right (\) or bottom-left top-right (/).
+	This is useful for leaving the general characteristics of the 
+	landscape intact while changing it's layout. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Rotate</title>
+      <para> Rotate the height field in increments of 90 degrees.  </para>
+    </sect1>
+
+    <sect1>
+      <title>Roughen/Smooth</title>
+      <para>
+	Use neighbour-averaging to roughen or smooth the height field. The 
+	factor determines how much of the computed roughening is actually 
+	applied to the height field. 
+	In it's default invocation, the 4 directly neighbouring squares 
+	are used to calculate the roughening. If you select big sampling 
+	grid, all 8 neighbouring cells will be used.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Terrace</title>
+      <para>Divide the terrain object into n specified levels 
+	with the specified closeness factor. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Tile</title>
+      <para>Make the current height field tilable. Still needs some work. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Transform</title>
+      <para>
+	Transform applies a power transformation to the current height 
+	field such that height=pow(height,factor). You can choose to 
+	invert the power factor before applying it and wether you wish 
+	to also transform the current sealevel. 
+      </para>
+    </sect1>
+  </chapter>
+
+
+
+  <chapter id="NonInteractiveTransformations">
+    <title>Non-Interactive Height Field Transformations</title>
+    <para>This section covers the differnt transformations which don't
+	have a real-time preview.</para>
+
+    <sect1>
+      <title>Clone</title>
+      <para>Make a copy of the current Height Field and show it in a new 
+		window. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Contour Line Map</title>
+      <para>Make a map of adjacent points within certain elevation bands using 
+	a selective flood-fill algorithm. By thinning the bands, you 
+	can approximate the Isograms (contour lines) which you can see 
+	on a real map.
+        STILL NEEDS SOME WORK
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Erode</title>
+      <para>
+	This routine calculates the flowmap and the uses the flowmap to 
+	erode the terrain, refreshing the flowmap at regular intervals (thus 
+	trading accuracy for speed). This is a lot faster than John Beale's 
+	code, but needs some more work. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Flowmap</title>
+      <para>
+	Calculate the flowmap of the current height field (see code for 
+	details). You can choose between the Single-Flow-Direction 
+	algorithm (which is reasonably fast) or the Multiple-Flow-Direction 
+	algorithm (which is pretty damn slow). On my machine (AMD K6-233)
+	SFD takes about 2.5 seconds, while MFD takes around 30 minutes for 
+	a 400x400 height field. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Invert</title>
+      <para>Inverts the current height field, leaves the waterlevel unchanged.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Place POV Objects</title>
+      <para>
+	Allows you to place a specified PovRay object on your landscape and
+	write a corresponding POV include file.
+        THIS CURRENTLY IS BROKEN.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Rescale</title>
+      <para> Allows you to either double or half the size of the current 
+	height field. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Render Options</title>
+      <para> The Render Options dialogue allows you set various scene 
+	parameters, such as lighthing position, camera position, 
+	object placement and atmospheric attributes prior to rendering 
+	the scene. 
+      </para>
+    </sect1>
+
+  </chapter>
+
+</book>
+
+
+

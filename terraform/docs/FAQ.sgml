@@ -1,0 +1,725 @@
+<!doctype book PUBLIC "-//Davenport//DTD DocBook V3.0//EN" [
+<!entity docownerFirst	"Robert">
+<!entity docownerLast	"Gasch">
+<!entity docownermail	"rng@chello.nl">
+<!entity tfversion	"0.6.6">
+<!entity wwwterraform	"http://terraform.sourceforge.net">
+<!entity wwwgtk		"http://www.gtk.org">
+<!entity wwwgtkmm	"http://gtkmm.sourceforge.net">
+<!entity wwwgtkthemes	"http://gtk.themes.org">
+<!entity wwwgtkbuffet	"http://metalab.unc.edu/pub/Linux/X11/apps/">
+<!entity wwwimlib	"http://www.labs.redhat.com/imlib">
+<!entity wwwgnome	"http://www.gnome.org">
+<!entity wwwgimp	"http://www.gimp.org">
+<!entity wwwgcc		"http://www.gni.ai.mit.edu/software/gcc/gcc.html">
+<!entity wwwegcs	"http://egcs.cygnus.com">
+<!entity wwwdocbook	"http://www.oasis-open.org/docbook">
+<!entity wwwdocbooktut	"http://nis-www.lanl.gov/~rosalia/mydocs/docbook-intro.html">
+<!entity wwwgnu		"http://www.gnu.org">
+<!entity wwwgnuGPL	"http://www.gnu.org/copyleft/gpl.html">
+]>
+
+<book id="Index">
+  <bookinfo>
+    <title>Terraform Frequently Asked Questions</title>
+    <titleabbrev>Terraform FAQ</titleabbrev>
+    <edition>v&tfversion</edition>
+    <authorgroup>
+      <author>
+	<firstname>&docownerFirst</firstname>
+	<surname>&docownerLast</surname>
+	<authorblurb>
+	  <para><email>&docownermail</email></para>
+	  <para><email>&wwwterraform</email></para>
+	</authorblurb>
+      </author>
+    </authorgroup>
+    <date>April 7. 2000</date>
+    <abstract>
+      <para>This is the FAQ for Terraform, an interactive fractal landscape 
+	generator/modeller. Chances are you can encounter a lot more problems 
+	than I've managed to answer here, so if have any suggestions concerning
+	this document, drop me an email.
+	</para>
+    </abstract>
+  </bookinfo>
+
+
+
+  <chapter id="Overview">
+    <title>Terraform Overview</title>
+      
+    <para>This section covers questions that pertain to Terraform as
+    a whole.</para>
+
+    <sect1>
+      <title>What is Terraform?</title>
+      <para>Terraform is an interactive fractal landscape generator/viewer.
+	It allows you to create fractal terrain (also called a height
+	field) and transform it using a number of algorithms. It is meant
+	to be a tool for those who want to generate digital terrain models
+	for use in raytracing or other simulations.
+	It's written in C++ using the GTK (actually Gtk--) widget set and as
+	such has a non-sucking graphical user interface.
+      </para>	
+    </sect1>
+
+    <sect1>
+      <title>What systems does it run under?</title>
+      <para>Terraform was written under Linux (or GNU/Linux if you're an RMS
+	faithful) and should run under any UNIX type system that has the
+	proper libraries and compilers installed. The following are a list
+	of systems that I know terraform has successfully been compiled under
+      </para>
+      <itemizedlist>
+	<listitem><para>Linux ix86 Debian 2.1 glibc</para></listitem>
+	<listitem><para>Linux ix86 Mandrake 7.0 glibc (using gcc-2.95)</para></listitem>
+	<listitem><para>Linux ix86 Mandrake 6.0 glibc (using pgcc-2.91.66, gcc-2.95)</para></listitem>
+	<listitem><para>Linux ix86 Mandrake 6.1 glibc (using pgcc-2.91.66, gcc-2.95)</para></listitem>
+	<listitem><para>Linux ix86 Redhat 5.2 glibc (using egcs-2.91.57)</para></listitem>
+	<listitem><para>Linux ix86 Redhat 6.0 glibc (using egcs-2.91.66)</para></listitem>
+	<listitem><para>Solaris Sparc 2.6 (using egcs 2.91.66) </para></listitem>
+	<listitem><para>Solaris Sparc 2.7 (using gcc 2.8.1) </para></listitem>
+      </itemizedlist>
+      <para>The compiler versions given above are intended as a reference 
+	point for a particular platform and the accompanying compiler. Other 
+	compiler versions of both <ulink url="&wwwgcc;">gcc</ulink> and 
+	<ulink url="&wwwegcs;">egcs</ulink> may work just as well or even 
+	better, especially if the version is higher than what's listed above. 
+	The <command>configure</command> scripts checks wether your system 
+	has all required libraries installed and wether your compiler supports 
+	all required ANSI C++ features.  
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>What dependencies does it have?</title>
+      <para>Terraform requires the following:</para>
+      <itemizedlist>
+	<listitem><para><ulink url="&wwwgtk;">libglib and libgtk 1.2.x</ulink>. You 
+	should be advised that due to some semi-serious bugs, libgkt 1.2.4 is 
+	<emphasis>not</emphasis>supported.</para></listitem>
+	<listitem><para><ulink url="&wwwgtkmm;">libgtk-- 1.1.x</ulink> (Gtk-- 1.1.10 or greater recommended)</para></listitem>
+	<listitem><para><ulink url="&wwwimlib;">optionally imlib 1.8 or greater</ulink></para></listitem>
+	<listitem><para> you need a C++ compiler (such as <ulink url="&wwwgcc;">gcc</ulink> 
+	  or <ulink url="&wwwegcs;">egcs</ulink>) which has sufficient support
+	  of ANSI C++ features such as member templates, C++ cast operators 
+	  and a working string class.</para></listitem>
+      </itemizedlist>
+      <para>The configure scripts checks wether all necessary compiler 
+	features are supported on your system. Typically, you should try 
+	to have the most recent version of the required libraries installed 
+	on your system.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>How is it distributed?</title>
+      <para>Terraform is released under the 
+	<ulink url="&wwwgnuGPL;">GNU GPL</ulink> and as such comes with 
+	full source code. You basically get everything I have. Terraform 
+	is available from it's home page <ulink url="&wwwterraform;">&wwwterraform</ulink>
+	and possibly from other places such as the 
+	<ulink url="&wwwgtkbuffet;">Sunsite gtkbuffet mirror</ulink>
+	and <ulink url="http://www.linuxberg.com">Linuxberg</ulink>.
+      </para> 
+      <para>The rationale for using the GPL is simple: I have profitted
+	enourmously (as has the entire Linux community) from the
+	availability of free software that comes with source code.
+	I wish for this process to continue and see the GPL as the
+	mother of open source software licences which will assure the
+	continued availablilty/openness of the source code. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Why are you writing it?</title>
+      <para>Because I think coding is fun and I have no other life :-) ... the
+	truth is that I was looking for something like John Beale's gforge
+	and hf-lab but with a nicer user interface. John's tools are
+	very good but are command-line driven, which is fine for most
+	things but not ideal for graphical things. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>How complete is it?</title>
+      <para>Well, it's slowly getting there. The first public release 
+	(0.1.0, released 07DEC98) was very rudimentary and contained lots 
+	of bugs. 
+      </para>
+      <para>As of release 0.2.10 (relased 07APR1999) things look a lot 
+	better: Terraform is now a lot more complete and doesn't crash as much
+        while having gained lots of functionality.
+      </para>
+      <para>As of release 0.3.1 (released 23MAY1999) things look better again.
+	The dialogs have been upgraded to a real time preview dialog and
+	I've fixed quite a few bugs, some of which caused seemingly random
+	crashes on some platforms.
+      </para>
+      <para>As of release 0.4.4 (released 28OCT1999) we have a pretty complete 
+	set of dialogs and an engine that can keep mulitple height fields 
+	open in parallel. 
+      </para>
+      <para>As of release 0.5.0 (released 20DEC1999) the source code 
+	is a lot saner/cleaner and terraform now supports internationalization.
+      </para>
+      <para>As of release 0.6.x (Feb2000 or later) the most basic things 
+	work, most dialogs are fixed/finished, the app doesn't crash much 
+	anymore and things generally work OK, execpt for the occasional 
+	bug that either hits terraform or Gtk--. 
+      </para>
+      <para>The current version (&tfversion) should support more features 
+	and hopefully less bugs. 
+      </para>
+      <para>It's come quite a way but still has ways to go before I have it
+	doing what I want. Please realize that I have a job and a life
+	and that I'm writing terraform after work at night or on weekends.
+	As such my progress will at best be steady but certainly not
+	lightning-fast.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>What is your goal/mission with it?</title>
+      <para>While I don't have an exactly spelled out vision (ie: I didn't 
+	sit down and make an actual design document), I would like it to 
+	eventually become the GIMP of digital terrain. Here are some things 
+	that I eventually want terraform to have (if you're not sure what I 
+	mean take a look at the GIMP (&wwwgimp), where many of these 
+	ideas come from):
+      </para>
+      <itemizedlist>
+	<listitem><para>implement selection so that you can 
+	  select a subset and work on that only</para></listitem>
+	<listitem><para>ability to 'draw' your height field with 
+	  different 'brushes'</para></listitem>
+      </itemizedlist>
+    </sect1>
+
+    <sect1>
+      <title>What about Photorealistic output?</title>
+      <para>I typically use PovRay (www.povray.org) to render the 
+	landscapes I generate. A while ago though, on www.slashdot.org 
+	there was mention of a Windows (blah!) application called 'terragen' 
+	which produces photorealistic output. I haven't downloaded/installed 
+	it but the web page they have looks very nice. Of course, in the 
+	wonderful world on MS Windows, they don't seem to have any intention 
+	of releasing the source. 
+      </para>
+      <para>If the lack raytraced output annoys you, I invite you to respond to
+	my Call to Arms below. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>How can I contribute?</title>
+      <para>Making Terraform into a complete and polished application will 
+	take some major (or at least persistent) effort on my part (ie: 
+	don't hold your breath waiting for verion 1.0). As such, if you 
+	can contribute anything (code, fixes, suggestions, documentation), 
+	read my A Call to Arms below.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>A Call to Arms!</title>
+      <para>If you can contribute anything (code, fixes, documentation
+	or even suggestions) I would appreciate hearing from you. Part 
+	of the open source philosophy seems to be <quote>Do it 
+	yourself</quote> so here's your chance.   
+      </para>
+      <para>Lets prove to the world that the whole open source thing
+	really works and that we can make something that isn't put
+	to shame by terragen (or maybe even puts terragen to shame?).
+	If you are able and willing help out in any way with extending
+	terraform to produce photorealistic output of landscapes,
+	please contact me.
+      </para>
+      <para>We've made some progress on this front over the past few 
+	months. POVRay support is now pretty good and is still being 
+	worked on. OpenGL support went from butt-ugly to basic-but-acceptable, 
+	and we're working (or at least thinking about) integration with 
+	some other cool front ends. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Wow. What are you on?</title>
+      <para>The crack pipe, lots of illegal drugs or just a mission. 
+	You pick the one that sounds most appropriate.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Credits</title>
+      <para>Terraform in many respects build on publicly available code. 
+	See the <filename>AUTHORS</filename> for details on what was stolen 
+	from where. 
+      </para>
+    </sect1>
+  </chapter>
+
+
+
+  <chapter id="RunningTerraform">
+    <title>Running and Using Terraform</title>
+      
+    <para>This section covers general questions you may have about using 
+	particular aspects of using Terraform. 
+    </para>
+
+    <sect1>
+      <title>Is there any information about all the transformations terraform 
+	supports?</title>
+      <para>Check out the file <filename>docs/UsersGuide</filename>. It 
+	contains a brief description of what the different operations 
+	really do. If that doesn't satisfy your curiosity, there's always 
+	the source code ...
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>What file formats does Terraform support?</title>
+      <informaltable frame="all">
+	<tgroup cols="3">
+	  <thead>
+	    <row>
+		<entry>File Type</entry>
+		<entry>Read</entry>
+		<entry>Write</entry>
+	    </row>
+	  </thead>
+	  <tbody>
+	    <row>
+	 	<entry>BMP</entry>
+	 	<entry>Y</entry>
+	 	<entry>N</entry>
+	    </row>
+	    <row>
+	 	<entry>DEM</entry>
+	 	<entry>Y</entry>
+	 	<entry>N</entry>
+	    </row>
+	    <row>
+	 	<entry>GTOPO30</entry>
+	 	<entry>Y</entry>
+	 	<entry>N</entry>
+	    </row>
+	    <row>
+	 	<entry>Matlab Binary</entry>
+	 	<entry>Y</entry>
+	 	<entry>Y</entry>
+	    </row>
+	    <row>
+	 	<entry>OCT</entry>
+	 	<entry>Y</entry>
+	 	<entry>Y</entry>
+	    </row>
+	    <row>
+	 	<entry>PGM ASCII</entry>
+	 	<entry>Y</entry>
+	 	<entry>Y</entry>
+	    </row>
+	    <row>
+	 	<entry>PGM BINARY</entry>
+	 	<entry>Y</entry>
+	 	<entry>Y</entry>
+	    </row>
+	    <row>
+	 	<entry>PNG</entry>
+	 	<entry>Y</entry>
+	 	<entry>N</entry>
+	    </row>
+	    <row>
+	 	<entry>TIFF</entry>
+	 	<entry>Y</entry>
+	 	<entry>N</entry>
+	    </row>
+	    <row>
+	 	<entry>TGA</entry>
+	 	<entry>Y</entry>
+	 	<entry>Y</entry>
+	    </row>
+	    <row>
+	 	<entry>ACAD Modeller</entry>
+	 	<entry>N</entry>
+	 	<entry>Y</entry>
+	    </row>
+	  </tbody>
+	</tgroup>
+      </informaltable>
+    </sect1>
+
+    <sect1>
+      <title>When resizing a height field, the window always doesn't resize 
+	properly</title>
+      <para>This is a bug. I have not yet been able to figure out what I'm 
+	doing wrong. Resizing currently only seems to work when the window 
+	size increases.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>I'm confused about the dialogs. What's the logic behind the 
+	OK button?</title>
+      <para>If you click OK without having done anything else, the action 
+	is performed and the dialog closed. If you click OK after having 
+	clicked Apply, the dialog simply closes and the action is not 
+	performed.
+      </para>
+      <para>When you're using the Subdivision or Specral Synthesis 
+	dialogs, the first time (after calling the dialog from the 
+	menu) when you click on <emphasis>Apply</emphasis>, a Height 
+	Field will be generate in a new window. Subsequent
+	<emphasis>Apply</emphasis>s will generate new HeightFields in 
+	the newly opened window until the dialog is closed.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>I would like to generate a height field of size x but 
+	the slider increments are too big to allow me to select that size</title>
+      <para>Position the slider to a value close to what you want and then 
+	use the left and right arrow keys to set the final value you want. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Does terraform support resource files?</title>
+      <para>Yes. Terraform will check for (and read) 
+	<filename>TF_DATADIR/system.terraformrc</filename> and then 
+	<filename>$HOME/.terraformrc</filename> where TF_DATADIR is 
+	a variable set at compile time. To find out the resource file 
+	settings terrafrom was compiled with, you can say 
+      </para>
+      <simplelist>
+	  <member><command>terraform --helprc</command></member>
+      </simplelist>
+      <para>
+	and it will tell you what it's resource file locations are.  
+	To install a terraform resource file, you can use the builtin 
+	method of 
+      </para>
+      <simplelist>
+	  <member><command>terraform --installrc</command></member>
+      </simplelist>
+      <para>
+	to have terraform write the configuration file 
+	<filename>.terraformrc</filename> with the default settings to 
+	your home directory.  Finally you can say 
+      </para>
+      <simplelist>
+	  <member><command>terraform --helprc</command></member>
+      </simplelist>
+      <para>
+	to see the resource file settings terrafrom was compiled 
+	with and get a list of supported resource file options.
+      </para>
+      <para> The format of the resource file is very simple. The first 
+	2-letter prefix of the option name refers to the option's type and 
+	thus specifies what kind of paramter it expects:
+      </para>
+      <informaltable frame="all">
+	<tgroup cols="3">
+	  <thead>
+	    <row>
+		<entry>Resource Prefix</entry>
+		<entry>Data Type</entry>
+		<entry>Sample Data</entry>
+	    </row>
+	  </thead>
+	  <tbody>
+	    <row>
+	 	<entry>b_</entry>
+	 	<entry>boolean</entry>
+	 	<entry>0(FALSE), 1(TRUE)</entry>
+	    </row>
+	    <row>
+	 	<entry>i_</entry>
+	 	<entry>integer</entry>
+	 	<entry>1, 2, 3, 4, ...</entry>
+	    </row>
+	    <row>
+	 	<entry>f_</entry>
+	 	<entry>float</entry>
+	 	<entry>0.1234, 987.321, Pi, ...</entry>
+	    </row>
+	    <row>
+	 	<entry>s_</entry>
+	 	<entry>string</entry>
+	 	<entry>any string, typically a file name/path</entry>
+	    </row>
+	  </tbody>
+	</tgroup>
+      </informaltable>
+    </sect1>
+
+    <sect1>
+      <title>Does terraform support themes?</title>
+      <para>Yes. As of version 0.3.1 terraform properly supports 
+	<ulink url="&wwwgtkthemes;">Gtk themes</ulink>. If you
+	have a gtk theme on your system, you can enable it for your user by
+	doing the following:
+        <simplelist>
+	  <member><command>cp /usr/whereever/THEMENAME/gtk/gtkrc $HOME/.gtkrc</command></member>
+	</simplelist>
+	If you get errors about being unable to open theme files, you 
+	should edit your <filename>.gtkrc</filename> and add a line like this
+        <simplelist>
+	  <member><emphasis>pixmap_path "/usr/whereever/THEMENAME/gtk"</emphasis></member>
+	</simplelist>
+	at the *beginning* of this file. Terraform should now load
+	the theme upon startup.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>How can I tell if my POVRay install is OK with terraform?</title>
+      <para>Try the following:
+        <simplelist>
+	  <member><command>povray +i tf_land.pov</command></member>
+	</simplelist>
+      </para>
+      <para>where <filename>tf_land.pov</filename> is the file distributed 
+	in the terraform root directory. If you get the following type 
+	of error:
+        <simplelist>
+	  <member><emphasis>tf_land.pov:26: error: Error opening TGA image.</emphasis></member>
+	</simplelist>
+      </para>
+      <para>you're OK in the sense that POV can find it's include files 
+	(tf_land.pov is a template file which has to be processed to render). 
+	If you get an error about "colors.inc" your POV can't find it's 
+	include files and you need to go fix your povrayrc.
+      </para>
+      <para>If this fails, check to see if your executable is named 
+	<filename>povray-x</filename>; some distributions use this naming 
+	scheme to distinguish between the X and SVGA povray executables. 
+	If this applies to your situation, you should use the 
+	<command>--pov_exec povray-x</command> flag to specify what 
+	your povray executable is called. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>The POVRay render either fails or just isn't displayed</title>
+      <para>If the default export to POVRay fails or if it just isn't 
+	displayed (even though no error is reported), it could be that your
+	POVRay is of version 3.0, while Terraform expects version 3.1. If you 
+	are using version 3.0, use the <command>--pov30</command> switch 
+	to inform terraform of this. 
+	  </para>
+	  <para>Alternativeley you can use the <command>--debug 255</command>
+	switch to have the actual povray output echoed to the standard 
+	output. This output should help you figure out what is being done 
+	going and what is going wrong.
+	  </para>
+	  <para>To see what POVRay version you have installed, simply type
+	<command>povray</command> and the first line of output displayed
+	will contain the version number. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>How can I customize the way the POVRay image is rendered?</title>
+      <para>You can edit the file <filename>tf_land.pov</filename> to your 
+	liking as long as you keep the TF* placeholders for terraform to 
+	substitute. Alternativeley you can also point terraform at another 
+	POV file through the Options dialog or the terraform resource file.
+	Whatever POV file terraform uses must contain the TF* placeholders 
+	for terraform to be able to use it. If you come up with something 
+	neat, consider sending me the POV file, so I can add it to the 
+	terraform distribution.
+      </para>
+    </sect1>
+  </chapter>
+
+
+
+  <chapter id="BuildingTerraform">
+    <title>Building Terraform and General Troubleshooting</title>
+      
+    <para>This sections covers some of the things that may go wrong when 
+	you try to build or run terraform. 
+    </para>
+
+    <sect1>
+      <title>How can I compile terraform?</title>
+      <para>Assuming you've downloaded the source archive, you should be 
+	able to do the following: 
+        <simplelist>
+          <member><command>tar -xvzf terraform-0.x.x.tgz</command></member>
+          <member><command>./configure</command></member>
+          <member><command>make</command></member>
+          <member><command>make install</command></member>
+        </simplelist>
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Something's wrong. Where should I look first?</title>
+      <para>Since Terraform builds on Gtk--, please take a look at the 
+	Gtk-- FAQ. It covers some of the basic things about compiling 
+	Gtk-- programs. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>How do I submit a bug report and why should I bother to do so?</title>
+      <para><emphasis>How</emphasis>: Mail &docownermail and describe what 
+	you did and what went wrong.
+      </para>
+      <para><emphasis>Why</emphasis>: In my experience, lots of subtle little 
+	bugs only turn up when compiling the code on another OS or hardware 
+	platform. As such, if you're not on an Intel Glibc Linux system, and 
+	something breaks, I would appreciate a mail; especially so, if it's in 
+	a rather obvious place as this usually indicates a bug that might
+	just not appear on my system. Your bug reports help me make 
+	Terraform a better application.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Do I really need imlib?</title>
+      <para>No. Terraform uses imlib's JPG read for the about dialog and the PNG and
+	TIFF read as an additional height field formats. Configure should let
+	you compile terraform without imlib. If you run into problems, run
+        <simplelist>
+	  <member><command>configure --disable-imlib</command></member>
+	</simplelist>
+	which will revert back to the default code base which doesn't use imlib.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>I get compile errors like about -fhuge-objects</title>
+      <para>I get compile errors like: TFDialogOptions.h:87: sorry, not implemented: 
+	object size exceeds normal limit for virtual function table 
+	implementation, recompile all source and use -fhuge-objects
+      </para>
+      <para>Yes, certain verions of egcs seem to need this flag in order to
+	compile terraform. As of version 0.3.6 I've rewritten most of the 
+	GUI code to use dynamic memory allocation (vs. allocating objects on 
+	the stack), so if you get this error, you should mail me about it 
+	so I can rework some code internals in order to avoid this warning.
+	This is a CPU-type specific <emphasis>feature</emphasis>, so what 
+	may work on one type of CPU, might result in a huge-objects 
+	error on another platform.
+      </para>
+      <para>In order to compile the version you have, simply re-run the 
+	configure script as follows:
+        <simplelist>
+	  <member><command>configure --enable-hugeobjects</command></member>
+	</simplelist>
+	You should then see the flag -fhuge-objects being passed to g++
+	during the compile process. If you need this, you should be aware
+	that both your Gtk-- and all other programs using it need to be
+	compiled with the same -fhuge-objects flag. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>I get link errors about undefined reference to `Gtk_Object::signal_connect</title>
+      <para>I get link errors like: TFWindow.o: In function 
+	`ItemFactoryConnector[TFWindow, basic_string [char, string_char_traits[char], 
+	__default_alloc_template[true, 0] ] ]::connectTo(Gtk_Widget *) const':
+	TFWindow.o(.ItemFactoryConnector[TFWindow, basic_string[char,
+	string_char_traits[char], __default_alloc_template[1, 0] ]
+	]::gnu.linkonce.t.connectTo(Gtk_Widget *) const+0x23e):
+	undefined reference to `Gtk_Object::signal_connect(char const *,
+	void (*)(...), void *)'
+      </para>
+      <para>This is usually the result of having different compile options
+	for glib, Gtk+ and Gtk--, specifically the -pedantic option. Make
+	sure you use the same '-pedantic'ness for each of these libraries.
+	Either all or none of these should be compiled with -pedantic.
+      </para>
+    </sect1>
+	
+    <sect1>
+      <title>I get link errors about differing symbol sizes in GuiBufferedDrawingArea</title>
+      <para>I get like errors like: ld: warning: symbol 'Connection_impl virtual table' has differing sizes:
+	(file GuiBufferedDrawingArea.o value=0x10; file
+	/usr/local/opt/libgtk--/lib/libgtkmm.so value=0x20);
+	GuiBufferedDrawingArea.o definition taken
+      </para>
+      <para>I've only heard of this once from the owner of a Sun Solaris (+egcs)
+	machine, but it seems to be the result of having different compile
+	options for Gtk-- and terraform, specifically the -fhuge-objects flag.
+	Make sure you use the same '-fhuge-object'ness for both Gtk-- and
+	Terraform (actually all your Gtk-- programs). Either all or none of these
+	should be compiled with -fhuge-objects.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Terraform segmentation faults upon startup (bt points to TFWindow.cc:77)</title>
+      <para>I've only heard this once in which case the solution (and another
+	symptom) are described under section in the previous section about the 
+	-fhuge_objects flag. If terraform crashes without these symptoms, 
+	you've found a new bug.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Something doesn't work. How can I see what's going on?</title>
+      <para>If you find that Terraform isn't behaving as it should, you 
+	might want to try running <command>terraform --verbose</command>
+	which will give you verbose debug output. Alternativeley, you can 
+	try <command>terraform --debug level</command> where 
+	<emphasis>level</emphasis> is an integer between 0 and 255. See 
+	the source files <filename>GlobalTrace.h</filename> and
+	<filename>GlobalTrace.cc</filename> for the details of this. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Terraform crashes while loading a file.</title>
+      <para>Make sure that the extension of your filename matches the 
+	actual file type. Ie: don't try to rename a *.tga file to a 
+	*.bmp file and then load it into terraform. This is currently 
+	considered a <emphasis>feature</emphasis>.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Terraform crashes. What useful information can I provide to the author?</title>
+      <para>If you've downloaded the precompiled executable you can't do 
+	much at this point as the executable is stripped of all debug 
+	information. The best thing is probably to send me an email describing 
+	what you did.
+      </para>
+      <para>If you compiled your own executable from the source code, please 
+	recompile terraform with the -g flag (add the -g flag to the TF_CFLAGS 
+	and TF_CXXFLAGS variables in terraform/src/Makefile). Then use gdb (or 
+	any other debugger) to send me a stack trace:
+        <simplelist>
+          <member><command>gdb ./terraform</command></member>
+          <member><command>r [append any necessary options here]</command></member>
+          <member><command>.... this will run until it crashes ...</command></member>
+          <member><command>bt</command></member>
+          <member><command>q</command></member>
+	</simplelist>
+	The bt command should give you a stack trace which should help me figure
+	out what went wrong. You can use <command>./configure --disable-debug</command>
+	to compile an executable without the built in stack trace facility. 
+      </para>
+      <para>
+	If you downloaded the static executable, don't bother doing this as 
+	your executable has been stripped off all debug information; as such 
+	the information above only applies if you compiled your own executable. 
+	Thank you for your cooperation.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Terraform exits with a failed SanityCheck.</title>
+      <para>This is a situation which should not occour; it signifies a 
+	logic error somewhere in the application. Please mail me what you 
+	did so I can reproduce and fix the error.
+      </para>
+    </sect1>
+  </chapter>
+
+</book>
