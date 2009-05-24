@@ -31,11 +31,11 @@ AC_SUBST(PACKAGE_CFLAGS)
 
 GETTEXT_PACKAGE=terraform
 AC_SUBST(GETTEXT_PACKAGE)
-AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE")
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
 
 dnl Add the languages which your application supports here.
 ALL_LINGUAS="fr nl"
-AM_GNU_GETTEXT
+AM_GLIB_GNU_GETTEXT
 
 dnl OS/X (darwin) defines xxscanf() via a macro so the check incorrectly
 dnl deduces that these functions are missing while they actually exist.
@@ -60,7 +60,7 @@ dnl Missing xxscanf and xxprintf functions can be supplied by libtrio
 if test "$NEED_EXTERNAL_SCANF" = "yes"; then
   AC_CHECK_LIB(trio, trio_printf, HAVE_LIB_TRIO="yes", HAVE_LIB_TRIO="no")
   if test "$HAVE_LIB_TRIO" = "yes"; then
-    AC_DEFINE(HAVE_LIB_TRIO)
+    AC_DEFINE_UNQUOTED(HAVE_LIBTRIO,"1", [LIBTRIO package name])
   else
     echo "You don't have libtrio to provide missing libc xxscanf methods."
     echo "Please get it from http://sourceforge.net/projects/ctrio/"
@@ -70,9 +70,9 @@ fi;
 
 dnl Set PACKAGE_LOCALE_DIR in config.h.
 if test "x${prefix}" = "xNONE"; then
-  AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, "${ac_default_prefix}/${DATADIRNAME}/locale")
+  AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, "${ac_default_prefix}/${DATADIRNAME}/locale", [PACKAGE_LOCAL_DIR])
 else
-  AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, "${prefix}/${DATADIRNAME}/locale")
+  AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, "${prefix}/${DATADIRNAME}/locale", [PACKAGE_LOCAL_DIR])
 fi
 
 dnl
@@ -92,6 +92,7 @@ if test "$png_ok" = "yes"; then
   if test "$png_ok" = "yes"; then
     PNG_LIBS='-lpng -lz -lm'
     AC_DEFINE(HAVE_LIBPNG)
+    AC_DEFINE_UNQUOTED(HAVE_LIBPNG,"1", [LIBPNG package name])
   fi
 fi
 AC_SUBST(PNG_LIBS)
@@ -107,7 +108,7 @@ if test "x$have_sgmltools" = "xyes" ; then
 fi
 
 if test "$SGMLTOOLS" = "yes" ; then
-        AC_DEFINE(HAVE_SGMLTOOLS)
+    AC_DEFINE_UNQUOTED(HAVE_SGMLTOOLS,"have_sgmltools", "yes")
 fi
 
 AM_CONDITIONAL(HAVE_SGMLTOOLS, test "x$have_sgmltools" = "xyes")
