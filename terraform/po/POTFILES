@@ -1,8 +1,8 @@
-     ../src/main.c \
-     ../src/interface.c \
-     ../src/callbacks.c \
-     ../src/support.c \
-     ../src/support_modified.c \
-     ../src/tterrain.c \
-     ../src/tterrainview.c \
-     ../src/tundo.c
+	../src/main.c \
+	../src/interface.c \
+	../src/callbacks.c \
+	../src/support.c \
+	../src/support_modified.c \
+	../src/tterrain.c \
+	../src/tterrainview.c \
+	../src/tundo.c \
