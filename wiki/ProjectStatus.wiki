@@ -1,0 +1,12 @@
+= Project Status =
+
+Terraform has seen it's last release in 2000. As such, the codebase needs some fixes in order to work on a current gnome/glade release. We are working on getting the codebase cleaned up and getting the program in shape so that we can release a new version to the general public. 
+
+While we don't have a lot of time to dedicate to this, we are making slow and steady progress. If you are willing and able to help with this, please contact us; we would appreciate any help we can get.  
+
+
+== Fixes applied so far ==
+  * Fixed configuration & compilation issues
+  * Fixed various crashes at application startup
+  * Fixed terraform hanging after spawning an external povray rendering
+  * Added dynamic wireframe grid resolution changing based on mousewheel events
