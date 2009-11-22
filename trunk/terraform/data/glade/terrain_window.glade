@@ -430,7 +430,7 @@
 
 			  <child>
 			    <widget class="GtkMenuItem" id="scale">
-			      <property name="visible">True</property>
+			      <property name="visible">False</property>
 			      <property name="label" translatable="yes">_Scale...</property>
 			      <property name="use_underline">True</property>
 			      <signal name="activate" handler="on_terrain_scale_activate"/>
