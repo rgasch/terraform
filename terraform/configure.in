@@ -70,10 +70,16 @@ fi;
 
 dnl Set PACKAGE_LOCALE_DIR in config.h.
 if test "x${prefix}" = "xNONE"; then
-  AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, "${ac_default_prefix}/${DATADIRNAME}/locale", [PACKAGE_LOCAL_DIR])
+  DATADIR="${ac_default_prefix}/${DATADIRNAME}"
+  LOCALEDIR="{DATADIR}/locale"
+  AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, "${LOCALEDIR}", [PACKAGE_LOCAL_DIR])
 else
-  AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, "${prefix}/${DATADIRNAME}/locale", [PACKAGE_LOCAL_DIR])
+  DATADIR="${prefix}/${DATADIRNAME}"
+  LOCALEDIR="{DATADIR}/locale"
+  AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, "${LOCALEDIR}", [PACKAGE_LOCAL_DIR])
 fi
+AC_SUBST(DATADIR)
+AC_SUBST(LOCALEDIR)
 
 dnl
 dnl libpng
@@ -114,11 +120,11 @@ fi
 AM_CONDITIONAL(HAVE_SGMLTOOLS, test "x$have_sgmltools" = "xyes")
 
 dnl Subst PACKAGE_PIXMAPS_DIR.
-PACKAGE_PIXMAPS_DIR="`gnome-config --datadir`/pixmaps/${PACKAGE}"
+PACKAGE_PIXMAPS_DIR="${DATADIR}/pixmaps/${PACKAGE}"
 AC_SUBST(PACKAGE_PIXMAPS_DIR)
 
 dnl Subst GNOME_DATADIR.
-GNOME_DATADIR="`gnome-config --datadir`"
+GNOME_DATADIR="${DATADIR}"
 AC_SUBST(GNOME_DATADIR)
 
 dnl extra conditionals
