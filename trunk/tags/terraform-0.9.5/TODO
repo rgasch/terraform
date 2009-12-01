@@ -1,0 +1,13 @@
+* POV-Ray executable browse file dialog
+* the rest of the exports + imports (PGM, OCT, AutoCAD, GdkPixbuf)
+* Update terraform spec
+* Update docs, supply them as Help
+* xmlGetContent calls are possibly leaking memory
+* Popup an export warning box when saving to a non-native format
+* Finish native render, pull better stuff from GIMP plug-in
+* Add legend to contour print output
+* Print Preview doesn't work right?
+* turn Tree .c code into a POV-Ray macro and include it with Terraform
+* Support macros for Place Objects
+* MFD flowmap code not working???
+* OpenGL render

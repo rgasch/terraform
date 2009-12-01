@@ -1,0 +1,117 @@
+// This file was downloaded from http://www.povworld.org/objects/cat/
+// Because this collection is free it needs people to help it work. 
+// Visit and help them. Thank you.
+
+//*Xmas-tree include-file by Remco de Korte 1998 (made for Vic)
+//The xtree-object is a simple firtree, starting at <0,0,0> up to maxheight
+
+//You can change the tree by altering the rand-seed or the height, or by changing the
+//tow increment-steps indeicated below. The setting as it is now is working allright for 
+//me, changing it can increase the render-time dramatically.
+
+//extra notes:
+//- the semi-colons are for v3.1      
+//- it may take some time to parse, depending on the parameters (from a few secs to several hours...)
+//- you'll get some degenerate CSG-warnings - I don't know how to avoid those and I didn't think
+//    it was a very big problem
+//comments to remcodek@xs4all.nl
+
+// Distribution made in Terraform by Raymond Ostertag with permission of Remco de Korte <remco@onwijs.com>
+
+#local needle=sphere{<0,0,0>,1 scale<.75,.1,.1> pigment{rgb<.2,.5,.2>}}
+//here you can change the size of the needles - they're quite large and a bit 'fat' now 
+
+#local branch_text=texture{pigment{rgb<.5,.4,.2>} normal{bumps.9 turbulence .7 scale .025}}
+
+#local maxheight=30;
+
+#local r=seed(777);
+
+
+//start the tree:
+
+#declare xtree=union{
+
+//the stem (is that the right word?) of the tree, width at top and foot depending on the height
+  cone{<0,0,0>,maxheight/50,<0,maxheight,0>,maxheight/200 texture{branch_text}}
+
+//the top
+  sphere{<0,maxheight,0>,maxheight/175 texture{branch_text}} 
+  
+  #local cc=maxheight/15;
+  
+//this starts the branches of at 1/15th of the tree's size off the ground.
+
+  #while (cc<maxheight)
+
+//start a branch:  
+  union{
+    #local i=0;
+    #local dd=(maxheight*.95-cc)/2.5;
+
+//put needles on the branch:  
+    #while (i<dd)
+    union{
+      sphere{<0,0,0>,.2 scale <1,2.5,1> texture{branch_text}}
+      #local j=60*rand(r);
+//put the needles all around:    
+      #while (j<360)
+        object{needle translate -x rotate z*-15-i*45/dd rotate y*j+30*rand(r)}
+      #local j=j+60;
+      #end
+
+      scale 1-.25*i/dd
+      translate y*i 
+  }
+
+  #local i=i+.4;
+
+//the frequency of the needles (~the amount of needles) depends on this step
+//if you make it smaller you have more needles and a much more rendertime
+  
+#end
+
+rotate z*(-75+cc/2)
+//this makes the branch point up a bit (depending on how high it is on the tree)
+
+rotate y*360*rand(r)
+//this puts it on the tree somewhere around
+
+translate y*cc
+//this puts the branch at its proper height
+}
+
+//put some needles on the stem:
+  #local j=0;
+  #while (j<360)
+    object{needle translate -x rotate z*(-45-15*rand(r)) translate -x*maxheight/400 rotate y*j+30*rand(r) translate y*cc}
+  #local j=j+60;
+  #end
+
+#local cc=cc+.25;
+
+//this step defines the number of branches. 
+//There's one branch for each step, but it can be at any side of the tree
+//Again, if you make this smaller you'll have more branches, but it'll also render much slower
+//You could probably make the tree more realistic by increasing the step towards the top of the tree
+
+#end
+
+}
+
+
+//To create a snowy tree take out the pigment of the needle-declaration and use this:
+
+#local snowtree=union{
+object{xtree pigment{rgb<.2,.5,.2>}}
+object{xtree pigment{rgb<.95,.975,1>} finish{ambient .7} translate y*.5}
+}
+
+
+
+
+
+
+
+
+

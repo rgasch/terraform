@@ -1,0 +1,246 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.77 [fr] (X11; U; Linux 2.4.3-20mdk i586) [Netscape]">
+   <title>FAQ: Writing Your Own Templates</title>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#000000" vlink="#000000" alink="#000000">
+
+<h1>
+FAQ: Ecrire vos propres mod&egrave;les</h1>
+FAQ Terraform, version 0.1 Juin 09, 2000 par <a href="mailto:foxx@mail.utexas.edu">David
+A. Bartold</a> mis en forme apr&egrave;s la FAQ Hacking Terraform
+<p>FAQ terraform, version 0.1.1 Mar. 10, 2001 par <a href="mailto:foxx@mail.utexas.edu">David
+A. Bartold</a> mis &agrave; jour pour Terraform 0.8.0+
+<p>Traduction Raymond Ostertag
+<ul>
+<li>
+<a href="#0">0. Introduction</a></li>
+
+<li>
+<a href="#1">1. CommentTerraform fait le rendu d'une sc&egrave;ne POV-Ray</a></li>
+
+<ul>
+<li>
+<a href="#1.1">1.1 Param&egrave;tres</a></li>
+
+<li>
+<a href="#1.2">1.2 Quels param&egrave;tres sont d&eacute;finis et o&ugrave;</a></li>
+</ul>
+
+<li>
+<a href="#2">2. Fichiers de donn&eacute;es POV-Ray</a></li>
+
+<ul>
+<li>
+<a href="#2.1">2.1 Votre kit de fichiers</a></li>
+</ul>
+
+<li>
+<a href="#3">3. Comment le monde est d&eacute;termin&eacute;</a></li>
+
+<ul>
+<li>
+<a href="#3.1">3.1 O&ugrave; se trouve la terre et l'eau</a></li>
+
+<li>
+<a href="#3.2">3.2 O&ugrave; est la texture de la terre</a></li>
+</ul>
+
+<li>
+<a href="#4">4. Cr&eacute;er vos propres mod&egrave;les</a></li>
+
+<li>
+<a href="#5">5. Conclusion</a></li>
+</ul>
+
+<hr><a NAME="0"></a>
+<h1>
+0: Introduction</h1>
+Terraform vous permet de dessiner des formes de paysages toutefois vous
+voudriez peut-&ecirc;tre utiliser la fonction 'height field'. Si vous voulez
+changer la couleur de la terre, ou sa texture, et qu'il n'y a pas de fichier
+mod&egrave;le disponible &agrave; votre go&ucirc;t, vous pouvez &eacute;crire
+le votre. Terraform vient avec quelques mod&egrave;les d&eacute;crivant
+la texture de la terre et de son environnement c&eacute;leste. Ces mod&egrave;les
+sont des fichiers type *.pov typiquement positionn&eacute;s dans le r&eacute;pertoire
+/usr/share/terraform/. Les fichiers mod&egrave;les peuvent &ecirc;tre&nbsp;
+s&eacute;lectionn&eacute;s dans le menu Edition >Options puis en cliquant
+sur POV-Ray >Th&egrave;me. Ceux inclus en ce moment sont : bare_rock, earth_basic,
+earth_canyon, and earth_green. Ce document explique comment r&eacute;diger
+vos propre fichiers de mod&egrave;les et&nbsp; suppose que vous compreniez
+d&eacute;j&agrave; la syntaxe des sc&egrave;nes POV-Ray, que vous ayez
+regard&eacute; &agrave; un fichier POV-Ray export&eacute; par terraform.
+Aussi&nbsp; ce serait une bonne id&eacute;e de voir defaults.inc comme
+une r&eacute;f&eacute;rence d&eacute;crivant tous les param&egrave;tres.
+<br>
+<hr><a NAME="1"></a>
+<h1>
+1: Comment Terraform fait le rendu d'une sc&egrave;ne POV-Ray</h1>
+Terraform rend une sc&egrave;ne POV-Ray en commen&ccedil;ant par cr&eacute;er
+un fichier temporaire *.pov file dans votre r&eacute;pertoire /tmp. Ensuite
+il &eacute;crite un 'heightfield' temporaire dans ce r&eacute;pertoire.
+Il appelle l'ex&eacute;cutable "povray", passe le fichier temporaire *.pov
+et un chemin inclus qui typiquement pointe vers usr/share/terraform. Le
+fichier temporaire *.pov contient des param&egrave;tres d&eacute;clar&eacute;s
+par #declare suivis par un #include du fichier mod&egrave;le.
+<br><a NAME="1.1"></a>
+<h1>
+1.1: Param&egrave;tres</h1>
+Il y a plut&ocirc;t assez peu de param&egrave;tres que Terraform passe
+au fichier mod&egrave;le. Les plus importants d'entre eux : TF_HEIGHT_FIELD,
+TF_WATER_LEVEL, TF_X_SCALE, TF_Y_SCALE, TF_Z_SCALE, TF_CAMERA_LOCATION,
+et TF_CAMERA_LOOK_AT. Le premier est une d&eacute;claration de l'objet&nbsp;
+'height field', les deux derniers sont des vecteurs utlis&eacute;s pour
+d&eacute;finir la cam&eacute;ra, et le reste des param&egrave;tres dans
+la liste ci-dessus sont des variables. Bien d'autres param&egrave;tres
+sont disponibles pour le fichier mod&egrave;le, dont certains sont des
+bool&eacute;ens. Vous n'avez pas besoin d'appliquer chaque param&egrave;tre.
+<h1>
+1.2: Quels param&egrave;tres sont d&eacute;finis et o&ugrave;</h1>
+Il n'y a qu'un param&egrave;tre que Terraform ne d&eacute;finit pas explicitement
+dans le fichier POV-Ray temporaire qu'il exporte : TF_LANDSCAPE_TEXTURE.
+Ce param&egrave;tre sera d&eacute;fini par le fichier mod&egrave;le comme
+nous allons le voir bient&ocirc;t. Pour plus d'information sur des param&egrave;tres
+individuels, voyez le fichier defaults.inc pour plus de documentation.
+<br>
+<hr><a NAME="2"></a>
+<h1>
+2: Fichiers de donn&eacute;es POV-Ray</h1>
+Il y a des fichiers utilis&eacute;s par le syst&egrave;me de mod&eacute;lisation
+pour d&eacute;finir une sc&egrave;ne :
+<ul>
+<li>
+*.pov-- Ce sont les fichiers mod&egrave;les de premier niveau eux-m&ecirc;mes.
+Il peuvent utiliser les fichiers *.inc tel que d&eacute;crit ci-dessus.</li>
+
+<li>
+defaults.inc-- les #declare de chaque param&egrave;tre qui n'a pas &eacute;t&eacute;
+encore d&eacute;fini.</li>
+
+<li>
+*_landscape.inc-- d&eacute;finit TF_LANDSCAPE_TEXTURE pour un environnement
+particulier.</li>
+
+<li>
+earth_sky.inc, earth_water.inc-- cr&eacute;ent respectivement les objets
+pour un ciel et mer terrestres. Notez que ces fichiers inclus cr&eacute;ent
+r&eacute;ellement des objets,&nbsp; diff&eacute;rement de votre fichier
+typique *.inc, en cons&eacute;quence tous les param&egrave;tres utilis&eacute;s
+doivent &ecirc;tre pr&eacute;alablement d&eacute;finis avant d'inclure
+un de ces fichiers.</li>
+
+<li>
+generic_land.inc-- d&eacute;clare un objet pour la terre et aussi la d&eacute;finition
+de la cam&eacute;ra. La cam&eacute;ra est positionn&eacute;e relativement
+&agrave; la terre, c'est pourquoi elle est dans le m&ecirc;me fichier.
+Encore une fois, il cr&eacute;e r&eacute;ellement des objets, pas seulement
+des #declares, donc assurez-vous que tous les param&egrave;tres sont d&eacute;finis
+avant de l'inclure.</li>
+</ul>
+<a NAME="2.1"></a>
+<h1>
+2.1: Votre kit de fichiers</h1>
+Les fichiers mentionn&eacute;s dans la section 2 sont ici pour votre usage.
+Sentez-vous libre de les inclure (#include) dans votre fichier mod&egrave;le.
+Vous &ecirc;tes aussi encourag&eacute; a&nbsp; cr&eacute;er des nouveaux
+fichiers. Vous avez cr&eacute;&eacute; une jolie texture de paysage martien
+que vous souhaitez partager ? Mettez-le dans un fichier nomm&eacute; mars_rocky_landscape.inc
+et postez le sur la liste d"email Terraform. Essayez d'&ecirc;tre consistant
+avec l'arrangement du nom. La plupart des fichiers sont nomm&eacute;s avec
+le texte situation_courtedescription*.*. Si vous contribuez avec des fichiers,
+il serait bien d'envoyer aussi au moins un exemple de fichier *.pov qui
+les utilise. Une fois qu'il y aura une multitude de fichiers, il sera possible
+de les m&eacute;langer et de les r&eacute;arranger &agrave; volont&eacute;.
+Imaginez d'&ecirc;tre capable de rendre un paysage martien avec un ciel
+terrestre aussi bien qu'une lune suppl&eacute;mentaire avec un anneau autour.
+Cool...
+<br>
+<hr><a NAME="3"></a>
+<h1>
+3: Comment le monde est d&eacute;termin&eacute;</h1>
+Les sph&egrave;re c&eacute;leste, soleil et lune sont centr&eacute;s autour
+de l'origine &lt;0, 0, 0>. G&eacute;n&eacute;rallement la distance de l'origine
+jusqu'&agrave;, disons, un soleil, devrait toujours &ecirc;tre proportionnelle
+a vlength (&lt;TF_X_SCALE, TF_Y_SCALE, TF_Z_SCALE>). Vous pouvez toujours
+d&eacute;jouer les r&egrave;gles si un corps c&eacute;leste &agrave;, disons,
+un chemin elleptique, mais essayez toujours de faire l'ellipse proportionnelle
+&agrave; la valeur &eacute;voqu&eacute;e pr&eacute;c&eacute;demment. Sinon,
+changer l'&eacute;chelle dans Terraform peut causer des probl&egrave;mes
+de mesure.
+<br><a NAME="3.1"></a>
+<h1>
+3.1: O&ugrave; se trouve la terre et l'eau</h1>
+La terre est centr&eacute;e sur le plan XZ depuis &lt;-TF_X_SCALE / 2.0,
+0.0, -TF_Z_SCALE / 2.0> jusqu'&agrave; &lt;TF_X_SCALE / 2.0, TF_Y_SCALE,
+TF_Z_SCALE / 2.0>. En relation avec l'actuel 'height field' Targa, le coin
+bas-gauche&nbsp; du fichier *.tga correspond &agrave; &lt;-TF_X_SCALE /
+2.0, y, -TF_Z_SCALE / 2.0>. Le plancher oc&eacute;anique est &agrave; y=0,
+le niveau de le mer &agrave;&nbsp; y=(TF_Y_SCALE * TF_WATER_LEVEL), et
+le pic le plus haut &agrave; y=TF_Y_SCALE.
+<br><a NAME="3.2"></a>
+<h1>
+3.2: O&ugrave; est le texture de la terre</h1>
+Si vous utilisez une 'texture_map' pour la terre ( par exemple faites #declare
+TF_LANDSCAPE_TEXTURE = texture { texture_map { ... } }), 0.0 texture au
+niveau du fond de la mer, TF_WATER_LEVEL texture au niveau de la mer, et
+1.0 texture au niveau du plus haut pic ) voyez earth_green_landscape.inc
+pour comprendre comment &eacute;tirer la texture du paysage pour garder
+le niveau de la mer &agrave; la bonne position. Il utilise aussi un truc
+pour r&eacute;duire l'apparence du recouvrement de la texture en appliquant
+la texture de 0.0 &agrave; 1.0 et puis en la multipliant ensuite par 10.0.
+Ce serait bien si POV-Ray avait un motif qui&nbsp; ne comportait pas une
+telle fonction de r&eacute;p&eacute;tition/r&eacute;flection mais il n'a
+pas.
+<br>
+<hr><a NAME="4"></a>
+<h1>
+4: Cr&eacute;er vos propres mod&egrave;les</h1>
+Premi&egrave;rement cr&eacute;ez un fichier *.pov et copier dedans ces
+lignes :
+<pre>// Fichier inclus standard POV-Ray.
+#include "colors.inc"
+#include "skies.inc"
+
+// Met tous les param&egrave;tres non assign&eacute;s &agrave; leur valeur par d&eacute;faut.
+#include "defaults.inc"
+
+// Impose la texture par d&eacute;faut.
+#declare TF_LANDSCAPE_TEXTURE = texture
+{
+&nbsp; pigment { color rgb &lt;0.8, 0.4, 0.1> }
+}
+
+// Ajoute un ciel terrestre, soleil, lune et &eacute;toiles.
+#include "earth_sky.inc"
+
+// Cr&eacute;e l'eau.
+#include "earth_water.inc"
+
+// Cr&eacute;e la terre et la cam&eacute;ra.
+#include "generic_land.inc"</pre>
+Notez que vous devez d&eacute;clarer TF_LANDSCAPE_TEXTURE apr&egrave;s
+#including defaults.inc. Ceci&nbsp; car votre texture peut d&eacute;pendre
+du param&egrave;tre TF_WATER_LEVEL. Ensuite copiez ce fichier *.pov dans
+votre r&eacute;pertoire /usr/share/terraform/themes. G&eacute;n&eacute;rez
+un terrain et rendez le en utilisant ce fichier mod&egrave;le. Vous pouvez
+s&eacute;lectionner votre th&egrave;me depuis le menu d&eacute;roulant
+Edition > Options > POV-Ray > Terrain th&egrave;me. Vous pouvez modifier
+la texture pour quelle convienne &agrave; votre go&ucirc;t. Jouez un peu
+avec. Si vous vous sentez &agrave; l'aise &agrave; cr&eacute;er votre propre
+texture, essayez quelque chose de plus difficile, tel que dessiner un ciel
+martien. Essayez d'utiliser les fichiers qui viennent avec Treraform comme
+un point de d&eacute;part pour faire les votres.
+<br>
+<hr><a NAME="5"></a>
+<h1>
+5: Conclusion</h1>
+Ce n'est pas difficile de cr&eacute;er des textures de terrain de base.
+Une fois que vous vous serez fait la main sur les fichiers disponibles
+et que vous aurez compris comment les utiliser, vous pourrez les modifier
+et cr&eacute;er vos propres textures de terrain et m&ecirc;me votre propre
+monde. Mais, par dessus tout, soyez cr&eacute;atif et prenez du plaisir.
+<br>&nbsp;
+</body>
+</html>

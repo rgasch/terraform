@@ -1,0 +1,128 @@
+// This file was downloaded from http://www.povworld.org/objects/cat/
+// Because this collection is free it needs people to help it work. 
+// Visit and help them. Thank you.
+
+//an POV-Ray include file to create palm trees
+//by Kurt Bangert
+//http://www.travelnotes.de  
+
+// Adapted for Terraform by Raymond Ostertag
+
+#declare Clear   = rgbf 1;
+#declare Green   = rgb <0, 1, 0>;
+#declare White   = rgb 1;
+#declare Gray50 = rgb 0.50;
+
+//this macro plants a palm tree at position
+#macro palmtree1()
+
+#local Palmcolor=color rgb <.5565,.533,.478>;
+
+//a texture for the fronds
+#local ltex1=texture{
+pigment {gradient z 
+	 turbulence <0.3,0.3,0.3>    
+          color_map {[0.0 color rgb<0,.5,0>]
+                     [0.2 color rgb<0,.5,0>]          
+                     [0.2 color rgb<0,.3,0>]
+                     [0.3 color rgb<0,.3,0>]
+                     [0.3 color rgb<0,.5,0>]
+                     [0.5 color rgb<0,.5,0>]
+                     [0.5 color rgbt<1,1,1,1>]
+                     [1   color rgbt<1,1,1,1>]}}}   
+                     
+//a texture for the dry fronds                     
+#local dtex1=texture{
+pigment {gradient z  
+	 turbulence 0.3    
+          color_map {[0.0 color rgb<.6,.6,.6>]
+                     [0.5 color rgb<.6,.6,.6>]
+                     [0.5 color rgbt<1,1,1,1>]
+                     [1   color rgbt<1,1,1,1>]}}}                     
+
+//a texture for the trunk                     
+#local ttex1=texture{
+pigment {gradient y 
+	 turbulence 0.3    
+          color_map {[0.0 Palmcolor]
+                     [0.5 Palmcolor]
+                     [0.5 Palmcolor*.8]
+                     [1   Palmcolor*.8]}}}                     
+
+#local pyscale=3;
+
+//declare a single palm frond with a coconut       
+#local palmfrond=union{
+ difference{  
+ union{ 
+ difference{
+ object{sphere {<0,1,0> 1}  scale <.5,pyscale,1.5>  }  
+ object{box{<-15,-15,-15><15,.5,15>} pigment{Clear}}
+ }//end difference
+ object{torus{.95,.05} rotate z*90 translate <0,1,0> scale <.5,pyscale,1.5> pigment {Green*.5}}
+ }//end union
+ object{box{<-15,-15,-15><15,15,0>} pigment{Clear}}
+ object{cylinder{<-1,1,0><1,1,0> 1 }scale <1,pyscale,.7> pigment{Clear}}
+ }//end difference
+ object{sphere {<-.3,.2,0> .2} pigment{Palmcolor}}
+}//end union
+    
+//declare a dry palm frond
+#local drypalmfrond=union{
+ difference{  
+  union{
+  difference{
+  object{sphere {<0,1,0> 1}  scale <.8,pyscale,.8> }  
+  object{box{<-15,-15,-15><15,.5,15>} pigment{Clear}}
+ }
+ object{torus{.95,.05} rotate z*90 translate <0,1,0> scale <.8,pyscale,.8> pigment {Gray50}}
+ }
+ object{box{<-15,-15,-15><15,15,0>} pigment{Clear}}
+ } 
+ object{sphere {<-.3,.2,0> .2} pigment{Gray50}}
+}   
+
+ object{union{ 
+      //one trunk
+      object{difference{
+       object{torus{20,.2} rotate z*90 translate z*20 texture{ttex1 scale 0.3}}
+       object{box{<-250,250,-250><250,0,250>} pigment{Clear}}
+       object{box{<-250,-250,15><250,250,250>} pigment{Clear}}
+      }rotate y*360*rand(r1)
+      }
+      //fourteen palm fronds
+      #local j=0;
+      #while (j<14) 
+       object{palmfrond rotate -x*(rand(r1)*120+30) texture{ltex1 rotate x*((rand(r1)-.5)*10) scale 0.15} rotate y*rand(r1)*350 scale (rand(r1)*.4+.6)}
+      #local j=j+1;
+      #end             
+      //five old and dry palm fronds hanging down
+      #local j=0;
+      #while (j<5) 
+       object{drypalmfrond rotate -x*(rand(r1)*20+160) texture {dtex1 scale 0.1} rotate y*rand(r1)*360 scale (rand(r1)*.2+.2)}
+      #local j=j+1;
+      #end  
+     }
+      //scale the palm tree and move it to position
+      scale 1 translate 10 * y
+     } //end of a single palmtree
+     
+#end //end of macro ---------------------------------------------------------------   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

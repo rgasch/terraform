@@ -1,0 +1,233 @@
+<H1>Guide Utilisateur du Rendu Terraform</H1>
+
+<I>Auteur: Raymond Ostertag</I>,
+
+<P>
+Ceci est le guide utilisateur pour les rendus de Terraform. Terraform utilise POV-Ray pour
+réaliser les rendus.
+</P>
+
+<HR NOSHADE>
+
+<H2>Table des Matières</H2>
+<UL>
+<LI><A HREF="#Settings">Réglages</A>
+<LI><A HREF="#Render">Options de rendu</A>
+     <UL>
+      <LI><A HREF="#Output">Sortie</A>
+      <LI><A HREF="#Size">Taille</A>
+      <LI><A HREF="#Quality">Qualité</A>
+     </UL>
+<LI><A HREF="#Scene">Options de scène</A>
+     <UL>
+      <LI><A HREF="#Camera">Caméra</A>
+      <LI><A HREF="#Scaling">Échelles</A>
+      <LI><A HREF="#Atmosphere">Atmosphère</A>
+      <LI><A HREF="#Sky">Ciel</A>
+      <LI><A HREF="#Sea">Mer</A>
+      <LI><A HREF="#Povray">POV-Ray</A>
+    </UL>
+<LI><A HREF="#More">Plus d'options de scène</A>
+     <UL>
+      <LI><A HREF="#MoreSky">Plus de ciel</A>
+      <LI><A HREF="#MoreSea">Plus de Mer/Eau</A>
+      <LI><A HREF="#MorePovray">Plus de POV-Ray</A>
+     </UL>
+<LI><A HREF="#Links">Quelques liens utiles</A>
+</UL>
+
+<A NAME="Settings">
+<H2>Réglages</H2>
+<P>
+Terraform utilise POV-Ray pour réaliser ses rendus. C'est important qu'une version récente de POV-Ray soit
+installée sur votre machine. Vous pouvez télécharger la dernière version de POV-Ray à
+<a href="http://www.povray.org">http://www.povray.org/</a> ou dans le fenêtre principale du menu Fichier
+choisissez le dialogue des <i>Options</i> et l'onglet <i>POV-Ray</i> et cliquez sur <i>Télécharger POV-Ray</i>.
+Une fois que POV-Ray est installé dans un répertoire d'exécutables inscrivez ici le nom de votre
+exécutable (on suggère le nom générique de povray).
+</P>
+
+<A NAME="Render">
+<H2>Options de rendu</H2>
+<P>
+Le dialogue des <i>Options de rendu</i> est accessible depuis la fenêtre du terrain et le menu <i>Edition</i>.<br>
+Ici vous trouvez quelques réglages importants pour le rendu.
+<br><A NAME="Output"><br>
+<b>Sortie</b> : L'image rendue peut être juste affichée à l'écran, dans ce cas il n'y a pas de fichier
+de sortie. Si vous préférez conserver une copie de votre image, cochez la case <i>Sortie vers fichier</i> puis
+sélectionnez le nom et le format du fichier. La valeur Bits pas couleur est aussi appelée profondeur du canal
+RVB, avec le PNG vous pouvez spécifier différentes valeurs, par exemple 16 bits par canal (les séries de Gimp 1.2 
+et 1.4 ne peuvent lire que 8 bits par canal).
+<br><A NAME="Size"><br>
+<b>Taille</b> : Ici vous choisissez la taille en pixels de l'image rendue. Si vous utilisez une taille personnalisée
+n'oubliez pas que la caméra par défaut de Terraform à un ration de 4/3, le rendu doit aussi avoir ce ratio pour
+éviter les déformations.
+Le rendu partiel peut vous épargner beaucoup de temps lorsque vous faites quelques tests et que vous
+<br><A NAME="Quality"><br>
+<b>Qualité</b> : Les options de qualité sont importantes pour le temps de rendu et le résultat du rendu.
+Si vous ne connaissez pas POV-Ray vous devez savoir qu'un rendu de basse qualité est plus rapide
+mais l'image n'est pas complète. La qualité 0 sans anti-alias est un bon choix pour des rendus de test.
+L'anti-aliasing est normalement utilisé seulement pour le rendu final mais faites bien attention que certains
+détails peuvent disparaitre (les étoiles par exemple) et que quelques textures peuvent être adoucies et
+présenter un aspect différent que sans anti-aliasing. Vous pouvez lire la documentation POV-Ray (c'est
+livré avec le programme ou vous pouvez télécharger une version HTML en ligne) pour plus d'informations.
+</P>
+
+<A NAME="Scene">
+<H2>Options de scène</H2>
+<P>
+Le dialogue des <i>Options de scène</i> est accessible depuis la fenêtre du terrain et le menu <i>Edition</i>.<br>
+Ici vous trouverez les réglages importants pour la scène (caméra, textures, lumières).<br>
+<br><A NAME="Camera"><br>
+<b>Caméra</b> : Laposition de la caméra est rigoureusement la même que celle utilisée dans le langage de script
+POV-Ray. Elle est définie par les coordonnées de deux points <i>Camera Position</i> et <Camera Regarde vers</i>.
+En considérant que nous travaillons sur une carte 2D le système de coordonnées est ainsi :</p>
+<ul>
+<li> X : de gauche à droite, 0 est la limite gauche et 1 est la limite droite du terrain
+<li> Y : élévation, 0 est le bas et 1 le sommet du terrain
+<li> Z : avant et arrière, 0 est la limite arrière et 1 la limite avant
+</ul>
+<p>
+En 3D par convention X est le déplacement latéral, Y le vertical et Z l'avant/arrière.<br>
+Vous pouvez régler manuellement les valeurs de la caméra ou vous pouvez cliquer avec la souris dans la carte 2D.
+Un clic gauche est pour la valeur de <i>Caméra Position</i> tandis qu'un clic droit est pour la valeur de <i>Caméra 
+Regarde vers</i>. Le <i>Décalage d'élévation</i> est ajouté à la coordonnée Y pour être sûr que la caméra ne se
+retrouve pas sous le terrain. Si vous réglez manuellement la caméra il se peut alors qu'elle descende sous le terrain,
+dans ce cas vous verrez une image noire ou très étrange car Terraform n'est pas un outil pour les images sous-marines
+ou souterraines ;-)
+
+<br><A NAME="Scaling"><br>
+<b>Echelles</b> : Rien de spécial ici, c'est juste pour les échelles appliquées sur les axes X,Y et Z. Soyez attentif
+que ces échelles ne sont pas seulement pour le terrain mais aussi pour la caméra. Vous devez plutot régler les
+échelles avant de régler finement la caméra.
+
+<br><A NAME="Atmosphere"><br>
+<b>Atmosphère</b> : L'onglet <i>Atmosphère</i> est utilisé pour le brouillard, les brumes et quelques autres effets.
+Le type normal d'atmosphère est <i>Earth Fog</i>. Avec ce type d'atmosphère de base vous pouvez obtenir un
+brouillard simple, utilisez les curseurs <i>Densité</i> et <I>Turbulence</i> pour différents types de brouillards.
+Il est aussi possible d'avoir un brouillard de sol, le curseur <i>Décalage</i> augmente ou diminue la hauteur de ce
+brouillard et <i>Transition</i> règle comment le brouillard se fond verticalement dans l'atmosphère (0 c'est comme un
+mur). Un autre type d'atmosphère est  <i>Earth Haze</i>. Son but est d'obtenir de jolis effets lorsque la caméra pointe
+vers le soleil ou la lune. Sans une quelconque lumière pointant directement vers la caméra vous ne verre rien
+d'intéressant. <i>Densité</i> et <I>Turbulence</i> peuvent être utilisés pour obtenir différents effets. Si vous cochez
+la case <i>Arc-en-ciel</i> vous verrez un pied d'arc-en-ciel apparaitre dans le fond de l'image.
+
+<br><A NAME="Sky"><br>
+<b>Ciel</b> : L'onglet <i>Ciel</i> est utilisé pour les lumières, étoiles, les objets céleste et le ciel. C'est un petit peu
+complexe et la première chose à comprendre est quel type de ciels sont utilisables et dans quel but. Dans le menu <i>
+Types de ciel</i> vous trouverez les types suivants :
+<br><br>
+<i>Earth Regular Sky</i> : le modèle complet incluant des éclairages de jour et de nuit, le soleil et la lune. Les nuages et les
+étoiles sont sélectionnables depuis les menus situés sous le menu de type de ciel. Pour changer l'heure et la position du 
+soleil et de la lune vous devez aller dans l'onglet <A HREF="#Povray">POV-Ray</A> et jouer avec les valeurs
+<i>Heure du jour</i> et <i>Direction du Nord</i>.
+<br>
+<i>Earth Static Sky</i> : un modèle très simple où il est toujours midi. Les lumières sont fixes comme un éclairage
+de studio. Les nuages sont sélectionnables depuis le menu sous celui du type de ciel. Les étoiles ne sont pas visibles.
+<br><br>
+<i>Earth Dynamic Sky</i> : un modèle simple où l'éclairage peut être modifié. Les nuages sont sélectionnables depuis 
+le menu sous celui du type de ciel. Les étoiles ne sont pas visibles. Pour changer l'éclairage vous devez aller dans l'onglet 
+<A HREF="#Povray">POV-Ray</A> et jouer avec les valeurs <i>Heure du jour</i> et <i>Direction du Nord</i>.
+Si vous choisissez une heure comprise entre 0-6 ou 18-24 la puissance de l'éclairage est divisée par deux simulant
+ainsi un clair de lune.
+<i>Mapped Sky</i> : comme fond vous pouvez voir un plan sur lequel une image est projetée. L'éclairage ne peut
+pas être changé. Les nuages et les étoiles ne sont pas visibles. Pour sélectionner l'image projetée allez au chapitre
+<A HREF="#More">Plus d'options de scène</A> 
+<br><A NAME="Sea"><br>
+<b>Mer</b> : L'onglet <i>Mer</i> est utilisé pour la mer mais pas pour les rivières. Dans le menu <i>Type d'eau</i> vous
+pouvez sélectionner quelques thèmes pour l'eau. Les valeurs du niveau de l'eau et de la clareté de l'eau sont modifiables
+dans cet onglet. Décocher la case <i>Mer remplie</i> peut parfois s'avérer utile avec certain types de terrain mais relativement
+peu souvent.
+<br><A NAME="Povray"><br>
+<b>POV-Ray</b> : L'onglet <i>POV-Ray</i> est utilisé pour différents usages. Avec le <i>Thème du terrain</i> vous pouvez
+sélectionner comment le terrain va être texturé. La case <i>Rendu automatique</i> ne sera décochée que si ne voulez pas
+obtenir un rendu à chaque fois que vous appuyer sur la touche <i>Appliquer</i>.
+Les valeurs <i>Heure du jour</i> et <i>Direction du Nord</i> ne sont utiles que si vous avez sélectionnez <i>Earth Regular</i> 
+ou <i>Earth Dynamic Sky</i> depuis l'onglet <A HREF="#Sky">Ciel</A>. Pour voir le soleil, premièrement regardez vers
+l'horizon avec la caméra, ensuite choisissez une heure matinale de 6.5 et tournez la direction du Nord de 30° en 30°
+jusqu'à ce que le soleil apparaisse dans le champ de la caméra. Par exemple, si vous regardez vers la direction Z-, la direction
+du Nord pour voir le soleil est 270°. Maintenant pour voir la lune ajoutez simplement 12 heures (6.5+12=18.5) à la valeur
+de l'<i>Heure du jour</i>.
+</p>
+
+<A NAME="More">
+<H2>Plus d'options de scène</H2>
+<P>
+Les options qui peuvent être changées via les boites de dialogues sont seulement les plus utiles. Mais chaque image nécessite
+un réglage fin et quelques paramètres supplémentaires peuvent être trouvés et changés depuis un fichier texte. Le nom de ce
+fichier est <b>defaults.inc</b> et il peut être trouvé soit dans le répertoire <i>/usr/local/share/terraform/include</i> soit dans
+<i>/usr/share/terraform/include</i>. Faites une copie de sauvegarde de ce fichier puis éditez-le avec votre éditeur de texte
+favori. Le fichier est divisé en section conformément aux onglets du dialogue des <i>Options de scène</i> : Global, Camera, Atmosphere, 
+Sky, Water, POV-Ray. Chaque paramètre est accompagné d'une description rapide : Level 1 ou 2 (important ou non), le nom
+du paramètre dans la boite de dialogue, son type et un commentaire. Chaque valeur peut être changée depuis l'instruction 
+<b>#declare</b>. Les sections Global, Camera, Scale et Atmosphere n'ont pas de paramètres additionnels que ne sont pas
+trouvables dans les boites de dialogue, ainsi la description commence avec la section Sky.
+
+<br><A NAME="MoreSky"><br>
+<b>Plus de ciel</b>, section <i>Sky</i> : paramètres additionnels
+<br><br><i>TF_SKY_COLORDESCRIPTION</i> : nom du fichier utilisé pour décrire la coloration du ciel, localisé dans le répertoire
+<i>include/skies/include</i>
+. Lisez le document <A HREF="theme.html">theme</a> si vous voulez créer vos propres fichiers
+de coloration du ciel.
+<br><br><i>TF_SKY_COLORATION</i> : vous pouvez ajouter une coloration permanente au ciel bleu. Pour faire cela changez
+le vecteur couleur RGB (RVB= quantité de Rouge, de Vert, de Bleu). Par exemple pour obtenir un ciel rougeoyant :
+<i>#declare TF_SKY_COLORATION =  <1.0, 0.0, 0.0>;</i>.
+<br><br><i>TF_STARS_BRIGHTNESS</i> : ici vous pouvez augmenter ou diminuer la luminosité des étoiles. Même si vous 
+mettez une forte luminosité vous ne verrez jamais les étoiles entre 7 et 15 heures (elles sont transparentes).
+<br><br><i>TF_LIGHTS_DESCRIPTION</i> : dans le type de ciel <i>Earth Regular Sky</i> il y a une simulation pour l'éclairage
+ambient et global, vous pouvez ici changer le nom du fichier utilisé.
+<br><br><i>TF_HAVE_AMBIENT_LIGHT</i> : ici vous pouvez supprimer l'éclairage ambient.
+<br><br><i>TF_AMBIENT_LIGHT_LUMINOSITY</i> : c'est une option très importante. Ici vous changez la puissance des lumières.
+Ceci peut radicalement changer l'aspect de votre scène
+<br><br><i>TF_HAVE_CAMERA_LIGHT</i> : ici vous pouvez ajouter une lumière au-dessus de votre caméra si vous utilisez
+le type de ciel <i>Earth Regular Sky</i>.
+<br><br><i>TF_CAMERA_LIGHT_LUMINOSITY</i> : la puissance de la lumière précédente.
+<br><br><i>TF_HAVE_CLOUDS_ROOF</i> : créé un nuage comme objet au lieu d'une texture. Expérimental, pas encore de bon résultat.
+<br><br><i>TF_SUN_APPARENT_SIZE</i> : ici vous pouvez augmenter ou diminuer la taille du soleil.
+<br><br><i>TF_SUN_LIGHT_COLOR</i> : ici vous pouvez changer la couleur de la lumière du soleil, pas la couleur du soleil lui-même.
+<br><br><i>TF_MOON_IMAGE</i> : une véritable carte de la lune est appliquée sur l'objet lune. La carte est dans le répertoire
+<i>image_maps</i>. Le format est PNG. Ici vous pouvez changer le nom de l'image appliquée sur l'objet lune. La largeur de l'image
+doit être le double de la hauteur pour éviter les déformations.
+<br><br><i>TF_MOON_TIME_OFFSET</i> : le décalage par défaut entre le soleil et la lune est de 12 heures. Vous pouvez changer
+cela ici si par exemple vous voulez voir la lune de jour.
+<br><br><i>TF_MOON_LIGHT_COLOR</i> : ici vous pouvez changer la couleur de la lumière de la lune, pas la couleur de la lune 
+elle-même.
+<br><br><i>TF_MOON_APPARENT_SIZE</i> : ici vous pouvez augmenter ou diminuer la taille de la lune.
+<br><br><i>TF_MOON_[YZ]_ROT</i> : il y a un algorithme qui calcule et ajuste quel endroit de la lune vous regardez avec
+la caméra. Par défaut cet endroit est au centre de l'image appliquée sur l'objet lune. Vous pouvez changer cela ici. Une rotation Y
+signifie changer le point de visée de gauche à droite et une rotation Z de haut en bas. C'est similaire aux coordonnées géographiques
+de longitude et de latitude. 
+<br><br><i>TF_SKY_IMAGE</i> : l'image plquée sur le plan de fond d'écran du type de ciel <i>Mapped Sky</i>. Le format est TGA.
+L'image est dans le répertoire <i>image_maps</i>. La largeur est 16/9 fois la hauteur pour éviter les déformations.
+<br><br><i>TF_SKY_IMAGE_SCALE</i> : Ici vous pouvez changer l'échelle de l'image précédente. C'est important si votre image
+n'est pas assez grande (en pixels) pour remplir entièrement le fond.
+<br><br><i>TF_SKY_IMAGE_ELEVATION_OFFSET</i> : cette option vous aide a ajuster en hauteur l'image avec la ligne d'horizon.
+
+<br><A NAME="MoreSea"><br>
+<b>Plus de mer/eau</b>, section <i>Water</i> : paramètres additionnels
+<br><br><i>TF_WATER_COLOR</i> : ici vous pouvez changer la couleur de base de l'eau.
+<br><br><i>TF_WATER_BOTTOMCOLOR</i> : avec certains types d'eau vous voyez la partie du terrain située sous l'eau.
+Cette option change la couleur du terrain très profondément sous l'eau.
+<br><br><i>TF_WATER_REFLECTION</i> : une option très importante. Ici vous pouvez changer la réflexivité de l'eau.
+<br><br><i>TF_WATER_FREQUENCY</i> : ici vous ouvez changer la fréquence des ondes de l'eau.
+<br><br><i>TF_WATER_HEIGTH</i> : la hauteur des ondes, ne confondez pas avec le niveau de l'eau 
+<br><br><i>TF_WATER_SMOOTHWAVE</i> : une option qui adoucit l'aspect de l'eau avec une onde additionelle.
+
+<br><A NAME="MorePovray"><br>
+<b>Plus de POV-Ray</b>, section <i>POV-Ray</i> : paramètres additionnels
+<br><br><i>TF_LANDSCAPE_TURBULENCE</i> : ici vous pouvez changer la turbulence globale de la texture appliquée sur le
+terrain.
+<br><br><i>TF_LANDSCAPE_DISTRIBUTION</i> : ici vous pouvez changer la répartition de chaque composant
+(herbe, neige, roche, ...) de la texture aplliquée au terrain. Augmentez ceci et chaque composant vous couvrir
+une partie plus réduite du terrain.
+</P>
+
+<A NAME="Links">
+<H2>Quelques liens utiles</H2>
+<P>
+<A HREF="http://www.povray.org/">POV-Ray site officiel </A>
+<br><A HREF="http://www.povray.org/documentation/view/toc/">POV-Ray documentation, Table des matières</A>
+</P>
+
+</BODY>
+</HTML>

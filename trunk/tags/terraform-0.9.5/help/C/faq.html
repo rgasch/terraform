@@ -1,0 +1,527 @@
+<HTML>
+<HEAD><TITLE>Terraform Frequently Asked Questions</TITLE></HEAD>
+
+<BODY BGCOLOR=#FFFFFF TEXT=#000000 LINK=#000000 ALINK=#000000 VLINK=#000000>
+
+<H1>Terraform Frequently Asked Questions</H1>
+
+<I>Author: Robert Gasch</I>, <I>Updated by David A. Bartold</I>
+
+<P>
+This is the FAQ for Terraform, an interactive fractal landscape
+generator/modeller. Chances are you can encounter a lot more problems
+than I've managed to answer here, so if have any suggestions
+concerning this document, drop me an email.
+</P>
+
+<HR NOSHADE>
+
+<UL>
+<LI><A HREF="#Overview">Terraform Overview</A>
+    <UL>
+    <LI><A HREF="#What">What is Terraform?</A>
+    <LI><A HREF="#Systems">What systems does it run under?</A>
+    <LI><A HREF="#Dependencies">What dependencies does it have?</A>
+    <LI><A HREF="#Distributed">How is it distributed?</A>
+    <LI><A HREF="#Why">Why are you writing it?</A>
+    <LI><A HREF="#Complete">How complete is it?</A>
+    <LI><A HREF="#Goal">What is your goal/mission with it?</A>
+    <LI><A HREF="#Photo">What about Photorealistic output?</A>
+    <LI><A HREF="#Contribute">How can I contribute?</A>
+    <LI><A HREF="#Call">A Call to Arms!</A>
+    <LI><A HREF="#Wow">Wow. What are you on?</A>
+    <LI><A HREF="#Credits">Credits</A>
+    </UL>
+
+<LI><A HREF="#Using">Running and Using Terraform</A>
+    <UL>
+    <LI><A HREF="#Transformations">Is there any information about all
+        the transformations terraform supports?</A>
+    <LI><A HREF="#Support">What file formats does Terraform support?</A>
+    <LI><A HREF="#Themes">Does terraform support Gtk+ themes?</A>
+    <LI><A HREF="#POVRay">POV-Ray render fails</A>
+    <LI><A HREF="#Customize">How can I customize the way the POVRay image
+        is rendered?</A>
+    </UL>
+                
+<LI><A HREF="#Building">Building Terraform and General Troubleshooting</A>
+    <UL>
+    <LI><A HREF="#Compile">How can I compile terraform?</A>
+    <LI><A HREF="#Wrong">Something's wrong. Where should I look first?</A>
+    <LI><A HREF="#BugReport">How do I submit a bug report and why should I
+        bother to do so?</A>
+    <LI><A HREF="#Debug">Something doesn't work. How can I see what's going
+        on?</A>
+    <LI><A HREF="#LoadCrash">Terraform crashes while loading a file</A>
+    <LI><A HREF="#Crash">Terraform crashes. What useful information can
+        I provide to the author?</A>
+    <LI><A HREF="#Assert">Terraform exits with a failed assertion</A>
+    </UL>
+</UL>
+
+<A NAME="Overview">
+<H2>Terraform Overview</H2>
+<P>
+This section covers questions that pertain to Terraform as a whole.
+</P>
+   
+<A NAME="What">
+<H3>What is Terraform?</H3>
+<P>
+Terraform is an interactive fractal landscape generator/viewer. It
+allows you to create fractal terrain (also called a height field) and
+transform it using a number of algorithms. It is meant to be a tool
+for those who want to generate digital terrain models for use in
+raytracing or other simulations. It's written in C using the GNOME
+libraries and as such has a non-sucking graphical
+user interface.
+</P>
+   
+<A NAME="Systems">
+<H3>What systems does it run under?</H3>
+<P>
+Terraform was written under Linux (or GNU/Linux if you're an RMS
+faithful) and should run under any UNIX type system that has the
+proper libraries and compilers installed. The following are a list of
+systems that I know terraform has successfully been compiled under
+</P>
+
+<UL>   
+<LI>Linux ix86 Debian 2.1 glibc
+<LI>Linux ix86 Mandrake 7.0 glibc (using gcc-2.95)
+<LI>Linux ix86 Mandrake 6.0 glibc (using pgcc-2.91.66, gcc-2.95)
+<LI>Linux ix86 Mandrake 6.1 glibc (using pgcc-2.91.66, gcc-2.95)
+<LI>Linux ix86 Redhat 5.2 glibc (using egcs-2.91.57)
+<LI>Linux ix86 Redhat 6.0 glibc (using egcs-2.91.66)
+<LI>Solaris Sparc 2.6 (using egcs 2.91.66)
+<LI>Solaris Sparc 2.7 (using gcc 2.8.1)
+</UL>
+       
+<P>
+The compiler versions given above are intended as a reference point
+for a particular platform and the accompanying compiler. Other
+compiler versions of both
+<A HREF="http://www.gni.ai.mit.edu/software/gcc/gcc.html">gcc</A> and
+<A HREF="http://egcs.cygnus.com/">egcs</A> may work just as well
+or even better, especially if the version is higher than what's listed
+above. The configure scripts checks wether your system has all
+required libraries installed and whether your compiler supports all
+required ANSI C features.
+</P>
+
+<A NAME="Dependencies">
+<H3>What dependencies does it have?</H3>
+
+<P>
+Terraform requires the following:
+</P>
+   
+<UL>
+<LI><A HREF="http://www.gnome.org/">The GNOME Desktop, version 1.2</A>
+<LI><A HREF="http://www.gnome.org/">GNOME Print v0.25 or greater</A>
+<LI><A HREF="http://www.gnome.org/">GNOME XML</A>
+</UL>
+
+<P>
+The configure scripts checks wether all necessary compiler features
+are supported on your system. Typically, you should try to have the
+most recent version of the required libraries installed on your
+system.
+</P>
+
+<A NAME="Distributed">
+<H3>How is it distributed?</H3>
+
+<P>
+Terraform is released under the
+<A HREF="http://www.gnu.org/copyleft/gpl.html">GNU GPL</A>
+and as such comes with
+full source code. You basically get everything I have. Terraform is
+available from it's home page
+<A HREF="http://terraform.sourceforge.net">http://terraform.sourceforge.net</A>
+and possibly from other places such as the
+<A HREF="http://metalab.unc.edu/pub/Linux/X11/apps/">Sunsite gtkbuffet mirror</A>
+and
+<A HREF="http://www.linuxberg.com/">Linuxberg</A>.
+</P>
+
+<P>
+The rationale for using the GPL is simple: I have profitted
+enourmously (as has the entire Linux community) from the availability
+of free software that comes with source code. I wish for this process
+to continue and see the GPL as the mother of open source software
+licences which will assure the continued availablilty/openness of the
+source code.
+</P>
+
+<A NAME="Why">
+<H3>Why are you writing it?</H3>
+
+<P>
+Because I think coding is fun and I have no other life :-) ... the
+truth is that I was looking for something like John Beale's gforge and
+hf-lab but with a nicer user interface. John's tools are very good but
+are command-line driven, which is fine for most things but not ideal
+for graphical things.
+</P>
+
+<A NAME="Complete">
+<H3>How complete is it?</H3>
+
+<P>
+Well, it's slowly getting there. The first public release (0.1.0,
+released 07DEC98) was very rudimentary and contained lots of bugs.
+</P>
+
+<P>
+As of release 0.2.10 (relased 07APR1999) things look a lot better:
+Terraform is now a lot more complete and doesn't crash as much while
+having gained lots of functionality.
+</P>
+
+<P>
+As of release 0.3.1 (released 23MAY1999) things look better again. The
+dialogs have been upgraded to a real time preview dialog and I've
+fixed quite a few bugs, some of which caused seemingly random crashes
+on some platforms.
+</P>
+
+<P>
+As of release 0.4.4 (released 28OCT1999) we have a pretty complete set
+of dialogs and an engine that can keep mulitple height fields open in
+parallel.
+</P>
+
+<P>
+As of release 0.5.0 (released 20DEC1999) the source code is a lot
+saner/cleaner and terraform now supports internationalization.
+</P>
+
+<P>
+As of release 0.6.x (Feb2000 or later) the most basic things work,
+most dialogs are fixed/finished, the app doesn't crash much anymore
+and things generally work OK, execpt for the occasional bug that
+either hits terraform or Gtk--.
+</P>
+
+<P>
+As of release 0.7.x (18JUN2000 or later) POV-Ray scenes were added
+and the beginnings of a selection interface emerged.  The new operation
+Move was added and many bugs were fixed.
+</P>
+
+<P>
+The current version (0.8.x) runs under the GNOME desktop, has
+Glade generated interface code, new contour line code, its own
+native file format, faster terrain view screen updates, fewer bugs,
+and online help.
+</P>
+
+<P>
+It's come quite a way but still has ways to go before I have it doing
+what I want. Please realize that I have a job and a life and that I'm
+writing terraform after work at night or on weekends. As such my
+progress will at best be steady but certainly not lightning-fast.
+</P>
+   
+<A NAME="Goal">
+<H3>What is your goal/mission with it?</H3>
+
+<P>
+While I don't have an exactly spelled out vision (ie: I didn't sit
+down and make an actual design document), I would like it to
+eventually become the GIMP of digital terrain. Here are some things
+that I eventually want terraform to have (if you're not sure what I
+mean take a look at <A HREF="http://www.gimp.org/">The GIMP</A>,
+where many of these ideas come from):
+</P>
+
+<UL>
+<LI>ability to 'draw' your height field with different 'brushes'
+</UL>
+
+<A NAME="Photo">
+<H3>What about Photorealistic output?</H3>
+
+<P>
+I typically use <A HREF="http://www.povray.org/">POV-Ray</A> to render
+the landscapes I generate. A while ago though, on www.slashdot.org there
+was mention of a Windows (blah!) application called 'terragen' which produces
+photorealistic output. I haven't downloaded/installed it but the web
+page they have looks very nice. Of course, in the wonderful world on
+MS Windows, they don't seem to have any intention of releasing the
+source.
+</P>
+
+<P>   
+If the lack of finished native realistic output annoys you, I invite
+you to respond to my Call to Arms below.
+</P>
+
+<A NAME="Contribute">
+<H3>How can I contribute?</H3>
+
+<P>
+Making Terraform into a complete and polished application will take
+some major (or at least persistent) effort on my part (ie: don't hold
+your breath waiting for verion 1.0). As such, if you can contribute
+anything (code, fixes, suggestions, documentation), read my A Call to
+Arms below.
+</P>
+
+<A NAME="Call">
+<H3>A Call to Arms!</H3>
+
+<P>
+If you can contribute anything (code, fixes, documentation or even
+suggestions) I would appreciate hearing from you. Part of the open
+source philosophy seems to be "Do it yourself" so here's your chance.
+</P>
+
+<P>
+Lets prove to the world that the whole open source thing really works
+and that we can make something that isn't put to shame by terragen (or
+maybe even puts terragen to shame?). If you are able and willing help
+out in any way with extending terraform to produce photorealistic
+output of landscapes, please contact me.
+</P>
+
+<P>
+We've made some progress on this front over the past few months.
+POV-Ray support is now pretty good and is still being worked on. OpenGL
+support went from butt-ugly to basic-but-acceptable, and we're working
+(or at least thinking about) integration with some other cool front
+ends.
+</P>
+
+<A NAME="Wow">
+<H3>Wow. What are you on?</H3>
+
+<P>
+The crack pipe, lots of illegal drugs or just a mission. You pick the
+one that sounds most appropriate.
+</P>
+
+<A NAME="Credits">
+<H3>Credits</H3>
+
+<P>
+Terraform in many respects build on publicly available code. See the
+AUTHORS for details on what was stolen from where.
+</P>
+
+<A NAME="Using">
+<H2>Running and Using Terraform</H2>
+
+<P>
+This section covers general questions you may have about using
+particular aspects of using Terraform.
+</P>
+
+<A NAME="Transformations">
+<H3>Is there any information about all the transformations terraform supports?</H3>
+
+<P>
+Check out the online documentation.  It contains a brief description of
+what the different operations really do. If that doesn't satisfy your
+curiosity, there's always the source code ...
+</P>
+
+<A NAME="Support">
+<H3>What file formats does Terraform support?</H3>
+
+Supported file types:
+<TABLE>
+<TR><TD>File Type</TD>        <TD>Read</TD> <TD>Write</TD></TR>
+<TR><TD>Terraform Native</TD> <TD>Y</TD>    <TD>Y</TD></TR>
+<TR><TD>BMP</TD>              <TD>Y</TD>    <TD>N</TD></TR>
+<TR><TD>DEM</TD>              <TD>Y</TD>    <TD>N</TD></TR>
+<TR><TD>GTOPO30</TD>          <TD>Y</TD>    <TD>N</TD></TR>
+<TR><TD>Matlab Binary</TD>    <TD>Y</TD>    <TD>Y</TD></TR>
+<TR><TD>OCT</TD>              <TD>Y</TD>    <TD>Y</TD></TR>
+<TR><TD>PGM ASCII</TD>        <TD>Y</TD>    <TD>Y</TD></TR>
+<TR><TD>PGM BINARY</TD>       <TD>Y</TD>    <TD>Y</TD></TR>
+<TR><TD>PNG</TD>              <TD>Y</TD>    <TD>N</TD></TR>
+<TR><TD>TIFF</TD>             <TD>Y</TD>    <TD>N</TD></TR>
+<TR><TD>TGA</TD>              <TD>Y</TD>    <TD>Y</TD></TR>
+<TR><TD>AutoCAD Modeller</TD> <TD>N</TD>    <TD>Y</TD></TR>
+</TABLE>
+
+<A NAME="Themes">
+<H3>Does terraform support themes?</H3>
+
+<P>
+Yes. As of version 0.3.1 terraform properly supports
+<A HREF="http://gtk.themes.org/">Gtk themes</A>.
+If you have a gtk theme on your system, you can enable it for your
+user by doing the following:
+</P>
+   
+<PRE>
+cp /usr/whereever/THEMENAME/gtk/gtkrc $HOME/.gtkrc
+</PRE>
+
+<P>
+If you get errors about being unable to open theme files, you should
+edit your .gtkrc and add a line like this
+</P>
+
+<PRE>
+pixmap_path "/usr/whereever/THEMENAME/gtk"
+</PRE>
+
+<P>
+at the *beginning* of this file. Terraform should now load the theme
+upon startup.
+</P>
+
+<A NAME="POVRay">
+<H3>POV-Ray render fails</H3>
+
+<P>
+You can get more information about the execution problems by clicking
+the "Details" on an error dialog box, if one appears.
+There are several common reasons why POV-Ray might fail:
+</P>
+
+<UL>
+<LI>You must use POV-Ray version 3.1 or greater.  Old 3.0 versions
+    will not work.
+<LI>Make sure Terraform can find the X capable POV-Ray executable.
+    In the global options, click on the POV-Ray tab and make sure it
+    points to the right executable.  The most popular names are
+    "x-povray" and "povray-x".  Sometimes it's just "povray".
+<LI>Make sure POV-Ray can find its standard include files.
+    In your ~/.povrayrc file there should be a line similar to:
+    "Library_Path=/usr/share/povray31/include".
+</UL>
+
+<A NAME="Customize">
+<H3>How can I customize the way the POVRay image is rendered?</H3>
+
+<P>
+You can create your own terrain theme file and put it in the
+themes data directory (usually /usr/share/terraform/themes).  The
+next time you open up the Edit > Options dialog box, the theme
+combo box will display your new template file as an option.
+For more information on designing your own textures, see the
+<A HREF="templates.html">writing your own POV-Ray templates</A>
+document.
+
+<A NAME="Building">
+<H2>Building Terraform and General Troubleshooting</H2>
+
+<P>
+This sections covers some of the things that may go wrong when you try
+to build or run terraform.
+</P>
+
+<A NAME="Compile">
+<H3>How can I compile terraform?</H3>
+
+<P>
+Assuming you've downloaded the source archive, you should be able to
+do the following:
+</P>
+
+<P>
+tar -xvzf terraform-0.x.x.tgz
+./configure
+make && make install
+</P>
+
+<P>
+If you are running SuSE, it is recommended to run ./configure with these
+command-line arguments: "--prefix=/opt/gnome --sysconfdir=/etc/opt/gnome".
+</P>
+
+<A NAME="Wrong">
+<H3>Something's wrong. Where should I look first?</H3>
+
+<P>
+Since Terraform builds on GNOME, verify that GNOME and its development
+packages are installed on your system.
+</P>
+
+<A NAME="BugReport">
+<H3>How do I submit a bug report and why should I bother to do so?</H3>
+
+<P>
+How: Mail rng@chello.nl and describe what you did and what went wrong.
+</P>
+
+<P>
+Why: In my experience, lots of subtle little bugs only turn up when
+compiling the code on another OS or hardware platform. As such, if
+you're not on an Intel Glibc Linux system, and something breaks, I
+would appreciate a mail; especially so, if it's in a rather obvious
+place as this usually indicates a bug that might just not appear on my
+system. Your bug reports help me make Terraform a better application.
+</P>
+
+<A NAME="Debug">
+<H3>Something doesn't work. How can I see what's going on?</H3>
+
+<P>
+Try running Terraform from gdb and do a backtrace "bt" to view
+the callstack.
+</P>
+
+<A NAME="LoadCrash">
+<H3>Terraform crashes while loading a file.</H3>
+
+<P>
+Make sure that the extension of your filename matches the actual file
+type. Ie: don't try to rename a *.tga file to a *.bmp file and then
+load it into terraform. This is currently considered a feature.
+</P>
+
+<A NAME="Crash">
+<H3>Terraform crashes. What useful information can I provide to the author?</H3>
+
+<P>
+If you've downloaded the precompiled executable you can't do much at
+this point as the executable is stripped of all debug information. The
+best thing is probably to send me an email describing what you did.
+</P>
+
+<P>
+If you compiled your own executable from the source code, please
+recompile terraform with the -g flag (add the -g flag to the TF_CFLAGS
+and TF_CXXFLAGS variables in terraform/src/Makefile). Then use gdb (or
+any other debugger) to send me a stack trace:
+</P>
+
+<PRE>
+gdb ./terraform
+r [append any necessary options here]
+.... this will run until it crashes ...
+bt
+q
+</PRE>
+
+<P>
+The bt command should give you a stack trace which should help me
+figure out what went wrong. You can use ./configure --disable-debug to
+compile an executable without the built in stack trace facility.
+</P>
+
+<P>
+If you downloaded the static executable, don't bother doing this as
+your executable has been stripped off all debug information; as such
+the information above only applies if you compiled your own
+executable. Thank you for your cooperation.
+</P>
+
+
+<A NAME="Assert">
+<H3>Terraform exits with a failed assertion</H3>
+
+<P>
+This is a situation which should not occur; it signifies a logic
+error somewhere in the application. Please mail me what you did so I
+can reproduce and fix the error.
+</P>
+
+</BODY>
+</HTML>

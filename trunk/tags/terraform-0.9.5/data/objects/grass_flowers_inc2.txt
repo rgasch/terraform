@@ -1,0 +1,213 @@
+// called by grass_flowers_inc1.inc to create flowers
+// Grass Plugin for POVRay
+// by Gordon (gbentley@birdcameron.com.au)
+
+#local Stems = MinStems + ((MaxStems-MinStems)*rand(R1));
+#local StemI = 0;
+#while (StemI < Stems)
+          #local StemAngle = MinStemAngle + ((MaxStemAngle-MinStemAngle)*rand(R1));
+          #local StemHeight = MeanStemHeight*(1+((rand(R1)-0.5)*StemHeightVar*2));
+          #local StemWidth = MeanStemWidth*(1+((rand(R1)-0.5)*StemWidthVar*2));
+          #local StemBearing = rand(R1)*360;
+          #local StemCurve = MinStemCurve + ((MaxStemCurve-MinStemCurve)*rand(R1));
+          #local StemSegs = MinStemSegs + ((MaxStemSegs-MinStemSegs)*rand(R1));
+          #local StemWidthStep = (StemWidth*(1-StemTaper))/StemSegs;
+          #local CurvePerSeg = StemCurve/StemSegs;
+          #local SegCurve = CurvePerSeg;
+          #local PBot = <XOff, YOff, ZT0>;
+          #local SegLen = StemHeight * (pow((1/StemCurvePower),StemSegs-1)/(pow((1/StemCurvePower),StemSegs)-1)) *((1/StemCurvePower)-1);
+          #local PTop = PBot + vrotate(<0,0,SegLen>,<StemAngle,0,StemBearing>);
+          #local NBot0 = vnormalize(vrotate(<0,1,0>, <StemAngle/2,0,StemBearing>));
+          #local NBot1 = vnormalize(vrotate(<0.866,-0.5,0>, <StemAngle/2,0,StemBearing>));
+          #local NBot2 = vnormalize(vrotate(<-0.866,-0.5,0>, <StemAngle/2,0,StemBearing>));
+          #local NTop0 = vnormalize(vrotate(<0,1,0>, <StemAngle/2,0,StemBearing>));
+          #local NTop1 = vnormalize(vrotate(<0.866,-0.5,0>, <(StemAngle+SegCurve)/2,0,StemBearing>));
+          #local NTop2 = vnormalize(vrotate(<-0.866,-0.5,0>, <(StemAngle+SegCurve)/2,0,StemBearing>));
+          #local StemSeg = 0;
+          #while (StemSeg<StemSegs)
+                 smooth_triangle{
+                   PBot+(NBot0*(StemWidth/2)), NBot0,
+                   PBot+(NBot1*(StemWidth/2)), NBot1,
+                   PTop+(NTop0*((StemWidth-StemWidthStep)/2)), NTop0
+                   texture{ Grass_Text}
+                 }
+                 smooth_triangle{
+                   PTop+(NTop1*((StemWidth-StemWidthStep)/2)), NTop1,
+                   PTop+(NTop0*((StemWidth-StemWidthStep)/2)), NTop0,
+                   PBot+(NBot1*(StemWidth/2)), NBot1
+                   texture{ Grass_Text}
+                 }
+                smooth_triangle{
+                   PBot+(NBot1*(StemWidth/2)), NBot1,
+                   PBot+(NBot2*(StemWidth/2)), NBot2,
+                   PTop+(NTop1*((StemWidth-StemWidthStep)/2)), NTop1
+                   texture{ Grass_Text}
+                 }
+                 smooth_triangle{
+                   PTop+(NTop2*((StemWidth-StemWidthStep)/2)), NTop2,
+                   PTop+(NTop1*((StemWidth-StemWidthStep)/2)), NTop1,
+                   PBot+(NBot2*(StemWidth/2)), NBot2
+                   texture{ Grass_Text}
+                 }
+                smooth_triangle{
+                   PBot+(NBot2*(StemWidth/2)), NBot2,
+                   PBot+(NBot0*(StemWidth/2)), NBot0,
+                   PTop+(NTop2*((StemWidth-StemWidthStep)/2)), NTop2
+                   texture{ Grass_Text}
+                 }
+                 smooth_triangle{
+                   PTop+(NTop0*((StemWidth-StemWidthStep)/2)), NTop0,
+                   PTop+(NTop2*((StemWidth-StemWidthStep)/2)), NTop2,
+                   PBot+(NBot0*(StemWidth/2)), NBot0
+                   texture{ Grass_Text}
+                 }
+                 #local SegLen = SegLen * StemCurvePower;
+                 #local PBot = PTop;
+                 #local PTop = PBot + vrotate(vrotate(<0,0,SegLen>, <SegCurve,0,0>), <StemAngle,0,StemBearing>);
+                 #local NBot0 = NTop0;
+                 #local NBot1 = NTop1;
+                 #local NBot2 = NTop2;
+                 #local NTop0= vrotate(
+                                  vrotate(
+                                    vrotate(NTop0
+                                           ,<0,0,StemBearing*-1>
+                                          )
+                                        ,<CurvePerSeg,0,0>
+                                        )
+                                      ,<0,0,StemBearing>
+                                       );
+                 #local NTop1= vrotate(
+                                  vrotate(
+                                    vrotate(NTop1
+                                           ,<0,0,StemBearing*-1>
+                                           )
+                                         ,<CurvePerSeg,0,0>
+                                         )
+                                       ,<0,0,StemBearing>
+                                       );
+                 #local NTop2= vrotate(
+                                  vrotate(
+                                    vrotate(NTop2
+                                           ,<0,0,StemBearing*-1>
+                                           )
+                                         ,<CurvePerSeg,0,0>
+                                         )
+                                       ,<0,0,StemBearing>
+                                       );
+                 #declare SegCurve = SegCurve + CurvePerSeg;
+                 #declare StemWidth = StemWidth - StemWidthStep;
+                 #declare StemSeg = StemSeg + 1;
+                 #declare NumTri = NumTri + 6;
+          #end
+          #local PetSize = 1.0 + ((rand(R1)*2*FlowerSizeVar)-FlowerSizeVar);
+          #local FlowerAxis = vnormalize(vcross(NBot0,NBot1));
+          #local PBot = PBot + (FlowerAxis*SepalHght*-0.75);
+          #local PetCentP0 = PBot + (FlowerAxis*PetCentHght*-1);
+          #local SepP0 = PBot + (FlowerAxis*SepalHght);
+          #local PetRow = 0;
+          #while (PetRow < PetRows)
+             #local PetBase = PBot - (FlowerAxis*(PetRow*PetRowOff));
+             #local PetSize = PetSize * PetRowScale;
+             #local PetI = 0;
+             #while (PetI<PetNum)
+                 #local PetSideVect = vnormalize(vaxis_rotate(vnormalize(vcross(NBot0,FlowerAxis)),FlowerAxis,((PetI/PetNum)*360)+(PetRowRot*PetRow)));
+                 #local PetVBase = vnormalize(vaxis_rotate(FlowerAxis,PetSideVect,90-(PetAng+(PetRowAngOff*PetRow))));
+                 #local PetAxis = vnormalize(vcross(PetSideVect,PetVBase));
+                 #local PetSideVect = vnormalize(vaxis_rotate(PetSideVect, PetAxis, PetTwist));
+                 #local PetVBase = vnormalize(vaxis_rotate(PetVBase, PetAxis, PetTwist));
+                 #local PetP0 = PetBase + (PetSideVect*PetWidB*PetSize*0.5);
+                 #local PetP1 = PetBase + (PetSideVect*PetWidB*PetSize*-0.5);
+                 #local PetP2 = ((PetP0+PetP1)/2)
+                                + (PetAxis*PetBendLen*PetSize)
+                                + (vnormalize(vaxis_rotate(PetSideVect,PetAxis,PetArch))*PetWidL*PetSize);
+                 #local PetP3 = ((PetP0+PetP1)/2)
+                                + (PetAxis*PetBendLen*PetSize);
+                 #local PetP4 = ((PetP0+PetP1)/2)
+                                + (PetAxis*PetBendLen*PetSize)
+                                + (vnormalize(vaxis_rotate(PetSideVect,PetAxis,PetArch*-1))*PetWidR*PetSize*-1);
+                 #local PetP5 = PetP3
+                                + (vnormalize(vaxis_rotate(PetAxis,PetSideVect,PetKink*-1))*(PetLen-PetBendLen)*PetSize)
+                                + (PetSideVect*PetWidT*PetSize*0.5);
+                 #local PetP6 = PetP3
+                                + (vnormalize(vaxis_rotate(PetAxis,PetSideVect,PetKink*-1))*(PetLen-PetBendLen)*PetSize)
+                                + (PetSideVect*PetWidT*PetSize*-0.5);
+                 #local PetP7 = ((PetP5+PetP6)/2)
+                                + (vnormalize(vaxis_rotate(PetAxis,PetSideVect,(PetKink+PetTipKink)*-1))*(PetTipLen)*PetSize);
+                 #local PetN0 = vaxis_rotate(PetVBase,PetAxis,PetArch);
+                 #local PetN1 = vaxis_rotate(PetVBase,PetAxis,PetArch*-1);
+                 #local PetN2 = vaxis_rotate(PetN0,PetSideVect,PetKink/-2);
+                 #local PetN3 = vaxis_rotate(PetVBase,PetSideVect,PetKink/-2);
+                 #local PetN4 = vaxis_rotate(PetN3,PetSideVect,PetKink/-2);
+                 #local PetN5 = vaxis_rotate(PetN2,PetSideVect,PetKink/-2);
+                 #local PetN6 = vaxis_rotate(PetN4,PetSideVect,PetKink/-2);
+                 #local PetN7 = vaxis_rotate(PetN3,PetSideVect,PetTipKink/-2);
+                 smooth_triangle {
+                                 PetP0, PetN0,
+                                 PetP3, PetN3,
+                                 PetP1, PetN1
+                                 texture{ #if(PetRow=0) PetalText0 #else PetalText1 #end }
+                                 }
+                 smooth_triangle {
+                                 PetP0, PetN0,
+                                 PetP2, PetN2,
+                                 PetP3, PetN3
+                                 texture{ #if(PetRow=0) PetalText0 #else PetalText1 #end }
+                                 }
+                 smooth_triangle {
+                                 PetP1, PetN1,
+                                 PetP3, PetN3,
+                                 PetP4, PetN4
+                                 texture{ #if(PetRow=0) PetalText0 #else PetalText1 #end }
+                                 }
+                 smooth_triangle {
+                                 PetP2, PetN2,
+                                 PetP3, PetN3,
+                                 PetP5, PetN5
+                                 texture{ #if(PetRow=0) PetalText0 #else PetalText1 #end }
+                                 }
+                 smooth_triangle {
+                                 PetP3, PetN3,
+                                 PetP5, PetN5,
+                                 PetP6, PetN6
+                                 texture{ #if(PetRow=0) PetalText0 #else PetalText1 #end }
+                                 }
+                 smooth_triangle {
+                                 PetP3, PetN3,
+                                 PetP6, PetN6,
+                                 PetP4, PetN4
+                                 texture{ #if(PetRow=0) PetalText0 #else PetalText1 #end }
+                                 }
+                 smooth_triangle {
+                                 PetP5, PetN5,
+                                 PetP6, PetN6,
+                                 PetP7, PetN7
+                                 texture{ #if(PetRow=0) PetalText0 #else PetalText1 #end }
+                                 }
+                 #if (PetRow = 0)
+                     #local PetCentP1 = PBot + vaxis_rotate((PetSideVect*PetCentRad),FlowerAxis,90-(180/PetNum));
+                     #local PetCentP2 = PBot + vaxis_rotate((PetSideVect*PetCentRad),FlowerAxis,90+(180/PetNum));
+                     #local SepP1 = PBot + vaxis_rotate((PetSideVect*SepalRad),FlowerAxis,90-(180/PetNum));
+                     #local SepP2 = PBot + vaxis_rotate((PetSideVect*SepalRad),FlowerAxis,90+(180/PetNum));
+                     triangle {
+                          PetCentP0, PetCentP1, PetCentP2
+                          texture{ PetCentreText }
+                          }
+                     triangle {
+                          SepP0, SepP1, SepP2
+                          texture{ SepalText }
+                          }
+                     #declare NumTri = NumTri + 2;
+                 #end
+
+                 #local PetI = PetI + 1;
+                 #declare NumTri = NumTri + 7;
+             #end
+             #local PetRow = PetRow + 1;
+          #end
+          #local StemI = StemI + 1;
+#end
+
+
+
+
+

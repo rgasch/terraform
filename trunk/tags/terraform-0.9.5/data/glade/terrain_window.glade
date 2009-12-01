@@ -1,0 +1,1111 @@
+<?xml version="1.0" standalone="no"?> <!--*- mode: xml -*-->
+<!DOCTYPE glade-interface SYSTEM "http://glade.gnome.org/glade-2.0.dtd">
+
+<glade-interface>
+<requires lib="gnome"/>
+
+<widget class="GtkWindow" id="terrain_window">
+  <property name="visible">False</property>
+  <property name="can_focus">True</property>
+  <property name="title" translatable="yes">Terrain</property>
+  <property name="type">GTK_WINDOW_TOPLEVEL</property>
+  <property name="window_position">GTK_WIN_POS_NONE</property>
+  <property name="modal">False</property>
+  <property name="resizable">True</property>
+  <property name="destroy_with_parent">False</property>
+  <signal name="delete_event" handler="on_terrain_window_delete_event"/>
+
+  <child>
+    <widget class="GtkVBox" id="vbox128">
+      <property name="visible">True</property>
+      <property name="homogeneous">False</property>
+      <property name="spacing">0</property>
+
+      <child>
+	<widget class="GtkMenuBar" id="menubar">
+	  <property name="visible">True</property>
+
+	  <child>
+	    <widget class="GtkMenuItem" id="file">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">_File</property>
+	      <property name="use_underline">True</property>
+
+	      <child>
+		<widget class="GtkMenu" id="file_menu">
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="save">
+		      <property name="visible">True</property>
+		      <property name="stock_item">GNOMEUIINFO_MENU_SAVE_ITEM</property>
+		      <signal name="activate" handler="on_terrain_save_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="save_as">
+		      <property name="visible">True</property>
+		      <property name="stock_item">GNOMEUIINFO_MENU_SAVE_AS_ITEM</property>
+		      <signal name="activate" handler="on_terrain_save_as_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="render">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Render</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="render_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="native">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Native...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_native_activate"/>
+			      <accelerator key="N" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="render_povray">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_POV-Ray...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_render_povray_activate"/>
+			      <accelerator key="P" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="export">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Export</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="export_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="export_terrain">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Terrain</property>
+			      <property name="use_underline">True</property>
+
+			      <child>
+				<widget class="GtkMenu" id="export_terrain_menu">
+
+				  <child>
+				    <widget class="GtkMenuItem" id="export_gimp">
+				      <property name="visible">True</property>
+				      <property name="label" translatable="yes">To _GIMP...</property>
+				      <property name="use_underline">True</property>
+				      <signal name="activate" handler="on_terrain_export_gimp_activate"/>
+				    </widget>
+				  </child>
+
+				  <child>
+				    <widget class="GtkMenuItem" id="export_povray">
+				      <property name="visible">True</property>
+				      <property name="label" translatable="yes">To _POV-Ray</property>
+				      <property name="use_underline">True</property>
+				      <signal name="activate" handler="on_terrain_export_povray_activate"/>
+				    </widget>
+				  </child>
+				</widget>
+			      </child>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="export_view">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_View...</property>
+			      <property name="use_underline">True</property>
+
+			      <child>
+				<widget class="GtkMenu" id="export_view_menu">
+
+				  <child>
+				    <widget class="GtkMenuItem" id="to_file_1">
+				      <property name="visible">True</property>
+				      <property name="label" translatable="yes">To _File ...</property>
+				      <property name="use_underline">True</property>
+				      <signal name="activate" handler="on_terrain_view_export_file_activate"/>
+				    </widget>
+				  </child>
+
+				  <child>
+				    <widget class="GtkMenuItem" id="to_gimp">
+				      <property name="visible">True</property>
+				      <property name="label" translatable="yes">_To GIMP</property>
+				      <property name="use_underline">True</property>
+				      <signal name="activate" handler="on_terrain_view_export_gimp_activate"/>
+				    </widget>
+				  </child>
+				</widget>
+			      </child>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="print">
+		      <property name="visible">True</property>
+		      <property name="stock_item">GNOMEUIINFO_MENU_PRINT_ITEM</property>
+		      <signal name="activate" handler="on_terrain_print_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="print_preview">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Print Preview...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_terrain_print_preview_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="separator5">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="close">
+		      <property name="visible">True</property>
+		      <property name="stock_item">GNOMEUIINFO_MENU_CLOSE_ITEM</property>
+		      <signal name="activate" handler="on_terrain_close_activate"/>
+		    </widget>
+		  </child>
+		</widget>
+	      </child>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkMenuItem" id="edit1">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">_Edit</property>
+	      <property name="use_underline">True</property>
+
+	      <child>
+		<widget class="GtkMenu" id="edit1_menu">
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="undo">
+		      <property name="visible">True</property>
+		      <property name="stock_item">GNOMEUIINFO_MENU_UNDO_ITEM</property>
+		      <signal name="activate" handler="on_terrain_undo_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="clone">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Clone...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_terrain_clone_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="separator12">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="render_options">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Render Options...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_terrain_render_options_activate"/>
+		      <accelerator key="R" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="scene_options">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Scene Options...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_terrain_scene_options_activate"/>
+		      <accelerator key="N" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="terrain_options">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Terrain Options...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_terrain_terrain_options_activate"/>
+		      <accelerator key="T" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="separator11">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="terrain_info">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Terrain _Info...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_terrain_info_activate"/>
+		    </widget>
+		  </child>
+		</widget>
+	      </child>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkMenuItem" id="select">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">_Select</property>
+	      <property name="use_underline">True</property>
+
+	      <child>
+		<widget class="GtkMenu" id="select_menu">
+
+		  <child>
+		    <widget class="GtkMenuItem" id="select_invert">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Invert</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_select_invert_activate"/>
+		      <accelerator key="I" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="select_all">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_All</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_select_all_activate"/>
+		      <accelerator key="A" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="select_none">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_None</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_select_none_activate"/>
+		      <accelerator key="N" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="by_height">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_By Height...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_by_height_activate"/>
+		      <accelerator key="H" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="separator7">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="feather">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Feather...</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_select_feather_activate"/>
+		      <accelerator key="F" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK" signal="activate"/>
+		    </widget>
+		  </child>
+		</widget>
+	      </child>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkMenuItem" id="operations1">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">_Operations</property>
+	      <property name="use_underline">True</property>
+
+	      <child>
+		<widget class="GtkMenu" id="operations1_menu">
+
+		  <child>
+		    <widget class="GtkMenuItem" id="analysis1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Analysis</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="analysis1_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="flowmap1">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">F_lowmap...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_flowmap_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="roughness_map1">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Roughness Map</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_roughness_map_activate"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="basic1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Basic</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="basic1_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="invert">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Invert</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_invert_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="mirror">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Mirror...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_mirror_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="move_terrain">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">M_ove...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_move_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="rotate">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Rotate...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_rotate_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="scale">
+			      <property name="visible">False</property>
+			      <property name="label" translatable="yes">_Scale...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_scale_activate"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="filter1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Filter</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="filter1_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="connect">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Connect...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_connect_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="craters">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">C_raters...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_craters_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="digital_filter">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Digital Filter...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_digital_filter_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="erode">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Erode...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_erode_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="fill">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Fill...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_fill_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="fill_basins">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Fill _Basins...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_fill_basins_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="fold">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">F_old...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_fold_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="gaussian_hill">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Gaussian Hill...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_gaussian_hill_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="radial_scale">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Radial Scale...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_radial_scale_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="rasterize">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Rasteri_ze...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_rasterize_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="roughen">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Ro_ughen...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_roughen_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="smooth">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Smooth...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_smooth_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="spherical_map">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">S_pherical Map...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_spherical_map_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="terrace">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">T_errace...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_terrace_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="tile">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">T_ile...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_tile_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="transform">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Transform...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_transform_activate"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="objects">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Objects</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="objects_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="place">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Place...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_place_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="trennlinie1">
+			      <property name="visible">True</property>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="prune_placed">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Prune Placed...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_prune_placed_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="rescale_placed">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Rescale Placed...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_rescale_placed_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="separator10">
+			      <property name="visible">True</property>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="remove_all">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Remove _All</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_remove_all_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="remove_selected">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Remove Selec_ted</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_remove_selected_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="separateur1">
+			      <property name="visible">True</property>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="single_trace_object1">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Add _Single object...</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_single_trace_object1_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="remove_single_object1">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Remove Single object</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_remove_single_object1_activate"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="rivers">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Rivers</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="rivers_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="river">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Ri_ver</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_river_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="all_rivers">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">A_ll Rivers</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_all_rivers_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="redraw_rivers">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Redraw Rivers</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_redraw_rivers_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="remove_all_rivers">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Remove All Rivers</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_terrain_remove_all_rivers_activate"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+		</widget>
+	      </child>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkMenuItem" id="view1">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">_View</property>
+	      <property name="use_underline">True</property>
+
+	      <child>
+		<widget class="GtkMenu" id="view1_menu">
+
+		  <child>
+		    <widget class="GtkMenuItem" id="type">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Type</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="type_menu">
+
+			  <child>
+			    <widget class="GtkRadioMenuItem" id="terrain_2d_plane">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">2D _Plane</property>
+			      <property name="use_underline">True</property>
+			      <property name="active">True</property>
+			      <signal name="activate" handler="terrain_toggle_activate"/>
+			      <accelerator key="1" modifiers="GDK_MOD1_MASK" signal="activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkRadioMenuItem" id="terrain_2d_contour">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">2D _Contour</property>
+			      <property name="use_underline">True</property>
+			      <property name="active">False</property>
+			      <property name="group">terrain_2d_plane</property>
+			      <signal name="activate" handler="terrain_toggle_activate"/>
+			      <accelerator key="2" modifiers="GDK_MOD1_MASK" signal="activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkRadioMenuItem" id="terrain_3d_wire">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">3D _Wire</property>
+			      <property name="use_underline">True</property>
+			      <property name="active">False</property>
+			      <property name="group">terrain_2d_plane</property>
+			      <signal name="activate" handler="terrain_toggle_activate"/>
+			      <accelerator key="3" modifiers="GDK_MOD1_MASK" signal="activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkRadioMenuItem" id="terrain_3d_height">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">3D _Height</property>
+			      <property name="use_underline">True</property>
+			      <property name="active">False</property>
+			      <property name="group">terrain_2d_plane</property>
+			      <signal name="activate" handler="terrain_toggle_activate"/>
+			      <accelerator key="4" modifiers="GDK_MOD1_MASK" signal="activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkRadioMenuItem" id="terrain_3d_light">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">3D _Light</property>
+			      <property name="use_underline">True</property>
+			      <property name="active">False</property>
+			      <property name="group">terrain_2d_plane</property>
+			      <signal name="activate" handler="terrain_toggle_activate"/>
+			      <accelerator key="5" modifiers="GDK_MOD1_MASK" signal="activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="separator6">
+			      <property name="visible">True</property>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkCheckMenuItem" id="terrain_auto_rotate">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Auto Rotate</property>
+			      <property name="use_underline">True</property>
+			      <property name="active">False</property>
+			      <signal name="activate" handler="terrain_toggle_activate"/>
+			      <accelerator key="R" modifiers="GDK_MOD1_MASK" signal="activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkCheckMenuItem" id="terrain_do_tile">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Tile</property>
+			      <property name="use_underline">True</property>
+			      <property name="active">False</property>
+			      <signal name="activate" handler="terrain_toggle_activate"/>
+			      <accelerator key="T" modifiers="GDK_MOD1_MASK" signal="activate"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="colormap1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Colormap</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="colormap1_menu">
+
+			  <child>
+			    <widget class="GtkRadioMenuItem" id="terrain_land">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Land</property>
+			      <property name="use_underline">True</property>
+			      <property name="active">True</property>
+			      <signal name="activate" handler="terrain_toggle_activate"/>
+			      <accelerator key="1" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkRadioMenuItem" id="terrain_desert">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Desert</property>
+			      <property name="use_underline">True</property>
+			      <property name="active">False</property>
+			      <property name="group">terrain_land</property>
+			      <signal name="activate" handler="terrain_toggle_activate"/>
+			      <accelerator key="2" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkRadioMenuItem" id="terrain_grayscale">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Grayscale</property>
+			      <property name="use_underline">True</property>
+			      <property name="active">False</property>
+			      <property name="group">terrain_land</property>
+			      <signal name="activate" handler="terrain_toggle_activate"/>
+			      <accelerator key="3" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkRadioMenuItem" id="terrain_heat">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Heat</property>
+			      <property name="use_underline">True</property>
+			      <property name="active">False</property>
+			      <property name="group">terrain_land</property>
+			      <signal name="activate" handler="terrain_toggle_activate"/>
+			      <accelerator key="4" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkRadioMenuItem" id="terrain_wasteland">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Wasteland</property>
+			      <property name="use_underline">True</property>
+			      <property name="active">False</property>
+			      <property name="group">terrain_land</property>
+			      <signal name="activate" handler="terrain_toggle_activate"/>
+			      <accelerator key="5" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+		</widget>
+	      </child>
+	    </widget>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">False</property>
+	  <property name="fill">False</property>
+	</packing>
+      </child>
+
+      <child>
+	<widget class="GtkHandleBox" id="handlebox">
+	  <property name="visible">True</property>
+	  <property name="shadow_type">GTK_SHADOW_OUT</property>
+	  <property name="handle_position">GTK_POS_LEFT</property>
+	  <property name="snap_edge">GTK_POS_TOP</property>
+
+	  <child>
+	    <widget class="GtkToolbar" id="toolbar">
+	      <property name="border_width">2</property>
+	      <property name="visible">True</property>
+	      <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
+	      <property name="toolbar_style">GTK_TOOLBAR_ICONS</property>
+	      <property name="tooltips">True</property>
+
+	      <child>
+		<widget class="radio" id="move">
+		  <property name="visible">True</property>
+		  <property name="tooltip" translatable="yes">Move objects</property>
+		  <property name="label" translatable="yes"></property>
+		  <property name="use_underline">True</property>
+		  <property name="icon">arrow.xpm</property>
+		  <property name="active">True</property>
+		  <property name="inconsistent">False</property>
+		  <signal name="clicked" handler="on_toolbar_clicked"/>
+		</widget>
+	      </child>
+
+	      <child>
+		<widget class="radio" id="rectangular_select">
+		  <property name="visible">True</property>
+		  <property name="tooltip" translatable="yes">Select rectangular regions</property>
+		  <property name="label" translatable="yes">Rectangle</property>
+		  <property name="use_underline">True</property>
+		  <property name="icon">rectangle.xpm</property>
+		  <property name="active">False</property>
+		  <property name="inconsistent">False</property>
+		  <property name="group">move</property>
+		  <signal name="clicked" handler="on_toolbar_clicked"/>
+		</widget>
+	      </child>
+
+	      <child>
+		<widget class="radio" id="elliptical_select">
+		  <property name="visible">True</property>
+		  <property name="tooltip" translatable="yes">Select elliptical regions</property>
+		  <property name="label" translatable="yes">Ellipse</property>
+		  <property name="use_underline">True</property>
+		  <property name="icon">circle.xpm</property>
+		  <property name="active">False</property>
+		  <property name="inconsistent">False</property>
+		  <property name="group">move</property>
+		  <signal name="clicked" handler="on_toolbar_clicked"/>
+		</widget>
+	      </child>
+
+	      <child>
+		<widget class="radio" id="square_zoom_select">
+		  <property name="visible">True</property>
+		  <property name="tooltip" translatable="yes">Select square region and zoom</property>
+		  <property name="label" translatable="yes">Square Zoom</property>
+		  <property name="use_underline">True</property>
+		  <property name="icon">zoom.xpm</property>
+		  <property name="active">False</property>
+		  <property name="inconsistent">False</property>
+		  <property name="group">move</property>
+		  <signal name="clicked" handler="on_toolbar_clicked"/>
+		</widget>
+	      </child>
+
+	      <child>
+		<widget class="radio" id="crop_new">
+		  <property name="visible">True</property>
+		  <property name="tooltip" translatable="yes">Select rectangular region and crop</property>
+		  <property name="label" translatable="yes">Crop</property>
+		  <property name="use_underline">True</property>
+		  <property name="icon">crop.xpm</property>
+		  <property name="active">False</property>
+		  <property name="inconsistent">False</property>
+		  <property name="group">move</property>
+		  <signal name="clicked" handler="on_toolbar_clicked"/>
+		</widget>
+	      </child>
+
+	      <child>
+		<widget class="radio" id="square_seed">
+		  <property name="visible">True</property>
+		  <property name="tooltip" translatable="yes">Select square region and seed new terrain</property>
+		  <property name="label" translatable="yes">Crop</property>
+		  <property name="use_underline">True</property>
+		  <property name="icon">seed.xpm</property>
+		  <property name="active">False</property>
+		  <property name="inconsistent">False</property>
+		  <property name="group">move</property>
+		  <signal name="clicked" handler="on_toolbar_clicked"/>
+		</widget>
+	      </child>
+
+	      <child>
+		<widget class="radio" id="replace">
+		  <property name="visible">True</property>
+		  <property name="tooltip" translatable="yes">Replace previous selection</property>
+		  <property name="label" translatable="yes">Replace</property>
+		  <property name="use_underline">True</property>
+		  <property name="icon">replace.xpm</property>
+		  <property name="active">True</property>
+		  <property name="inconsistent">False</property>
+		  <property name="new_group">True</property>
+		  <signal name="clicked" handler="on_toolbar_clicked"/>
+		</widget>
+		<packing>
+		  <property name="new_group">True</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="radio" id="add">
+		  <property name="visible">True</property>
+		  <property name="tooltip" translatable="yes">Add to previous selection</property>
+		  <property name="label" translatable="yes">Add</property>
+		  <property name="use_underline">True</property>
+		  <property name="icon">add.xpm</property>
+		  <property name="active">False</property>
+		  <property name="inconsistent">False</property>
+		  <property name="group">replace</property>
+		  <signal name="clicked" handler="on_toolbar_clicked"/>
+		</widget>
+	      </child>
+
+	      <child>
+		<widget class="radio" id="subtract">
+		  <property name="visible">True</property>
+		  <property name="tooltip" translatable="yes">Subtract from previous selection</property>
+		  <property name="label" translatable="yes">Subtract</property>
+		  <property name="use_underline">True</property>
+		  <property name="icon">subtract.xpm</property>
+		  <property name="active">False</property>
+		  <property name="inconsistent">False</property>
+		  <property name="group">replace</property>
+		  <signal name="clicked" handler="on_toolbar_clicked"/>
+		</widget>
+	      </child>
+	    </widget>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">False</property>
+	  <property name="fill">False</property>
+	</packing>
+      </child>
+
+      <child>
+	<widget class="Custom" id="aspect_frame">
+	  <property name="visible">True</property>
+	  <property name="can_focus">True</property>
+	  <property name="creation_function">create_terrain_aspect_frame</property>
+	  <property name="int1">0</property>
+	  <property name="int2">0</property>
+	  <property name="last_modification_time">Sat, 01 Sep 2001 16:38:54 GMT</property>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">True</property>
+	  <property name="fill">True</property>
+	</packing>
+      </child>
+    </widget>
+  </child>
+</widget>
+
+</glade-interface>

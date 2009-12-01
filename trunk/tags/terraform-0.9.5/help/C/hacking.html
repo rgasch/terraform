@@ -1,0 +1,536 @@
+<html>
+<head>
+<title>FAQ: Hacking Terraform</title>
+</head>
+<body bgcolor=#ffffff text=#000000 link=#000000 alink=#000000 vlink=#000000>
+
+<h1>FAQ: Hacking Terraform</h1>
+<p>Terraform FAQ, version 0.1, Dec. 02, 1999 by cloister@hhhh.org</p>
+<p>Terraform FAQ, version 0.2, May. 05, 2000, revised by 
+<a href="mailto:r.gasch@chello.nl">RNG</a></p>
+<p>Terraform FAQ, version 0.3, May. 30, 2001, revised by 
+<a href="mailto:foxx@mail.utexas.edu">David A. Bartold</a></p>
+
+<p>This document contains helpful hints for anyone who is interested in adding
+to or modifying Terraform, or simply fixing bugs.  This document concentrates
+on the types of hacks that I think people are most likely to want to implement.
+What you want to do may not be covered in this document, but you should read it
+anyway to get some idea of how you might have to proceed.</p>
+
+<ul>
+<li><a href="#1">1. Code Style and Data Types</a>
+<ul>
+<li><a href="#1.1">1.1 Coding style</a>
+<li><a href="#1.1">1.2 Simple data types</a>
+<li><a href="#1.2">1.3 Naming conventions</a>
+</ul>
+<li><a href="#2">2. A brief tour of Terraform's source code</a>
+<li><a href="#3">3. Adding new source files</a>
+<li><a href="#4">4. Adding a new input type (i.e. extending File->Open)</a>
+<li><a href="#5">5. Adding a new output type (i.e. extending File->Save As)</a>
+<li><a href="#6">6. Modifying the Height Field</a>
+<li><a href="#7">7. Adding a new terrain generator</a>
+<li><a href="#8">8. Debugging Support</a>
+<li><a href="#9">9. Submitting your changes</a>
+</ul>
+
+<hr>
+<a name="1">
+<h1>1: Code Style and Data Types</h1>
+<p>This section describes the central C++ classes and simple data types that
+Terraform relies on.  In order to do any serious work with Terraform, you will
+need to be familiar with these types in order to make your code compile easily,
+interact properly with the rest of Terraform, and maintain Terraform's 
+the level of portability.</p>
+<p>Terraform's source code is 
+<a href="http://www.stack.nl/~dimitri/doxygen/">Doxygen</a>
+enabled. This means that it's comments have been tagged in such a manner, 
+that doxygen can generate class/code documentation. In order to do this, 
+you need to: 
+<pre>
+cd terraform-x.x.x/src
+doxygen -g doxygen.rc
+</pre>
+<p>Doxygen generates Javadoc-style documentation which make browsing class 
+hierarchies much easier. If you want to work with terraform and be able 
+to browse the source, I recommend doing this as a first step. </p>
+
+
+
+<a name="1.1">
+<h2>1.1: Coding style</h2>
+<p>Terraform follows the GNU coding standard available on the
+<a href="http://www.gnu.org/">GNU homepage</a>.  Use consecutive spaces
+to indent lines and avoid tab characters.  Turn on tab expansion in your
+editor to avoid tab/space mixture hell.  Keeping the code consistant makes
+the code base easier to read, but also allows code to be moved around between
+files without reformatting.
+A brief stylistic overview is given here:</p>
+
+<table border=1>
+<tr><th>Do this</th><th>Not this</th></tr>
+<tr><td>
+<pre>
+gint a;
+gint b;
+</pre>
+</td>
+<td>
+<pre>
+gint a,
+     b;
+</pre></td>
+</tr>
+
+<tr><td>
+<pre>
+gint
+function (gint i,
+          gint j)
+</pre></td>
+<td>
+<pre>
+gint function (gint i, gint j)
+</pre>
+</td></tr>
+
+<tr><td>
+<pre>
+if (foo == NULL)
+  {
+    printf ("Hello\n");
+  }
+else if (bar == NULL)
+  {
+    printf ("World\n");
+  }
+else
+  {
+    printf ("!\n");
+  }
+</pre></td>
+<td>
+<pre>
+if (!foo)
+  printf ("Hello\n");
+else
+{
+  if (!bar)
+    printf ("World\n");
+  else
+    printf ("!\n"); 
+}
+</pre>
+</td></tr>
+
+<tr><td><pre>(x + y) / 2.0</pre></td><td><pre>(x+y)/2</pre></td></tr>
+<tr><td><pre>func () + func2 (x, y)</pre></td><td><pre>func()+func2(x,y)</pre></td></tr>
+<tr><td><pre>array[i]</pre></td><td><pre>array [i], array[ i ]</pre></td></tr>
+</table>
+
+
+<a name="1.2">
+<h2>1.2: Simple data types</h2>
+<p>Terraform uses glib datatypes to avoid problems caused by machine or
+compiler specific definitions of datatypes.  Use gint8, gint16, gint32,
+guint8, guint16, guint32, gfloat, gdouble, gchar, gint (and the rest)
+instead of types such as short, long, unsigned short, unsigned long, etc.</p>
+
+<p>Note that Terraform is a work in progress, and does not itself always adhere
+to these guidelines.  Future code cleanups will address these issues.</p>
+
+
+<a name="1.3">
+<h2>1.3: Naming conventions</h2>
+<p>It is important to give variables meaningful names.  Terraform attempts
+to follow some naming conventions used by Gtk+.  Abbreviations are
+avoided except when they are well established.</p>
+
+<table border=1>
+<tr><th>When you need to store this</th><th>Use this</th><th>Not this</th></tr>
+<tr><td># of items in an array</td><td>thingamajig_count</td><td>nThingamajig, numThingamajig, n_..., num_...</td></tr>
+<tr><td>Terrain width</td><td>width</td><td>xsize, rowsize, column_count, nCol</td></tr>
+<tr><td>Terrain height</td><td>height</td><td>ysize, colsize, row_count, nRow</td></tr>
+<tr><td>X location</td><td>x</td><td>i, col</td></tr>
+<tr><td>Y location</td><td>y</td><td>j, row</td></tr>
+<tr><td>Index into 1D array</td><td>i, pos (this should be changed to index)</td><td>g, loc</td></tr>
+<tr><td>String length</td><td>length</td><td>len</td></tr>
+</table>
+
+<hr>
+<a name="2">
+<h1>2: A brief tour of Terraform's source code</h1>
+The following table lists brief descriptions of the files, or groups of files,
+in Terraform's source tree</p>
+<table width="100%" border=1>
+<colset>
+<col width="30%">
+<col width="80%">
+</colset>
+<tr><th>File(s)             </th><th>Purpose:</th></tr>
+<tr><td>FileIO.*            </td><td>High level file I/O operations.</td></tr>
+<tr><td>GlobalDefs.h        </td><td>Global definitions, data type defs, etc.</td></tr>
+<tr><td>GlobalSanityCheck.* </td><td>Global bailout and warning functions.</td></tr>
+<tr><td>GlobalTrace.*       </td><td>A Global trace flag mechanism for debug
+                                output</td></tr> 
+<tr><td>Gui*                </td><td>Gtk-- support routines, used by other dialog
+                                box code.</td></tr>
+<tr><td>HeightField*.*      </td><td>Core HeightField functionality</td></tr>
+<tr><td>Math*.*             </td><td>Support for various math functions.</td></tr>
+<tr><td>Matrix2D.h	    </td><td>The base template class used to store, access and 
+				alter the HeightField data.</td></tr>
+<tr><td>MenuDefs.*          </td><td>Constants used by Terraform's menus.</td></tr>
+<tr><td>PrintOptions.*      </td><td>Constants used to support printing.</td></tr>
+<tr><td>RenderOptions.*     </td><td>Various options/settings used when rendering.</td></tr>
+<tr><td>TFBaseDialog.*,<br>TFDialog*.*</td><td>All of Terraform's dialog boxes.</td></tr>
+<tr><td>TFCListMainWin.*    </td><td>Terraform's main window.</td></tr>
+<tr><td>TFFileRC.*          </td><td>Implements .rc file support.</td></tr>
+<tr><td>TFOpenGLArea.*      </td><td>Terraform's (alpha) OpenGL support.</td></tr>
+<tr><td>TFOptions*.*        </td><td>Run-time and .rc file options support.</td></tr>
+<tr><td>TFPreviewDialog.*   </td><td>Dialog boxes that show a heightfield
+                                preview.</td></tr> 
+<tr><td>TFWindow*.*         </td><td>Code that defines various window types.</td></tr>
+<tr><td>Timer.*             </td><td>Support for timing and profiling
+                                operations.</td></tr> 
+<tr><td>agename.*           </td><td>Support for file versioning.</td></tr>
+<tr><td>flexarray.*         </td><td>A template-based array type that can grow 
+				automatically to accomodate new elements.</td></tr>
+<tr><td>glib*.*             </td><td>Simple wrappers for some glib classes.</td></tr>
+<tr><td>strrep.*            </td><td>Memory safe string replace within another
+                                string.</td></tr>
+</table>
+
+
+
+<hr>
+<a name="3">
+<h1>3: Adding new source files</h1>
+<p>If your changes are minor, such as fixing a bug, you should strive to work
+within the existing set of source code files.  Unless the "bug" is a
+fundemantal design flaw or something equally serious, you shouldn't have to add
+or remove any source files.  If you are considering a bug fix of such
+significant scope, you should probably contact 
+<a href="mailto:r.gasch@chello.nl">RNG</a> before proceeding.</p>
+
+<p>Many other types of changes, for example adding a new height field operation
+such as cratering or erosion, can also be implemented within the framework of
+Terraform's existing source code.  If your change falls into the broadly-
+defined category of "something neat to do to a heightfield", then odds are good
+that you'll be working almost exclusively within HeightFieldOps.cc and
+HeightFieldOps.h.</p>
+
+<p>If you've gotten this far and you are still convinced that you need to
+create some new source files, for reasons of code sharing, keeping
+functionality isolated in well defined modules, or whatever, then that's ok.
+In this case, you should probably contact <a
+href="mailto:r.gasch@chello.nl">RNG</a> before proceeding, to make
+sure he hasn't already taken the filenames you propose to use, and to make sure
+that your reasons for adding new source files are sound.  Keep in mind that RNG
+is more likely to accept changes that do not involve radical changes to the
+code base.  The type of modification that most commonly involves adding new
+source files are ones that involve creating new dialog boxes for the user to
+interact with.  This is a consequence of the general method of writing code
+that uses the gdk/GTK-- toolkits.  Of course, new features almost always
+require some type of user interaction, so if you're adding new functionality
+you can almost bet on having to create a dialog box or two and add some source
+files for that.</p>
+
+<p>Terraform uses the autoconf system to generate its Makefiles, so adding new
+source files is easy.  Just put them in Terraform's src/ directory, add the 
+filename to src/Makefile.am and then then re-run the configure script in your 
+terraform directory in order to generate new Makefiles that will recognize 
+your new source files.</p>
+
+
+
+<hr>
+<a name="4">
+<h1>4: Adding a new input type (i.e. extending File->Open)</h1>
+<p>Adding support for a new input format, if you wish to read heightfields from
+some file type that Terraform does not currently support, is not difficult.
+Terraform's file input mechanism is well designed to support additional types.
+You will be working with the HeightFieldReader and HeightFieldIO classes,
+defined in HeightFieldReader.{h,cc} and HeightFieldIO.{h,cc}.</p>
+
+<p>Supporting a new input file format involves writing a function to parse that
+format, adding logic to detect that format's file type, and adding a call to
+your file parsing function.</p>
+
+<p>Add your file parsing function to the HeightFieldReader class.  Give it a
+name of the form "read<i>XXX</i>()", where <i>XXX</i> represents the new file
+format.  Examples are readGIF, readPGM, etc.  You may also implement private
+helper functions in the HeightFieldReader class, if necessary, to assist your
+read<i>XXX</i> function.  Your function will need to allocate an array of PTYPE
+large enough to hold the data from the file (e.g. myarray = new PTYPE[width *
+height];), read the file's data and convert it into PTYPEs in the range 0.0 to
+1.0, store that data in your array, and finally assign the heightfield's d_hf
+member to your array (e.g. d_hf = myarray;).  Finally, your parsing function
+should call HeightFieldReader::checkRead when it is done in order to do some
+important post-processing on the new heightfield.</p>
+
+<p>Once you have written your parsing function, you need to hook it into the
+HeightFieldIO class.  First, modify HeightFieldIO.h to define a new constant to
+represent your file type, if a suitable type is not yet defined.  In that file
+you will find definitions for the other file types Terraform already supports.
+In HeightFieldIO.cc, you will need to do two things.  One, modify the
+HeightFieldIO::getFileType() function to associate the correct file extension
+with your file type.  Two, modify the HeightFieldIO::read() function to add a
+call to your read<i>XXX</i> function.</p> 
+
+
+
+<hr>
+<a name="5">
+<h1>5: Adding a new output type (i.e. extending File->Save As)</h1>
+<p>Adding support for a new output format, if you wish to write heightfields to
+some file type that Terraform does not currently support, is not difficult.
+Terraform's file output mechanism is well designed to support additional types.
+You will be working with the HeightFieldWriter and HeightFieldIO classes,
+defined in HeightFieldWriter.{h,cc} and HeightFieldIO.{h,cc}.</p> 
+
+<p>Supporting a new output file format requires writing a function that can
+convert heightfield data into some other appropriately structured format, as
+well as handle writing any necessary file header or footer information, adding
+logic to detect your new file type based on the filename the user has chosen to
+save the heightfield to, and adding a call to your writing function.</p> 
+
+<p>Add your writing function to the HeightFieldWriter class.  Give it a name of
+the form "write<i>XXX</i>()", where <i>XXX</i> represents the new file format.
+Examples are writeTGA, writePGM, etc.  You may also implement private helper
+functions in the HeightFieldReader class, if necessary, to assist your
+write<i>XXX</i> function.  Your function will need to loop over all the data in
+the heightfield (recall that you can use the HeightField::El() function to
+access this data), convert it to the appropriate format for your file type, and
+write it to a filehandle provided by the HeightFieldWriter class.  The
+heightfield data you will be working with will be stored as PTYPEs in the range
+0.0 to 1.0.  Finally, your writing function should close the file handle and
+call HeightField::setSaved(TRUE) when it is done.</p> 
+
+<p>Once you have written your writing function, you need to hook it into the
+HeightFieldIO class.  First, modify HeightFieldIO.h to define a new constant to
+represent your file type, if a suitable type is not yet defined.  In that file
+you will find definitions for the other file types Terraform already supports.
+In HeightFieldIO.cc, you will need to do two things.  One, modify the
+HeightFieldIO::getFileType() function to associate the correct file extension
+with your file type, if your file type is not already listed.  Two, modify the
+HeightFieldIO::write() function to add a call to your write<i>XXX</i>
+function.</p> 
+
+
+
+<hr>
+<a name="6">
+<h1>6: Modifying the height field</h1>
+<p>One obvious class of hack to Terraform are features that do something
+interesting to an existing heightfield, such as adding craters, inverting the
+terrain, raising or lowering it, etc.  These functions typically reside in
+the HeightFieldOps class, which is where you should implement such functions.
+Add your function as a new public member function in HeightFieldOps.h, and put
+the function in HeightFieldOps.cc.  Your function should have this general
+structure:</p>
+
+<pre>
+int HeightFieldOps::myFunc(args...) 
+{
+  // declare any variables you need
+  PTYPE	newElevation;
+
+  // loop over the terrain and modify it:
+  for(int x=0; x < p_HF->getWidth(); x++)
+    for(int y=0; y < p_HF->getWidth(); y++) 
+      {
+      newElevation = ... ;	// do something cool...
+      p_HF->setEl(x,y, newElevation);
+      }
+
+  // any broad-scale changes to the heightfield also need to do the following:
+  p_HF->gatherStatistics();
+  p_HF->setSaved(FALSE);
+
+  // return a status code.
+  return(0);
+}
+</pre>
+
+<p>Of course, depending on the algorithm you're using to modify the terrain,
+your function may not contain an internal loop structure exactly like the
+above.  Use whatever code you need to make whatever changes you want to the
+terrain.  Once you're done, call p_HF->gatherStatistics(); this will 
+rescale the height field to the value range 0..1 and do some other 
+limited sanity checking. 
+</p>
+
+<p>If your function is sufficiently complex, you may need to create a dialog
+box, as described elsewhere in this document, to gather parameters from the
+user before calling your function.  Finally, you need to patch your function or
+dialog box into Terraform's context menu, the one that shows up when you
+right-click on a heightfield display window.  You will need to work with
+MenuDefs.h, TFWindow.cc, and TFWindowHandler.cc. If you don't want to 
+deal with the dialog and menu code, you can mail 
+<a href="mailto:r.gasch@chello.nl">RNG</a> who up to this point has 
+been very willing to take new code and it supply with an appropriate 
+dialog box.</p>
+
+<p>If you do feel like adding the dialog, do the following: In MenuDefs.h, 
+create a new constant of the form MENU_HF_<i>MyID</i>, which lists the menu 
+position of your function or dialog box.  For example, the
+HF->Rotate function is defined as:<p>
+
+<pre>
+#define MENU_HF_ROTATE                  "Rotate"
+</pre>
+
+<p>In the TFWindow::addMenus function, add your function along with the other
+MENU_HF_* functions, with a couple of lines of code like this:</p>
+
+<pre>
+s=_(MENU_HF_ROTATE);
+MenuElem        hRotate (s, ACC_C,
+		SigC::bind(SigC::slot(this, &TFWindow::hfMenuCallback),
+		string (s)));
+mlHF.push_back (hRotate);
+</pre>
+
+<p>Also, in order to correctly support internationalization, you must 
+add your newly defined menu string to the <i>char *foobar</i> definition 
+at the beginning of TFWindow.cc. Even though the code is #ifdef'ed to 
+never be used, GNU gettext expects such a structure in order to properly 
+generate the language/resource files.</p>
+
+<p>Finally, connect your menu item to the TFWindowHandler class.  Add a private
+member variable of the appropriate function pointer type (e.g. TFPreviewDialog
+*, TFBaseDialog *, or just int * if your function doesn't use a dialog box) to
+represent your dialog box or function.  Then, add an if-statement to the
+TFWindowHandler::hfMenuCallback function, along with the other if-
+statements which select among the HF menu items, like this:</p>
+
+<pre>
+if (!strcmp (menuitem, MENU_HF_MyID))
+        {
+        if (!p_myDialog)
+                p_myDialog= new TFDialogMyDialog (p_HF, p_HFD);
+        p_myDialog->show ();
+        }
+else
+</pre>
+
+
+<hr>
+<a name="7">
+<h1>7: Adding a new terrain generator</h1>
+<p>Terraform currently supports two different terrain generators, the spectral
+synthesis generator and the subdivision generator.  To add a new terrain
+generator, you need to do the following:</p>
+<dl>
+<dt>Create a class to encapsulate your generator.
+<dd>Your class needs to support one method,
+generate() in addition to a constructor and destructor.  The constructor will
+receive a HeightField pointer that you will need save for use in your generate
+function.  Your generate function needs to set the heightfield's d_xsize,
+d_ysize, and d_size (remember, d_size is always equal to d_xsize*d_ysize)
+members, and create an array of d_size PTYPEs (e.g. myarray = new
+PTYPE[d_size];).  Fill that array with values in the range 0.0 to 1.0 by
+whatever means you like, then assign the heightfield's d_hf member to your
+array (e.g. d_hf = myarray;). 
+<dt>Patch your generator into HeightFieldGenRandom.{h,cc}
+<dd>The HeightFieldGenRandom class simply chooses at random among the other
+terrain generators.  Thus, you need to teach HeightFieldGenRandom about your
+new generator in order for it to be available for use when users choose to
+generate a random heightfield. 
+<dt>Add your generator to the <i>File->New</i> submenu's list of available
+terrain generators. 
+<dd>You will need to modify MenuDefs.h, and TFWindowMain.*.  If your terrain
+generator is sufficiently complex as to require user input, you will also need
+to add a pair of TFDialogGen*.{h.cc} files to implement a dialog box so users
+can choose parameters for your terrain generator.  See TFDialogGenSubdiv.* for
+a good example of how to do this.  For terrain generators that need a dialog
+box, the dialog box will be responsible for creating a new object of your
+generator's class, getting parameters from the user, and passing those
+parameters to your generate() function.  If your generator is simple enough not
+to need parameters, then the code you add to TFWindowMain to implement your
+<i>File->New</i> submenu option will have to create the new generator object
+and call its generate() function. 
+</dl>
+
+
+
+<hr>
+<a name="8">
+<h1>8: Debugging Support</h1>
+<p>Luckily for you, Terraform comes with a number of fairly robust debugging
+mechanisms already in place.  First, the GlobalTrace class allows you to set
+(and check) various trace output levels, to give you easy control over how much
+debugging output your code generates.  This class also contains the trace()
+method, which writes a string to standard out if the current debugging level
+matches the level specified in the call to trace().</p>
+
+<p>Next, the GlobalSanityCheck class provides facilities for validating that
+certain conditions hold true, and either exiting or printing a warning if they
+do not.  GlobalSanityCheck should be used to check the validity of any
+assumptions your code makes before that code runs.  In fact, as you browse
+through Terraform's source code, you will find calls to
+GlobalSanityCheck::warning and GlobalSanityCheck::bailout as the first few
+lines of many functions.</p>
+
+<p>Finally, as a last line of defense, Terraform implements exception handling,
+to catch various errors that would crash the program and to give users the
+options of what to do next.  You shouldn't have to do anything special to make
+use of this functionality, although if your code is causing lots of core dumps,
+you may well become intimately familiar with Terraform's exception handling
+support. If you want to use this built-in exception handler, you must 
+run <i>./configure --enable-debug</i> for the exception handling code 
+to be enabled.</p>
+
+<p>If you've compiled your own executable anyhow, you might just want 
+to recompile with the "-g" flag enabled and then use gdb. I prefer this 
+to using the built in debugging support. 
+
+
+
+<hr>
+<a name="9">
+<h1>9: Submitting your changes</h1>
+<p>Once you have implemented all your modifications, confirmed them against the
+most recent version of Terraform, and <i>debugged</i> your work, then you
+should submit your new code to the 
+<a href="http://sourceforge.net/mail/?group_id=1765">Terraform Mailing List</a>.  That way
+other users can see and comment on your code, and RNG can, if he finds it
+worthy, add your code to the main Terraform source distribution.  Here's one
+way to do that, using tcsh.  There are many other ways, of course:</p>
+
+<ol>
+<li>Make a gzipped tar file (.tgz) containing the diffs between any files you
+changed and the original versions of those files.  Note that at this point it
+will be very convenient if you've kept copies of the original files, in some
+other filename.  Whenever I modify a terraform source file, I always copy it
+first to a name of the form "original_name.orig" for safekeeping, as in
+"HeightFieldExport.cc.orig".  Let me say again that it is highly desirable that
+your diffs be made against the most recent source code release.<br>
+<pre>
+~/terraform-0.4.6/src/> foreach name (*.orig)
+foreach? set oldname=`basename $name .orig`
+foreach? diff $oldname $name > $oldname.diff
+foreach? end
+~/terraform-0.4.6/src/> cd ..
+~/terraform-0.4.6/> tar -czf myusername.0.4.6.tgz src/*.diff
+</pre>
+<li>Uuencode your .tgz file:<br>
+<pre>
+~/terraform-0.4.6/> uuencode myusername.0.4.6.tgz myusername.0.4.6.tgz > myusername.0.4.6.uu 
+</pre>
+<li>Post your changes to the <a
+href="http://sourceforge.net/mail/?group_id=1765">terraform mailing list</a>:<br>
+<pre>
+~/terraform-0.4.6/> mail -s 'my spiffy terraform mods against v0.x.x' < myusername.0.4.6.tgz
+</pre>
+</ol>
+
+<p>Note that your tar file should be named with your username and the version
+of terraform to which your changes apply, as in the above example.  Further, if
+you have made substantial changes to any of the terraform source files such
+that a diff would be impractical, then you may choose to simply include that
+whole file in your .tgz file.  However, please use diffs wherever possible.</p>
+
+</body>
+</html>
+

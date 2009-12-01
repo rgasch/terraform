@@ -1,0 +1,994 @@
+0.9.1: ????????
+   + added texture constructor in scene options dialog, remove some old water themes
+   + added controls for texture, water, fog, camera in scene options dialog
+   + added sun-moon lights tab and radiosity in scene options dialog with easyer sky and light management
+   + added single objects dialog using Trace function and Pov files from Povworld
+   + update french translation
+   + added help file for objects with screenshots
+   + added lot of new Pov3.5 objects from Povworld
+   + added single object support with Pov Trace function
+   + added lot of new Pov3.5 themes
+   + Pov scripts now use Pov3.5 version instead Pov3.1g
+	+ added possibility whether to let povray render to a file or not
+	+ added alpha and bits per colour to povray options
+	+ further improvements to river system 
+	+ added Analysis menu 
+	+ added roughmap filter + menu
+	+ added installer
+
+0.9.0: 25Apr2002
+	+ added support for PPM files
+	+ fixed broken PGM ASCII reader
+	+ new POVRay rendering scheme
+	+ lots of work on the new option dialogs
+	+ added a new colormap: wasteland
+	+ about window shows terraform version
+	+ "terraform -g" now produces a terrain with the default size
+	+ fixed multiple window creation bug for tiling
+	+ added t_terrain_river_all
+	+ objects and rivers now mirror with the rest of the terrain 
+	+ reworked gui of camera settings
+	+ objects and rivers now rotate with the rest of the terrain 
+	+ added new (contributed) river code 
+	+ added new povray things
+	+ render option settings are now encapsulated in their own struct 
+	+ any clone operation now copies all settings 
+	+ added t_terrain_copy_settings
+	+ hooked seed code back into application 
+	+ added icon for seed to toolbar
+	+ fixed incorrect POV render object placement for variable Y scalefactor
+	+ fixed memory leak when loading native terrains
+	+ added hyperlinks to homepages to about dialog + gui improvement
+	+ added object pruning
+	+ object placement now doesn't result in straight edges anymore
+	+ *.terraform files now also save the render_scale_[xyz] settings
+	+ generate POV-Ray .ini files instead of using command-line arguments
+	+ reworked and modularized option dialogs 
+	+ added an install_home makefile target
+	+ object menus now have proper status (sensitive)
+	+ GUI changes for object placement fade out
+	+ object placement can now fade out properly on both ends  
+	+ moved ~/.terraformrc to ~/.terraform/terraformrc
+	+ terraform now loads Arc/Info ascii grid files (e00 files)
+	+ added file_list_add_path_with_extension()
+	+ added several povray include objects/files and themes
+
+0.8.6: 28Jan2002
+	+ updated help files
+	+ added more keyboard navigation to menus
+	+ more consistent export menus
+	+ object placement distribution probability is now linear 
+	+ added export to GIMP for terrain views
+	+ added terrain scaling options to render options dialog
+        + terraform files now also contain selection data 
+	+ t_terrain_select_by_height now obeys terrain window selection mode 
+	+ added t_terrain_rescale_placed_objects and dialog
+	+ added t_terrain_fill_basins filter and dialog
+	+ join direction now works in every direction
+	+ erosion can now properly save and age flowmaps 
+	+ added sorting to file list add 
+	+ right click now removes object 
+	+ changed pov coordinate system to be 0,0 based rather than 0,0 centered
+	+ added parametrized camer height offset for 3D views
+	+ fixed Gtk+ warnings caused by erode flowmap dialog
+	+ fixed right click menu weirdness in warp dialog
+	+ added filter_window_add_crosshairs() function
+	+ support for objects in home dir complete
+	+ added utility macro to convert from TF coordinate system to POV
+	+ fixes to configure.in for OS/X and Solaris
+	+ added accelerators to Tile and AutoRotate menus
+	+ Tiling dialog can now tile a specified number of terrains 
+	+ added t_terrain_tile_new() function
+	+ added tiling support to all 3D views
+	+ added View->Tile menu option to terrain window
+	+ preliminary support to have themes and objects in your home dir
+	+ filenames in main_window are no longer displayed with full pathname
+	+ added preview_scale checkbox to rasterize dialog
+	+ added check box handling to filter_window_new_extended
+	+ faulting synthesis is not enabled by default anymore (takss too long)
+	+ changed mosaic dialog from gnome dialog to plain GTK
+	+ added fog parameters to Render Options dialog and povray files
+	+ modularized and rearranged Render Options dialog
+	+ fixed incorrect fog placement in povray earth_sky.inc
+	+ fixed main window menus which stayed active when they shouldn't 
+	+ fixed incorrect povray output file extension
+	+ added mosaic filter + dialog
+	+ added preliminary native 3d rendering framework
+	+ added spherical map filter
+
+0.8.5: 23Dec2001
+	+ renamed Options menu to "Render Options" 
+	+ render option dialog doesn't auto-render anymore for wireframe page
+	+ ui improvements of "execution error window"
+	+ now able to chose the name of the error log
+	+ added ability to save povray error log 
+	+ minor ui-improvement for close_terrain_dialog
+	+ updated dutch and french translations
+	+ added terrain twist function + dialog
+	+ added frequency to radial scale 
+	+ dimension calculator is now more general and twice as fast
+	+ selections which are too small are now handled gracefully
+	+ reworked seeding interface to return status values
+	+ fixed bad seed label in faulting generation dialog
+	+ added square option and use_constant_size flag to faulting dialog
+	+ added square faulting generation 
+	+ modularized erode code, added flowmap erode dialog
+        + fixed bad default tightness factor in fill dialog
+	+ replaced/reworked exit dialog
+	+ added rasterize filter + dialog
+	+ added average variance and skewness to terrain info dialog
+	+ added average, variance & skewness calculators
+	+ fixed incorrect camera positioning on non-uniform sized terrains
+	+ fixed broken crater seed code + crater dialog defaults
+	+ clicking on terrain in move mode now clears existing selection
+	+ fixed greater-than-terrain selection size 
+	+ extended transformation power range to < 1
+	+ filenameops filetype comparison is now case insensitive
+	+ added *.bt file support
+	+ added *.bna file support
+	+ added *.dfx file support
+	+ added *.xyz file support
+	+ added *.dted file read support
+	+ fixed terrain draw area resize problem for non-square terrain
+
+0.8.4: 28Oct2001
+	+ filterwindow.c now accomodates spinbuttons from digital filter dialog
+	+ added digital filter + dialog
+	+ updated 'close terrain' dialog (from Koos Jan Niesink)
+	+ added t_terrain_join function and join dialog
+	+ added fractal dimension calculator
+	+ fixed histogram scaling
+	+ added *.grd file format reader & writer
+        + fixed modified flag setting for 4 generation modes
+	+ Added terrain info dialog
+	+ Added terrain histogram code
+	+ Fixed incorrect data byte handling in terragen writer
+	+ Re-positioned result preview in Merge dialog
+	+ Changed slider scale on Erode dialog
+	+ Clone now also clones & rescales objects
+	+ Portability changes for missing xxscanf functions (libtrio)
+	+ Incorporated terragen file (*.ter) read/write (from bmp2ter code)
+	+ Added crop/extract functionality to GUI
+	+ Added zooming functionality to GUI
+	+ Added terrain seeding code 
+	+ Made gen_subdiv interface more flexible
+	+ Made gen_random interface more flexible
+	+ Added crop_new button/functionality
+	+ Added t_terrain_crop_new
+	+ Added terrain seeding code + selection
+	+ Added faulting generation code + dialog
+	+ Added dialog for type flag + made type flage persistent
+	+ Added --undo flag
+	+ Added --type flag
+	+ Added --size flag
+	+ Added --gamma flag
+	+ Added --factor flag
+	+ Added --chooser flag
+	+ Added auto-render button to RenderOptions dialog
+	+ Reordered geneneration menu
+	+ Radial scale wasn't showing preview
+
+0.8.3: 01Sep2001
+	+ Display 3D modes at full window size
+	+ Get a new seed by calling new_seed () instead of time (NULL)
+	+ Added global default terrain size
+	+ Removed smooth terrain option
+	+ Fixed long-style commandline arguments
+	+ Added new chooser generator
+	+ Fixed obey child aspect frame bug
+	+ Generated random seeds are now displayed in the generation dialogs
+	+ MFD Flowmap is now much (+10x) faster
+	+ Added --generate command line option
+	+ Added proper argument handling
+	+ Terrain window is now resized to fix terrain size
+	+ Internal changes to allow variably sized random terrain generation
+	+ Added dutch translation courtesy of Koos Jan Niesink
+	+ Add finalize handler for TTerrain
+	+ Added missing function prototypes
+	+ Fixed src/Makefile.am for people using non-gcc compilers
+	+ Fixed contour recalculating in TTerrainView
+	+ Support writing greyscale bitmaps
+	+ Reduced onscreen size of wireframe model
+	+ GNOME Print cleanups
+	+ Added Tree macro
+	+ Add support for POV-Ray macros
+	+ Fixed bug in xml_unpack_boolean that prevented it from working
+	+ Fixed locale problem when reading/writing floats in/to text files
+	+ Added export view functionality
+	+ Antialias the 3D wireframe mode
+	+ Fixed cosmetic bug in craters window when Use Preview is turned off
+	+ Created TTerrainView object
+	+ Replaced TRgb with TPixbuf and TCanvas
+	+ Open files given as command line arguments
+	+ Fixed bug in TGA reader
+	+ Fixed Save As dialog box file type extensions
+
+0.8.2: 25Jul2001
+	+ Install desktop icon into Ximian menu tree
+	+ Added file type option menus to open and save as windows
+	+ Use gdk_input instead of gtk_timeout in smartexec.c
+	+ Changed generator buttons from OK/Apply/Cancel to Generate/Cancel
+	+ Added French translation of docs and app by Raymond Ostertag
+	+ Converted integers to enums for views and colormaps
+	+ Fixed several compile warnings
+	+ Added VRML file output 
+	+ Added Apply button to terrain generation windows
+	+ Fixed #endif extra token in some header files
+        + Update contour lines only when the terrain has been modified
+        + Fixed HTML bugs in help/C/faq.html (Raymond Ostertag)
+        + Updated hacking docs
+        + Filled in some sections in help/C/index.html
+        + Deleted old earth basic theme
+        + Added import support for files readable by GdkPixbuf
+        + Fixed selection bug when terrain isn't square
+
+0.8.1: 29May2001
+	+ added save/load error dialog boxes
+	+ merged sky rendering improvements into the native render code
+	+ added some keyboard accelerators
+	+ fixed .glade file because last version wasn't committed to CVS
+	+ added oct, mat, pgm, pg8 formats to reader and writer
+
+0.8.0: 12May2001
+	+ new architecture based on GNOME and Glade
+	+ faster 3D rendering
+	+ new tree undo feature
+	+ fixed a lot of bugs
+	+ moved many settings to terrain specific options
+	+ added user configuration file .terraformrc
+	+ added preliminary native rendering code
+	+ added native *.terraform format
+	+ documentation readable from help menu
+	+ added quick start tutorial
+	+ revamped documentation
+	+ improved contour line generation
+	+ set window icon
+	+ added toolbar
+	+ added move objects feature
+	+ added feather selection operation
+	+ improved transform operation
+	+ renamed linear scale to radial scale
+	+ render option gets terrain theme list from directory listing
+	+ right-clicking on previews allows changing of view
+	+ lacks a few of the import/export file formats of the 0.7.x series
+	+ print settings missing
+
+0.7.5: 01Jan2001
+	+ flowmap fixes
+	+ fixed broken perlin generation
+	+ fixed menu sensitivity for Selection Extract and Selection Merge
+	+ added smoothing to HF::insertExtract
+	+ fixed broken Matrix2D::insertDataExtract
+	+ fixed broken HF::getExtract
+	+ fixed broken HFO::hfRescale method
+	+ fixed broken HF::*DataExtract methods
+	+ fixed various little things all over the place 
+	+ added selection extract menu
+	+ added selection merge menu
+	+ added HF::getNewSelection
+	+ added HFO::getSelectionMergeHFs
+	+ added merge selection dialog
+	+ more selection code; dragging and erasing now works
+	+ added forceSelection to config file code 
+	+ added adaptor method for MathTrig::pointInPolygon
+
+0.7.4: 31Sep2000
+	+ started writing Mod Key code
+	+ added TFDialogMove dialog
+	+ added TFDialogSelectElevation dialog
+	+ added HeightField::releaseSelection ()
+	+ added HeightField::setUpdateTime calls to HeightFieldGen*.cc
+	+ added HeightField::setUpdateTime ()
+	+ fixed sneaky bug in HFGS::setPreferredSize()
+
+0.7.3: 14Aug2000
+	+ fixed core dump when closing a Height Field (duplicate delete of selection)
+	+ contributed (David Barthold): execprobe.cc to probe for provray executable
+	+ contributed (David Barthold): fixed broken POVRay scene file + rendering improvements
+	+ selection fixes in HeightFieldOps.cc
+	+ control-Z now triggers Undo
+	+ various little fixes/cleanups HeightFieldDraw.cc
+	+ removed hf_sort from HeightFieldCore.cc and TFOptionTable.h
+	+ made qsort function global/static in HeightFieldCore
+
+0.7.2: 22Jul2000
+	+ eliminated use of undo queue for preview height fields
+	+ selection awareness in HeightFieldOps.cc
+	+ selection shading in HeightFieldDraw.cc
+	+ first rudimentary but working selection code
+
+0.7.1: 01Jul2000
+	+ added recursive plasma generation 
+	+ fixed bad subdivision init in HFGS::generateRecursiveDiamond()
+	+ added scale factor to Matrix2D::ClipPos()
+	+ fixes to FileIO.cc::getExtension() + FileIO.cc::setExtension()
+	+ added more selection code 
+	+ added 2D area draw function to HeightFieldDraw
+	+ replaced TGA file reading code with gimp code 
+	+ fixed incorrect debug info in HFWriter.cc
+	+ added sanitizeRectangle() to MathTrig
+	+ added pointInPolygon() to MathTrig
+	+ added Selection class
+
+0.7.0: 18Jun2000
+	+ fixed incorrect Z-axis when selecting render position with mouse
+	+ added caching to 2D data access in HeightFieldCore.cc
+	+ fixed a few more memory overwrites in various places
+	+ tiling code now works reasonably well
+	+ changed all uses of sprintf() to snprintf() 
+	+ contributed: updated POVRay rendering files
+	+ fixed memory overwrite in TFDialogRender.cc
+	+ fixed a few (small) memory leaks
+	+ rewrote HeightFieldCore to yield template based Matrix2D
+
+0.6.9: 03Jun2000
+	+ fixed have_opengl syntax error in configure.in
+	+ fixed compiler warnings which appeared at high optimization levels
+	+ fixed broken menu default (caused flashing) for view menu
+	+ POV renderings are now viewed from the same angle as in terraform
+	+ opening place object dialog now sets sets the 'Place Objects' checkbox
+	+ placeing POV objects now works correctly
+	+ fixed core dump when opening place object dialog
+
+0.6.8: 22May2000
+	+ rewrote POVRay rendering to use realistic scale (rather than 0..1)
+
+0.6.7: 07May2000
+	+ contributed: improved POV Rendering
+	+ moved extra files to 'data' directory
+	+ changed HeightField::merge() parameter order
+	+ fixed incorrect parameters to HeightField::merge
+	+ fixed crash upon opening merge dialog
+	+ TFWindow::s_winList (FlexArray) now contains master window list
+	+ HF list in main window is now updated after loading a HF from menu
+	+ added 'Hacking Terraform' FAQ
+	+ code changes to enable compilation with Gtkmm-1.2.0
+
+0.6.6: 09Apr2000
+	+ added libVoxel and libSDL checks to configure.in
+	+ added TFWindowTileDraw
+	+ added HFO::tile () && TFDialogTile
+	+ added HF::getExtract() and HF::merge()
+	+ added symetrical flag to placeObjects, PlaceObjectOptions and Dialog
+	+ pov_object is now predefined to a reflective sphere 
+	+ HF::getRenderOptions() now always returns a valid (new) RenderOptions 
+	+ RenderOptions + PlaceObjectOptions now have timestamps
+	+ PlaceObjectOptions is now held by RenderOptions 
+	+ cosmetic changes to PPOV dialog
+	+ improved RenderOptions dialog
+	+ HFO::placeObject now doesn't write but fills PlaceObjectOptions class 
+	+ renamed HFO::placePOVObject to HFO::placeObject
+	+ removed extranous types from MathTrig.h
+	+ code cleanup in header files, changed #defines to enums
+	+ fixed bad/double window deletion in TFGui::cleanup ()
+	+ added readFile method to FileIO
+
+0.6.5: 13Mar2000
+	+ contributed: better openGL rendering
+	+ cleaned up TFWindowOpenGL
+	+ added new_handler to detect failed memory allocation
+	+ started changing HFO::placePOVObject to HFO::placeObject 
+	+ changed TFDialogPPov to use PlaceObjectOptions
+	+ HeightField now also contains a PlaceObjectOptions item
+	+ added 3D color utility function to HeightFieldDraw
+	+ cleaned up TFWindowOpenGL
+	+ added PlaceObjectOptions class
+	+ removed FlexArray subtypes, changed to specialized template
+	+ changed FlexArray to be template-based
+	+ fixed long standing HF window destroy bug which would crash the app
+	+ colormaps are now global and allocated only once
+	+ fixed bad inheritance hierarchy for TFWindow(Handler)
+	+ source code is now (for the most part) const correct
+
+0.6.4: 05Mar2000
+	+ added doxygen tags to comments 
+	+ menu sensitivity for AutoRotate now works correctly
+	+ linearScale now correcly handles smoothing factor
+	+ upgrade to Gtkmm 1.1.9, configure.in now requires 1.1.9
+	+ --generate and --generate_size are now processed after other options
+	+ added --undo_levels flag
+	+ added multi-level undo
+
+0.6.3: 27Feb2000
+	+ renamed Leveler menu to Connect
+	+ contributed: added 4-layered Perlin noise generator
+	+ contributed: added recursive diamond subdivision code 
+	+ added delete_event handler to TFWindowMain
+	+ fixed broken linear scale function
+	+ fixed incorrect HF read status flag after reading from file
+
+0.6.2: 13Feb2000
+	+ fixed remove() bug in flexarray.h
+	+ started fixing closing of app when handling a HFWindow delete event
+	+ fixed delete_event_impl for dialogs so the dialog is not de-allocated
+	+ fixed incorrect use of Gtk::Style
+	+ this also fixes the clobbered theme background in the main window
+	+ fixed core dump with multiple POVRay traces
+	+ added Leveler Dialog
+	+ added Leveler Plug-in code
+	+ view radio button menu now has correct default (3D Wireframe)
+
+0.6.1: 07Feb2000
+	+ menu sensitivity now works again
+	+ fixed core dump in TFDialogMerge (bad pointer init)
+	+ removed POVRay options from global options dialog
+	+ FileIO is now more flexible/correct in it's name handling
+	+ added export to GIMP
+	+ POVRay render files now have a timestamp
+	+ main menu is now complete
+	+ fixed unfinished menu code core dump
+	+ fixed the excessive flicker/redraw for the print settings dialog
+
+0.6.0: 31Jan2000
+	+ upgraded GUI code to Gtk--1.1.8
+	+ the GUI code upgrade is not 100% done yet and it's quite possible 
+	  that it's a bit buggy. If you prefer stability over bleeding edge, 
+	  you're better off staying with 0.5.2. 
+
+0.5.2: 17Jan2000
+	+ added --large_limits for larger sliders
+	+ changed RenderOptions OK button to be consistent with other dialogs
+	+ added smooth checkbutton to TFDialogRenderOptions 
+	+ added smooth boolean to RenderOptions
+	+ fixed bad refresh for preview in RenderOptions notebook/dialog
+	+ change type #defines to typedef in GlobalDefs.h
+	+ fixed bad size init when reading a HF from through Imlib
+	+ fixed floating point exception when moving fast wire in non-wire mode
+	+ fixed out-of-bounds rectangle calulcations in GuiBufferedDrawingArea
+
+0.5.1: 10Jan2000
+	+ rewrote HeightFieldExport to go with new style POV template files
+	+ added TFDialogRender class: still not quite finished
+	+ added RenderOptions class 
+	+ contributed: much better looking POV rendering
+	+ fixed the hfDouble code I broke during the code cleanup
+	+ fixed the superflous name generation for Height Fields
+	+ fixed out of range colors in HFD when switching to a smaller colormap
+	+ fixed the crater dialog elements which ran off the screen 
+	+ fixed core dump when deleting TFWH (bad delete of unused pointer)
+
+0.5.0: 20Dec1999
+	+ code cleanup + added colorspace selector to TFDialogPrintOptions 
+	+ switched to using config.h file for passing compile options 
+	+ inserted i18n gettext wrapper around translatable strings
+	+ added gettext code to configure.in and created po and intl dirs
+	+ added dummy menu array where needed to fool xgettext extraction 
+	+ fixed core dumps resulting from bad HF deletion in HF::init()
+	+ HFC::setData() is now protected and wrapped by HF::init()
+	+ further untangled initialization routines for HF and HFC
+	+ rewrote the HFC::[set|get]El* methods to fall back on El()
+
+0.4.8: 07Dec1999
+	+ fixed the blanked out paper drawing area for the print settings dialog
+	+ code cleanup: much of the core structures has been altered 
+	  and rearranged. The interfaces to the core HF classes has been 
+	  expanded and cleaned up, unnecessary dependencies have been 
+	  decoupled and the design now forces you to write clean(er)/safe(er) 
+	  code (and forced me to clean up some of the worst spaghetti code). 
+	  Terraform source code is now simpler and more consistent. 
+
+0.4.7: 30Nov1999
+	+ removed some unused variables from TFDialogOptions.h
+	+ contributed: improved postscript output for contour lines
+	+ contributed: added export to ACAD file format
+	+ stole a better print dialog from dia 
+	+ fixed Failed Sanity Check when previewing a HF of size 100 or smaller
+
+0.4.6: 22Nov1999
+	+ changed interface for HFE::exportContourLines (added HFD arg)
+	+ contributed: contour lines export to Postscript 
+	+ contributed: improved contour line algorithm 
+	+ added global print settings class and print dialog
+	+ GuiDialogYN can now takes argument to give it OK/Cancel buttons
+	+ TFOpenGLArea::buildMesh now observes TFOptions::s_yscale
+	+ added global print settings and Dialog
+	+ added TFOpenGLArea and TFOpenGLWindow classes/files
+	+ Merge result now has proper filename
+	+ added (Mesa)GL detection code to configure.in and src/Makefile.am
+	+ fixed syntax error on RedHat 6.0 in configure.in
+	+ fixed 2nd redraw event when adding a new HeightField
+
+0.4.5: 31Oct1999
+	+ added delete_event handler to TFDialogMerge (fixes core dump)
+	+ fixed refresh problems for TFDialogMerge when showing hidden dialog
+	+ TFDialogMerge is now seeded with the menu's HF on HF windows
+	+ changed --disable-debug to --enable-debug; better default (w/o debug)
+	+ Merge dialog is now assigned to <Ctrl>-M
+	+ preview group frames now have as title the name of the source HF
+	+ fixed broken merge modes in HFO
+	+ plugged a bunch of memory leaks in HF and preview code in Merge dialog
+	+ fixed core dump in Merge dialog for buttonpress without row select
+	+ configure now uses the RPM_OPT_FLAGS setting
+
+0.4.4: 28OCT1999
+	+ fixed bad --disable-imlib processing in configure.in
+	+ TFGui::buildAccel now required allocated array to prevent memory leak
+	+ prevented unnecssary name generation for preview height fields
+	+ fixed 2 typos for accelerator bindings in View menu
+	+ HeightField::rescale now 'fixes' a constant height field
+	+ Merge menu is now only accessible when 2 or more HFs are open
+	+ added TFDialogMerge 
+	+ added TFDialogTerrace 
+	+ added HFO::terrace ()
+	+ HeightField::backup/restore now save and restore the sealevel
+	+ Transform Dialog preview now correctly observes the waterlevel button
+	+ Transform Dialog now per default doesn't change the waterlevel
+	+ put MainWindow CList in a Scrolled Window
+	+ fixed broken accelerators for Colormap menu
+	+ created RPMs and added them to download site
+	+ configure.in now checks for gdk_imlib before checking imlib version
+
+0.4.3: 18OCT1999
+	+ added --dont_save switch
+	+ added autosave settings code
+	+ reworked HFG memory management, plugged a few memory leaks
+	+ HeightFieldGenS* now deletes MathGauss when generation is done
+	+ TFDialogGen*: HFG is now allocated and deleted in apply callback 
+	+ added Clone menuitem to CList popup menu
+	+ removed old/obolete code from TFDialogGenS*.cc
+	+ TFCListWindowMain now only has appropriate entries sensitive
+	+ TFGui::s_winList and TFCListWindowMain are now syncronized
+	+ TFGui::cleanup now removes CList entries when a HF is closed
+	+ removed unnecessary -limlib from link line 
+	+ completed TFCListMainWin, added popup menu
+	- added Calculator dialog
+	+ added HFO::merge
+	+ changed Exit Menu to Quit
+	+ fixed broken POV export (bad init of static in terraform.cc)
+
+0.4.2: 03OCT1999
+	+ contour line maps now expire when terrain object changes
+	+ 3DWire RadioMenuItem is now properly selected as default 
+	+ added TFCListMainWin 
+	+ added --pov_exec, HFE now observes this setting
+	+ created HeightFieldCore, split up HeightField 
+
+0.4.1: 08SEP1999
+	+ more consistent titles in generation dialogs
+	+ added TFGui::duplicateName() for more intelligent use of agename()
+	+ added HF::getNewName() to standardize name creation 
+	+ fixed core dump in HeightFieldIO (when reading file without extension)
+	+ added support for BMP file format (read-only)
+	+ removed obsolete else branches from dialog calls in TFWindow*.cc 
+	+ Clone now properly copies the HF data it assigns
+	+ added HF::getCopyOfData()
+	+ added global HF counter for better name aging 
+	+ added window CList to main window 
+	+ declared Gtk 1.2.4 unsupported (contains bugs which break terraform)
+	+ started fixing HeightFieldOps::PlacePOV() - basic stuff now works
+	+ accelerators are now determined by underscores, removed accel defs 
+	+ added TFWindow::buildAccel(), changed menu build code accordingly
+	+ dialog titles now contain the name of the HF they're based on 
+	+ re-enabled TFDialogOptions use from main menu
+	+ TFDialogGen* now correctly uses TFGui functions to register the new HF
+	+ TFDialogOptions now updates all HeightFieldWindows
+	+ added function agename()
+
+0.4.0: 01SEP1999
+	+ dead windows are now deleted via a timeout from the delete queue
+	+ added TFGui::s_deleteList, TFGui::scheduleDelete() and cleanup()
+	+ disabled self-delete in TFWindowHandler::closeCallback()
+	+ fixed core dump when closing HF
+	+ wrote better window creation logic for TFDialogGen* dialogs
+	+ PovRay output is now correctly shown/hidden
+	+ TFDialogFlowmap now creates a new window for the flowmap
+	+ added Clone function
+	+ added --fixed_menus flag
+	+ modified TFWindow to either generate a menubar or popup menus
+	+ unified dialogs shared between main and HF windows in TFWindowBase
+	+ terraform can now handle multiple edit windows simultaneously!
+	+ extensive changes to GUI code and it's logical design
+	  + added TFWindowMain.cc
+	  + created TFWindowHandler.cc from TFGui
+	  + rewrote TFGui so that all it does is init the proper gui sections 
+	+ fixed incorrect clearList() in tf_flexarrCharPtr
+	+ added --benchmark
+
+0.3.8: 17AUG1999
+	+ disabled some ./configure checks which break with GCC 2.95
+	+ cleaned up (most) typecasts to conform to ANSI C++ cast operators
+	+ added first, last, removeLast to FlexArray
+	+ made FlexArray and GLib_Glist abstract, mem cleanup is now type safe 
+	+ better abstraction & deletion memory management for glib wrappers
+	+ if TRACE_DEBUG is set, pov rendering is echoed on screen
+	+ yet lots more portability changes; now compiles with gcc 2.95
+	+ fixed incorrect transformation for TL-BR (\) mirror
+	+ wasted time playing CivCTP
+
+0.3.7: 10AUG1999
+	+ fixed core dump when deleteing old contour line map in HFD
+	+ better memory management for delete of glib--glist and flexarray
+	+ some portability changes (gcc 2.95) in struct definitions in MathTrig.h
+	+ lots of portability changes (gcc 2.95) in connect_to_signal GUI code 
+	+ added ./configure --disable-debug flag
+	+ made stack trace debug code conditional
+	+ added --pov30 flag for POVRay 3.0 compatability mode
+	+ lots of cosmetic readability changes in *.h files
+	+ POV rendering now observes environment variable TMPDIR for temp files
+	+ updated POV calls to use correct command line options for POVRay 3.1
+	+ fixed incorrect conditional for sgmltools in configure.in
+	+ fixed core dump when initializing TFDialogGenSubdiv 
+	+ verified that everything works with Gtk-- 1.0.2
+
+0.3.6: 03AUG1999
+	+ added -generate_size flag
+	+ fixed constant generate size in HFGenerateRandom::generate()
+	+ lots of code changes in large dialogs to avoid huge-objects warning
+	+ created new web site layout
+	+ new targets in doc/Makefile.am to process SGML docs
+	+ converted documentation to SGML format
+	+ spent some time figuring out how to internationalize terraform
+
+0.3.5: 19JUL1999
+	+ fixed defunct child processes (now calling waitpid in a timer) 
+	+ POV render now correctly aborts when there's a problem opening files
+	+ POV render can now observe waterlevel 
+	+ HFD now deletes contour list when it is assigned a new one 
+	+ RC file options are now reported in alphabetical order
+	+ better defaults for FlexArray
+	+ cleaned up option code, TFOptions now inherits TFOptionsTable
+	+ made HFEExport::rederPov fork to execute Pov render
+	+ added keepFiles parameter to renderPov, now works correctly
+	+ added HFExport::renderPOV ()
+	+ added POV params to RC file code and TFOptions code 
+	+ added substitution of filename and other params before Pov redering 
+	+ added strrep.cc (C type string replace)
+	+ added model PovRay trace file (tf_land.pov)
+	+ added Export->PovRay menu
+	+ code cleanup in HF generate dialogs
+	+ minor consistency changes in preview dialogs
+	+ added user specifyable random number seed options to TFDialogCraters
+	+ fixed bad assignment of d_scale in TFDialogOptions
+	+ fixed extra redraw when changing display scale for an existing HF
+	+ better HScale slider in TFDialogOptions.cc
+	+ added proper (integer) display scaling code for contour lines
+	+ added proper (integer) display scaling code for 2D draw mode
+	+ optimized contour line drawing (added RBG image cache to HFD)
+
+0.3.4: 05JUL1999
+	+ made crater code more repeadable by separating random number streams
+	+ fixed bad conversion of C++ string to C char* in input fields
+	+ fixed bad division when calculating preview crosshair offset
+	+ code cleanup in TFWindow.h (created MenuDefs.h)
+	+ added TFDialogCraters
+	+ stole crater code from hf-lab 
+	+ better #ifdef code separation for with(out) Imlib in GuiDialogAbout
+	+ file selection dialog now has title depending on mode (load/save)
+	+ fixed potential core dump in HFD (bad init of d_contourList)
+	+ added underscores (shortcut markers) and branch accelerators to menu
+	+ code rearrangement in HFO and HFE
+	+ removed unused class variables + methods from HFE
+	+ HFD now correctly redraws when assigned a contourLineList in 2D mode
+	- added WhirlPinch code
+	+ fixed core dump in GuiDialogAbout() when compiling without imlib
+
+0.3.3: 21JUN1999	
+	+ better resource names for RC file 
+	+ added promptOverwrite() to FileIO
+	+ added --installrc flag
+	+ added code to write user RC file 
+	+ fixed lots of little incosistencies in trace level code 
+	+ added (ugly) code to write settings to resource file 
+	+ added rudimentary resource file code 
+	+ added TFOptionTable class (glorified hash table)
+	+ changes to help code, added --helprc
+	+ more consistent handling of TFOptions class in TFDialogOptions
+	+ added timestamping to HFE and selective drawing to HFD
+	+ quite a few improvements/optimizations for HFE contour line code
+	+ addex FlexArray class
+	+ stole better error handling code from glib 
+	+ portability enhancements in various header files 
+	+ added optional drawing of contour lines for 2D Plane view 
+	+ minor changes to menu structure
+	- added TFDialogWhirlPinch
+	+ added contour line (Isogram) code + TFDialogContourLines
+	+ added 2D and 3D coordinate structs to MathTrig.h
+	+ added Glib GList wrapper 
+	+ added SIGSEGV signal handler 
+	+ fixed Gtk---CRITICAL error in pixmap alloc (GuiDialogAboutDissolve.cc)
+	+ fixed bad sanity check in TFDialogGaussianHill
+
+0.3.2: 08JUN1999
+	+ better HFO::linearScale()
+	+ changed inproper use of (now) private Gtk-- method in TFWindow.cc
+	+ many improvements to HFO::gaussianHill()
+	+ HFM is now only constructed for main windows, not previews
+	+ fixed preview crosshair refresh problem (when turning on preview)
+	+ Makefile changes to enable proper lib dir assignment on Debian systems
+	+ removed bad deletes (LinScale, PPov, RoughSmooth & Transform dialogs)
+	+ added TFDialogGaussHill
+	+ added HFO::gaussianHill()
+	+ removed mysterious old code leftovers in HFO.h
+	+ fixed bad fold() call in TFDialogFold::buttonCallbackApply ()
+	+ code cleanup in HFO
+	+ better Fold, can now actually be useful
+	+ changed Erode, Flowmap, and Rescale to use TFBaseDialog
+	+ added TFBaseDialog class
+
+0.3.1: 23MAY1999
+	+ added syncing of HF (when many dialogs are open and base HF changes)
+	+ added timestamp to HF 
+	+ reordered HF menu according to dialog type
+	+ changed HFO::rotate90 data assignment from HF::setData to memcpy()
+	+ TFGui now properly destroys all created widgets/dialogs
+	+ fixed incorrect GUI check for PNG and TIFF file loads in readhf()
+	+ fixed refresh problem in TFDialogTransform
+	+ HF::setSealevel now forces valid range, used in HFO
+	+ small interface changes in GuiColormap
+	+ small trace output fixes in HFGenSubdiv, HFGenSSynth and HFD
+	+ turning preview off now reverts preview image to original Height Field
+	+ removed extra allocation of resized HF in HFO::hfResize()
+	+ fixed incorrect d_sealevel init in HF::setData()
+	+ fixed incorrect color band offset in trace output
+	+ fixed/optimized HFO::rotate90:rotate270
+	+ fixed core dump and optimized BL-TR mirror in HFO::mirror
+	+ more leniant HeightField::destroyBackup ()
+	+ fixed another bad init/potential core dump (backup in HeightField.cc)
+	+ fixed bad init which dumped core when opening Fold dialog (TFGui.cc)
+	+ fixed bad init which dumped core with gtk-themes engines (TFWindow.cc)
+	+ regrouped connection code in dialogs inheriting TFPreviewDialog 
+	+ better/saner Roughen&Smooth dialog
+	+ added mouse button config to TFDialogLinearScale
+	+ added crosshair utility function to TFPreviewDialog
+	+ updated Fold, Mirror and Rotate to inherit TFPreviewDialog
+	+ updated LinScale, RSmooth and Transform to inherit TFPreview Dialog
+	+ changed 2D draw to use GdkRGB (which is much faster)
+	+ added GdkRBG interface to GuiBufferedDrawingArea
+	+ added gtkrc parsing, this adds support for Gtk themes
+
+0.3.0: 09MAY1999
+	+ smarter Pixmap recreation code in GuiBufferedDrawingArea.cc
+	+ better HFD::setColormap interface
+	+ fixed premature delete in HF::refresh ()
+	+ changed TFDialogFill to inherit TFPreviewDialog
+	+ added TFPreviewDialog
+	+ fixed bad sanity checks in HFD::resetView()
+	+ fixed incorrect array subscripts in HFO::hfResize()
+	+ fixed infinite loop in HFO::hfResize()
+	+ finally got GuiDialogPreview to work properly
+	+ changed connections to virtual function impl in GuiBufferedDrawingArea
+	+ centralized terraform options in new module 
+	+ added separator to New submenu
+	+ fixed core dump when generating random HF from GUI
+	+ changed dialog behaviour so OK closes without action after Apply
+
+0.2.11: 23APR1999
+	+ added New->Random menu
+	+ changed Exit shortcut to <cntrl>X
+	+ modularized random generation code 
+	+ converted preview dialog to use GuiBufferedDrawingArea
+	+ added getColormap() to HFD
+	+ more flexible HFD code (made terraform window optional)
+	+ added --generate flag
+	+ easier interface for HeightFieldGenSubdiv through 1 generate method
+	+ fixed core dump in TFDialogPPov.cc (bad init triggered bogus delete)
+	+ oops, didn't properly initialize a vbox in TFDialogOptions
+	+ fixed sneaky window build bug (potential core dump on some platforms)
+	+ changed order & default choice in GenSubdiv dialog for better default
+	+ added configure support for imlib 1.9.x
+	+ better preview dialog
+	+ added fast backup/refresh code for HF
+	+ made a better FAQ
+	+ fixed excessive FastWireframe flicker (removed call to 	
+	  GtkMain->events_pending when after syncing) 
+
+0.2.10: 07APR1999
+	+ Imlib forbids PNG and TIFF read before GUI is running
+	+ added read support for PNG and TIFF files (using imlib) 
+	+ files using imlib are now only compiled/linked when imlib is present
+	+ made GuiDialogAbout setup code more generic
+	+ added dissolving about dialog 
+	+ modified GuiDialogAbout.* code to allow a build with and without imlib
+	+ added drawPixmap to GuiBufferedDrawingArea
+	+ started adding #ifdef code to make sure we can live without imlib
+	+ added About dialog (uses imlib JPG read)
+	+ created terraform specific defaults file (terraform.h)
+	+ made imlib use default in configure.in 
+	+ unused HFIO after writing erosion result is now properly deleted 
+	+ disabled valid file type check for MAT read (still needs a real fix)
+	+ fixed core dump in memory management of HFIO (when deleting char *)
+	+ fixed core dumps in OCT and MAT file read
+	+ fixed core dumps in PGM, PG8, MAT and OCT file write 
+
+0.2.9: 30MAR1999
+	+ partially fixed resize and refresh problems 
+	+ added support of DEM and GTOPO30 file format (read only, experimental)
+	+ roughness factor is now properly applied to iterative subdivisions 
+	+ fixed core dump (+optimized code) for filling subdivision result
+	+ generated HF now marked "not saved" -> triggers question upon Exit
+	+ fixed occasional core dump in GuiDialogYN 
+	+ HFD now calls TFWindow.setSize to make sure window is correctly sized
+	+ TFWindow.setSize now resizes the window when it's really needed
+	+ fixed core dump in extraction of requested subdivision result 
+	  when requested size was odd 
+	+ better Reload menu sensitivity (added d_loadedFromFile flag to HF)
+	+ added menu accelerators
+	+ fixed core dump in flowmap (removed too much code duing last cleanup)
+
+0.2.8: 16MAR1999
+	+ changed configure scripts for Gtk-- 1.0.x
+	+ user can't resize anymore 
+	+ general subdivision dialog (uses combo instead of OptionMenu)
+	+ better recursive generation 
+	+ 3 new subdivision routines (Diamond, Midpoint, Offset)
+	+ middle mousebutton now resets view 
+	+ modularized HFD init code
+	+ better premature EOF recovery on other file reads 
+	+ fixed core dump on recover from premature EOF on TGA file read
+
+0.2.7: 02MAR1999
+	+ changed configure scripts for Glib/Gtk+ 1.2.x and Gtk-- 0.99.x
+	+ fixed core dump in HeightField.cc (d_size was not updated properly)
+	+ added support for non 2^n sized HFs to subdivision code
+	+ MathGauss now inherits from MathRandom
+	+ better random number generator
+	+ changed File/New into a Branch
+	+ added dialog for subdivision
+	+ added subdivision HF generation code (needs some more work)
+	+ reorganized generate code
+	+ added GuiDialogPreview class 
+	+ better default size for TFDialogMirror
+	+ better cache refresh for MFD flowmap
+	+ deleted extra/leftover write at end of flowmap
+	+ added optional name to HeightField constructor
+	
+0.2.6: 22FEB1999
+	+ fixed TFDialogErode.cc to work with Gtk-- 0.11.2 
+	  - released right this morning, talk about bad timing 
+
+0.2.5: 21FEB1999
+	+ fix in TFGui.cc to prevent failed sanity check after New->Cancel->New
+	+ better Generate dialog: replaced magnitude with generate seed option
+	+ upslopeMFD() flowmap now properly sizes cardinal vs diagonal inflow
+	+ changed most C-type casts to static_cast<> or dynamic_cast<>
+	+ added dynamic_cast<> check in configure.in
+	+ configure now checks for Imlib, supports --disable-imlib 
+	+ better closing code for TFDialog*, now closes before action starts
+	+ added 'Trim Local Peaks' option to TFDialgErode 
+	+ fixed erode so that local peaks won't (relativeley) rise like spikes
+	+ now using Timer in flowmap()
+	+ various consistency changes in TFDialog*.cc
+	+ changed Box offsets to variables in TFDialog*.cc 
+	+ cosmetic static variable rename in GlobalTrace
+	+ added 'Keep Zero Elevation' option to TFDialogFill 
+	+ fill can now preserve minimal (0) elevation points (prevents rescale)
+	+ added --enable-hugeobjects to configure; some egcs versions need this
+	+ cleanup of configure.in 
+	+ removed GuiDialog3Frames.* from distribution 
+	+ better GlobalTrace (added trace()), changed GlobalTrace references
+	+ better Glib_Hash: overloaded '==' operator
+	+ better Timer: better consistency checks, added getElapsedSeconds
+	+ created setData() in HeightField to enable passback of flowmap()
+	+ fixed dot trace HFO::erode() + code cleanup
+	+ better NO_FLOW usage in HFO::flowmap(), fixed nasty 0 upslope bug
+	+ oops, wrong boolean param for erode(observeSealevel) in TFDialogErode
+
+0.2.4: 07Feb1999
+	+ various other little fixes 
+	+ code cleanup in TFDialog*
+	+ added Fill dialog
+	+ added GNU style options
+	+ big endian support for MAT should now work properly
+	+ cleaned up configure.in some more, added BIG_ENDIAN check
+	+ added erosion dialog
+	+ added erosion code (still needs some/a_lot_of work)
+	+ AutoRotate is now only selectable when FastWireframe is selected
+	+ AutoRotate now has a calibration routine and won't gobble CPU anymore
+	+ added Timer code
+	+ configure now tests for required C++ features 
+
+0.2.3: 25Jan1999
+	+ verified that Gtk-- 0.11.1 works without any changes
+	+ fix to enable proper initial size for Gtk-- 0.11.x
+	+ cleanup configure script 
+	+ menus are now only selectable when they should be (finally)
+
+0.2.2: 24JAN1999
+	+ changes to go from Gtk-- 0.10.3 to 0.11.0
+	+ added 'RedHot' colormap
+	+ added 'Desert' colormap
+	+ better color handling code for model/preview 
+	+ proportional coloring of (slow) wireframe 
+	+ better linear colormap
+
+0.2.1: 07JAN1999	
+	+ quick fix release before I go on vacation
+	+ fixed core dump when generating HF after invoking terraform with -f
+	+ better seed for generate dialog
+
+0.2.0: 06JAN1999
+	+ better default and sanity checks for linear scale, added scaleFactor
+	+ added fill sea option to fast wireframe
+	+ added options dialog frame for fast wireframe 
+	+ added/integrated fastWireframe mode, real time rotate 
+	+ added HeightField Model
+	+ changed button default for Rescale dialog
+	+ added alterScale method to HFD 
+	+ added C++ wrapper for glib hash table 
+	+ various other fixes + improvements
+	+ various minor fixes to new IO code + calling code
+	- menus are now only selectable when they should be (disabled)
+	+ made first attempt at Linear Scale dialog
+	+ stole code for half/double from hf-lab
+	+ added ElclipSea inline funcion
+	+ fixed incorrect call for Smooth menu selection
+	+ fixed core dump when updating frame title (TFDialogRoughSmooth.cc)
+	+ fixed core dump when using non-existing rescale dialog
+	+ removed incorrect button delete in TFDialogFlowmap (caused core dump)
+
+0.1.2: 27DEC1998
+	+ 1 change to go from Gtk-- 0.10.2 to 0.10.3
+	+ added 'observe sealevel' button to Flowmap dialog
+	+ general facelift: most dialogs now have a frame, looks better
+	+ added default/optional frame to GuiDialog* code
+	+ invert now doesn't change the sea level anymore
+	+ added dot trace to new IO code
+	+ added dot trace to flowmap code
+	+ added proper check for existance of -f file 
+	+ stole code for extra file format I/O from hf-lab
+	+ stole nicer rotate dialog from gimp rotate plugin 
+	+ changed incorrect title in TFDialogTransform
+	+ converted potentially dangerous strdup pointers delete to free
+	+ resize dialogs to make it go better with the smaller font
+	+ change from menu_factory to icon_factory 
+	+ cleaned up memory leaks in TFDialog* code 
+	+ this forced a re-think/cleanup of callbacks, now virtual functions
+	+ changed to smaller font, looks nicer
+
+0.1.1: 22DEC1998				a.k.a. the Christmas release
+	+ generate seed is now refreshed every time dialog is called
+	+ cleaned up callback code in TFGui.cc
+	+ make menus safe from !HF
+	+ added flowmap option dialog
+	+ fixed roughen/smooth selection 
+	+ added 'observe/ignore Waterlevel' option to flowmap
+	  - must still add to dialog
+	+ changed slider default in TFDialogRoughSmooth.cc to 1
+	+ changed incorrect title in TFDialogFlowmap
+	+ oops, no rescale() after flowmap
+	+ flowmap now produces more reasonable output (uses log istead of LN)
+	+ changes to adapt from Gtk-- 0.10.1 to 0.10.2
+	+ updated configure scripts for new versions
+
+0.1.0: 07DEC1998
+	+ fixed core dump upon exit without height field
+	+ add configure scripts
+	+ fix optionmenu (removed it from TFDialogOptions)
+	+ do colormap switching code
+	+ implement RoughSmooth stuff
+	+ implement some sort of caching to speed up [MS]FD caclulations
+	+ implement MFD
+	+ implement SFD
+	+ make sure replacing a HF cleans out memory
+	+ fix linear scale 
+	+ implement TFDialogPPov
+	+ fix root window option menu 
+	+ figure out proper drawing sizing/placement
+	+ remove constants in init code (400)
+	+ make sure we sync after having drawn a height field
+	+ fix fold
+	+ implement smooth
+	+ implement roughen
+	+ change Generate fractal dim slider to values 2 .. 3 (remove H-h code)
+	+ add 'real component', 'reverse cos/sin' options for TFDialogGenerate 
+	+ ooops, forgot to set d_scale in setScale in HFD
+	+ add scaling to 2-d view
+	+ get resize to work
+	+ do the proper math for colormap bands (+ land offset) in HFD
+	+ modal YN dialog -> GuiReallyQuitDialog
+	+ rename to terraformer
+	+ write dialog example code
+	+ write optionmenu example code
+	+ HFDialogRoughen: make a real check/radio button
+	+ open/save file dialog, connect buttons to methods
+	+ connect remaining menus
+	+ integrate old mode code
+	+ remove the sorting and stats code from HF
+	+ port to GTK--
+
+
+0.0.2: Spring 98
+	+ port to XForms, nice menus 
+
+0.0.1: Fall 97
+	+ first version, ran under plain X11, added color code
