@@ -2,7 +2,7 @@
 /* config.h.in.  Generated from configure.in by autoheader.  */
 
 /* always defined to indicate that i18n is enabled */
-/* #undef ENABLE_NLS */
+#define ENABLE_NLS 1
 
 /* GETTEXT package name */
 #define GETTEXT_PACKAGE "terraform"
@@ -11,7 +11,7 @@
 #define HAVE_BIND_TEXTDOMAIN_CODESET 1
 
 /* Define to 1 if you have the `dcgettext' function. */
-/* #undef HAVE_DCGETTEXT */
+#define HAVE_DCGETTEXT 1
 
 /* Define if the GNU gettext() function is already present or preinstalled. */
 #define HAVE_GETTEXT 1
@@ -65,7 +65,7 @@
 #define PACKAGE_BUGREPORT ""
 
 /* PACKAGE_LOCAL_DIR */
-#define PACKAGE_LOCALE_DIR "/usr/local//locale"
+#define PACKAGE_LOCALE_DIR "{DATADIR}/locale"
 
 /* Define to the full name of this package. */
 #define PACKAGE_NAME ""
@@ -75,6 +75,9 @@
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME ""
+
+/* Define to the home page for this package. */
+#define PACKAGE_URL ""
 
 /* Define to the version of this package. */
 #define PACKAGE_VERSION ""
