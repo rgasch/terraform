@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 
 AC_INIT(configure.in)
-AM_INIT_AUTOMAKE(terraform, 0.9.2)
+AM_INIT_AUTOMAKE(terraform, 0.9.5)
 AM_CONFIG_HEADER(config.h)
 
 dnl extra configure arguments
