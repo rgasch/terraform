@@ -1,0 +1,2381 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2002-01-02 22:56+0100\n"
+"PO-Revision-Date: 2001-11-25 HO:MI+ZONE\n"
+"Last-Translator: Koos Jan Niesink <koos_jan@hotpop.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+#: src/main.c:75
+msgid "Run terrain chooser upon startup"
+msgstr ""
+
+#: src/main.c:76
+msgid "type bitmap"
+msgstr ""
+
+#: src/main.c:78
+msgid "Set scaling factor for random generation"
+msgstr ""
+
+#: src/main.c:79
+msgid "factor"
+msgstr ""
+
+#: src/main.c:81
+msgid "Generate random terrain upon startup"
+msgstr ""
+
+#: src/main.c:82 src/main.c:88
+msgid "size"
+msgstr "grootte"
+
+#: src/main.c:84
+msgid "Set gamma factor"
+msgstr ""
+
+#: src/main.c:85
+msgid "gamma_factor"
+msgstr ""
+
+#: src/main.c:87
+msgid "Set the default terrain size"
+msgstr ""
+
+#: src/main.c:90
+msgid "Set terrain types for random generation"
+msgstr ""
+
+#: src/main.c:91
+msgid "type_bitmap"
+msgstr ""
+
+#: src/main.c:93
+msgid "Set the maximum size of the undo queue"
+msgstr ""
+
+#: src/main.c:94
+msgid "max_undo"
+msgstr ""
+
+#: src/main.c:127
+msgid "--factor command line option: Factor must be greater than 0"
+msgstr ""
+
+#: src/main.c:130
+msgid "--factor command line option: Factor must be smaller than 1"
+msgstr ""
+
+#: src/main.c:141
+msgid "--gamma command line option: Gamma must be greater than 0"
+msgstr ""
+
+#: src/main.c:144
+msgid "--gamma command line option: Gamma can not be more than 5"
+msgstr ""
+
+#: src/main.c:153
+msgid "--size command line option: Size must be at least 10"
+msgstr ""
+
+#: src/main.c:156
+msgid "--size command line option: Size can not be more than 2000"
+msgstr ""
+
+#: src/main.c:169
+#, c-format
+msgid "--type command line option: Type must be less than %d"
+msgstr ""
+
+#: src/main.c:172
+msgid "--type command line option: Type must be at least 0"
+msgstr ""
+
+#: src/main.c:181
+msgid "--undo command line option: must be at least 1"
+msgstr ""
+
+#: src/main.c:184
+msgid "--undo command line option: can not be more than 50"
+msgstr ""
+
+#: src/callbacks.c:374 src/callbacks.c:4238 src/main.c:207
+msgid "Generate Random"
+msgstr ""
+
+#: src/main.c:220
+#, c-format
+msgid "Could not load: %s"
+msgstr ""
+
+#: src/callbacks.c:2218 src/main.c:231
+msgid "Load"
+msgstr ""
+
+#: src/interface.c:70 src/interface.c:6078 src/interface.c:8144
+msgid "Terraform"
+msgstr ""
+
+#: src/interface.c:90 src/interface.c:2212
+msgid "_File"
+msgstr "_Bestand"
+
+#: src/interface.c:110
+msgid "_New"
+msgstr "_Nieuw"
+
+#: src/interface.c:130
+msgid "_Chooser..."
+msgstr ""
+
+#: src/interface.c:151
+msgid "Faultin_g..."
+msgstr ""
+
+#: src/interface.c:163
+msgid "_Perlin Noise..."
+msgstr ""
+
+#: src/interface.c:175
+msgid "_Spectral..."
+msgstr "_Spectraal..._"
+
+#: src/interface.c:187
+msgid "Sub_division..."
+msgstr ""
+
+#: src/interface.c:199
+msgid "_Random"
+msgstr ""
+
+#: src/interface.c:211
+msgid "_Open..."
+msgstr ""
+
+#: src/interface.c:235
+msgid "_Flowmap Erosion ..."
+msgstr ""
+
+#: src/interface.c:247
+#, fuzzy
+msgid "_Join..."
+msgstr "_Kloon"
+
+#: src/interface.c:259
+msgid "_Merge..."
+msgstr "_Samenvoegen"
+
+#: src/interface.c:271
+#, fuzzy
+msgid "_Warp..."
+msgstr "_Kraters"
+
+#: src/interface.c:292
+msgid "O_ptions..."
+msgstr "O_pties"
+
+#: src/interface.c:304
+msgid "Prin_t Settings..."
+msgstr ""
+
+#: src/interface.c:325
+msgid "E_xit"
+msgstr "_Afsluiten"
+
+#: src/interface.c:340
+msgid "_Help"
+msgstr ""
+
+#: src/interface.c:360
+msgid "_Tutorial..."
+msgstr ""
+
+#: src/interface.c:372
+msgid "_Users Guide..."
+msgstr ""
+
+#: src/interface.c:393
+msgid "_About..."
+msgstr "_Over..."
+
+#: src/interface.c:423 src/interface.c:9676 src/interface.c:12956
+#: src/interface.c:14084 src/interface.c:14797
+msgid "Terrain Object List"
+msgstr ""
+
+#: src/interface.c:522
+msgid "About Terraform"
+msgstr "Over Terraform"
+
+#: src/interface.c:577
+msgid ""
+"Terraform is the work of many people over many years.\n"
+"This program would not exist without their contributions.\n"
+"\n"
+"Original Terraform application\n"
+"Copyright 1997-2001 Robert Gasch (r.gasch@chello.nl)\n"
+"\n"
+"POV-Ray scenes and reworked Terraform interface\n"
+"Copyright 1998-2001 David A. Bartold (foxx@mail.utexas.edu)\n"
+"\n"
+"3D Display engine\n"
+"Inspired by HF-Lab by John Beale (beale@best.com)\n"
+"\n"
+"Crater filter\n"
+"Copyright 1995 Heiko Eissfeldt (heiko@colossus.escape.de)\n"
+"\n"
+"Recursive diamond subdivision generator\n"
+"Based on code by Leo Sutic (http://www.sutic.nu/voxels/)\n"
+"\n"
+"Connect filter\n"
+"Written by Kari (kari@kivisalo.net, http://www.kivisalo.net/)\n"
+"\n"
+"TGA reader/writer\n"
+"Derived from GIMP code by Gordon Matzigkeit (gord@gnu.ai.mit.edu)\n"
+"\n"
+"ACAD exporter\n"
+"Written by Ronald Reckel (reckel@stud.montefiore.ulg.ac.be)\n"
+"\n"
+"Perlin noise routines\n"
+"Adapted from code placed in the public domain by John Ratcliff "
+"(jratcliff@verant.com)\n"
+"\n"
+"Fautling routines\n"
+"Inspired by Antnio Ramires Fernandes' descriptions at \n"
+"http://www.lighthouse3d.com/opengl/terrain/index.php3?fault\n"
+"\n"
+"Iterative subdivision generation code\n"
+"Based on work by Carl Burke\n"
+"\n"
+"Fast Fourier Transform code\n"
+"Originally by RC Singleton\n"
+msgstr ""
+
+#: src/interface.c:579
+msgid ""
+"Development Version\n"
+"Licensed under the GPL"
+msgstr ""
+
+#: src/callbacks.c:2492 src/interface.c:609
+msgid "Copyright Info"
+msgstr "Copyright Informatie"
+
+#: src/callbacks.c:3984 src/interface.c:666 src/interface.c:5960
+msgid "Spectral Synthesis"
+msgstr ""
+
+#: src/interface.c:686 src/interface.c:1793 src/interface.c:6961
+#: src/interface.c:7214 src/interface.c:11437 src/interface.c:12121
+#: src/interface.c:14512 src/interface.c:15354
+msgid "Parameters"
+msgstr ""
+
+#: src/interface.c:720 src/interface.c:1596 src/interface.c:1872
+#: src/interface.c:5926 src/interface.c:12200
+msgid "Size"
+msgstr "Grootte"
+
+#: src/interface.c:747
+msgid "Fractal Dimensions"
+msgstr ""
+
+#: src/interface.c:764
+msgid "Invert trignometric functions"
+msgstr ""
+
+#: src/interface.c:789 src/interface.c:1630 src/interface.c:1932
+#: src/interface.c:11218 src/interface.c:12343
+msgid "Generate new seed"
+msgstr ""
+
+#: src/interface.c:808 src/interface.c:1649 src/interface.c:1951
+#: src/interface.c:4050 src/interface.c:12362
+msgid "Seed"
+msgstr ""
+
+#: src/interface.c:825 src/interface.c:1666 src/interface.c:1968
+#: src/interface.c:4067 src/interface.c:11252 src/interface.c:12379
+msgid "0"
+msgstr ""
+
+#: src/interface.c:860 src/interface.c:1701 src/interface.c:2003
+#: src/interface.c:12414
+msgid "Generate"
+msgstr "Genereer"
+
+#: src/interface.c:869 src/interface.c:1710 src/interface.c:2012
+#: src/interface.c:12423
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: src/interface.c:964
+msgid "Perlin Noise Synthesis"
+msgstr "Perlin Ruis Synthese"
+
+#: src/interface.c:983
+msgid "Perlin Parameters"
+msgstr ""
+
+#: src/interface.c:1013 src/interface.c:5210
+msgid "Frequency"
+msgstr "Frequentie"
+
+#: src/interface.c:1023
+msgid "Amplitude"
+msgstr ""
+
+#: src/interface.c:1033 src/interface.c:12227
+msgid "Iterations"
+msgstr "Herhalingen"
+
+#: src/interface.c:1043 src/interface.c:2655
+msgid "Filter"
+msgstr ""
+
+#: src/interface.c:1202
+msgid "4th order"
+msgstr "4e orde"
+
+#: src/interface.c:1212
+msgid "3rd order"
+msgstr "3e orde"
+
+#: src/interface.c:1222
+msgid "2nd order"
+msgstr "2e orde"
+
+#: src/interface.c:1232
+msgid "1st order"
+msgstr "1e orde"
+
+#: src/interface.c:1253 src/interface.c:1335 src/interface.c:1417
+#: src/interface.c:1499
+msgid "Plasma"
+msgstr ""
+
+#: src/interface.c:1256 src/interface.c:1338 src/interface.c:1420
+#: src/interface.c:1502
+msgid "Shiprock #1"
+msgstr ""
+
+#: src/interface.c:1259 src/interface.c:1341 src/interface.c:1423
+#: src/interface.c:1505
+msgid "Shiprock #2"
+msgstr ""
+
+#: src/interface.c:1262 src/interface.c:1344 src/interface.c:1426
+#: src/interface.c:1508
+msgid "Shiprock #3"
+msgstr ""
+
+#: src/interface.c:1265 src/interface.c:1347 src/interface.c:1429
+#: src/interface.c:1511
+msgid "Rounded Mountains #1"
+msgstr ""
+
+#: src/interface.c:1268 src/interface.c:1350 src/interface.c:1432
+#: src/interface.c:1514
+msgid "Rounded Mountains #2"
+msgstr ""
+
+#: src/interface.c:1271 src/interface.c:1353 src/interface.c:1435
+#: src/interface.c:1517
+msgid "Rounded Mountains #3"
+msgstr ""
+
+#: src/interface.c:1274 src/interface.c:1356 src/interface.c:1438
+#: src/interface.c:1520
+msgid "General Land #1"
+msgstr "Algemeen Land #1"
+
+#: src/interface.c:1277 src/interface.c:1359 src/interface.c:1441
+#: src/interface.c:1523
+msgid "General Land #2"
+msgstr "Algemeen Land #2"
+
+#: src/interface.c:1280 src/interface.c:1362 src/interface.c:1444
+#: src/interface.c:1526
+msgid "General Land #3"
+msgstr "Algemeen Land #3"
+
+#: src/interface.c:1283 src/interface.c:1365 src/interface.c:1447
+#: src/interface.c:1529
+msgid "General Land #4"
+msgstr "Algemeen Land #4"
+
+#: src/interface.c:1286 src/interface.c:1368 src/interface.c:1450
+#: src/interface.c:1532
+msgid "Permafrost #1"
+msgstr ""
+
+#: src/interface.c:1289 src/interface.c:1371 src/interface.c:1453
+#: src/interface.c:1535
+msgid "Permafrost #2"
+msgstr ""
+
+#: src/interface.c:1292 src/interface.c:1374 src/interface.c:1456
+#: src/interface.c:1538
+msgid "Rocky Mesas #1"
+msgstr ""
+
+#: src/interface.c:1295 src/interface.c:1377 src/interface.c:1459
+#: src/interface.c:1541
+msgid "Rocky Mesas #2"
+msgstr ""
+
+#: src/interface.c:1298 src/interface.c:1380 src/interface.c:1462
+#: src/interface.c:1544
+msgid "Rocky Mesas #3"
+msgstr ""
+
+#: src/interface.c:1301 src/interface.c:1383 src/interface.c:1465
+#: src/interface.c:1547
+msgid "Rocky Mesas #4"
+msgstr ""
+
+#: src/interface.c:1304 src/interface.c:1386 src/interface.c:1468
+#: src/interface.c:1550
+msgid "Rocky Mesas #5"
+msgstr ""
+
+#: src/interface.c:1307 src/interface.c:1389 src/interface.c:1471
+#: src/interface.c:1553
+msgid "Eroded Rivers #1"
+msgstr ""
+
+#: src/interface.c:1310 src/interface.c:1392 src/interface.c:1474
+#: src/interface.c:1556
+msgid "Eroded Rivers #2"
+msgstr ""
+
+#: src/interface.c:1313 src/interface.c:1395 src/interface.c:1477
+#: src/interface.c:1559
+msgid "Eroded Rivers #3"
+msgstr ""
+
+#: src/interface.c:1316 src/interface.c:1398 src/interface.c:1480
+#: src/interface.c:1562
+msgid "General Land II"
+msgstr "Algemeen Land II"
+
+#: src/interface.c:1319 src/interface.c:1401 src/interface.c:1483
+#: src/interface.c:1565
+msgid "Shiprock II"
+msgstr ""
+
+#: src/interface.c:1570
+msgid "General Parameters"
+msgstr "Algemene Parameters"
+
+#: src/callbacks.c:3833 src/interface.c:1782 src/interface.c:5969
+msgid "Subdivision Synthesis"
+msgstr ""
+
+#: src/interface.c:1827
+msgid "Subdivision Method"
+msgstr ""
+
+#: src/interface.c:1843
+msgid "Recursive Square"
+msgstr ""
+
+#: src/interface.c:1846
+msgid "Recursive Diamond"
+msgstr ""
+
+#: src/interface.c:1849
+msgid "Recursive Plasma"
+msgstr ""
+
+#: src/interface.c:1852
+msgid "Offset Square"
+msgstr ""
+
+#: src/interface.c:1855
+msgid "Midpoint"
+msgstr ""
+
+#: src/interface.c:1858
+msgid "Diamond Square"
+msgstr ""
+
+#: src/interface.c:1899 src/interface.c:12254
+msgid "Scale Factor"
+msgstr ""
+
+#: src/interface.c:2042
+msgid "Load Height Field"
+msgstr ""
+
+# src/interface.c:2210
+# src/interface.c:2174
+#: src/interface.c:2192
+msgid "Terrain"
+msgstr "Terrein"
+
+# src/interface.c:2250
+# src/interface.c:2214
+#: src/interface.c:2232
+msgid "_Save"
+msgstr "Opslaan"
+
+# src/interface.c:2265
+# src/interface.c:2229
+#: src/interface.c:2247
+msgid "Save _As..."
+msgstr "Opslaan Als"
+
+#: src/interface.c:2257
+msgid "Render"
+msgstr ""
+
+#: src/interface.c:2275
+msgid "_Native..."
+msgstr ""
+
+#: src/interface.c:2287
+msgid "_POV-Ray..."
+msgstr ""
+
+# src/interface.c:2317
+# src/interface.c:2281
+#: src/interface.c:2299
+msgid "_Export"
+msgstr "_Exporteren"
+
+#: src/interface.c:2319
+msgid "_View..."
+msgstr ""
+
+#: src/interface.c:2331
+msgid "To _GIMP..."
+msgstr "Naar _GIMP..."
+
+#: src/interface.c:2343
+msgid "To _POV-Ray"
+msgstr "Naar _POVRay"
+
+#: src/interface.c:2353
+msgid "Print..."
+msgstr ""
+
+# src/interface.c:2379
+# src/interface.c:2343
+#: src/interface.c:2361
+msgid "Print Preview..."
+msgstr ""
+
+# src/interface.c:2398
+# src/interface.c:2362
+#: src/interface.c:2380
+msgid "_Close"
+msgstr "Sluiten"
+
+# src/interface.c:2410
+# src/interface.c:2374
+#: src/interface.c:2392
+msgid "_Edit"
+msgstr "Be_werken"
+
+# src/interface.c:2430
+# src/interface.c:2394
+#: src/interface.c:2412
+msgid "_Undo..."
+msgstr "_Ongedaan maken"
+
+# src/interface.c:2445
+# src/interface.c:2409
+#: src/interface.c:2427
+msgid "_Clone..."
+msgstr "_Kloon"
+
+# src/interface.c:2210
+# src/interface.c:2430
+#: src/interface.c:2448
+msgid "_Terrain Info..."
+msgstr "_Terrein Informatie..."
+
+# src/interface.c:7220
+# src/interface.c:7360
+#: src/interface.c:2460
+msgid "Render _Options..."
+msgstr "Render _Opties"
+
+# src/interface.c:2478
+# src/interface.c:2454
+#: src/interface.c:2472
+msgid "_Select"
+msgstr "_Selecteren"
+
+# src/interface.c:2498 src/interface.c:2603
+# src/interface.c:2474 src/interface.c:2579
+#: src/interface.c:2492 src/interface.c:2597
+msgid "_Invert"
+msgstr "_Omkeren"
+
+# src/interface.c:2510
+# src/interface.c:2486
+#: src/interface.c:2504
+msgid "_All"
+msgstr "_Alles"
+
+# src/interface.c:2522
+# src/interface.c:2498
+#: src/interface.c:2516
+msgid "_None"
+msgstr "_Niets"
+
+# src/interface.c:2534
+# src/interface.c:2510
+#: src/interface.c:2528
+msgid "_By Height..."
+msgstr "Op _Hoogte"
+
+# src/interface.c:2555
+# src/interface.c:2531
+#: src/interface.c:2549
+msgid "_Feather..."
+msgstr ""
+
+# src/interface.c:2567
+# src/interface.c:2543
+#: src/interface.c:2561
+msgid "_Operations"
+msgstr "_Operaties"
+
+# src/interface.c:2585
+# src/interface.c:2561
+#: src/interface.c:2579
+msgid "Basic"
+msgstr "Basis"
+
+# src/interface.c:2615
+# src/interface.c:2591
+#: src/interface.c:2609
+msgid "_Mirror..."
+msgstr "_Spiegel"
+
+# src/interface.c:2627
+# src/interface.c:2603
+#: src/interface.c:2621
+msgid "M_ove..."
+msgstr "_Verplaatsen"
+
+# src/interface.c:2639
+# src/interface.c:2615
+#: src/interface.c:2633
+msgid "_Rotate..."
+msgstr "_Roteren"
+
+# src/interface.c:2651
+# src/interface.c:2627
+#: src/interface.c:2645
+msgid "_Scale..."
+msgstr "_Schaal..."
+
+# src/interface.c:2679
+# src/interface.c:2655
+#: src/interface.c:2673
+msgid "_Connect..."
+msgstr "_Verbinden"
+
+# src/interface.c:2691
+# src/interface.c:2667
+#: src/interface.c:2685
+msgid "C_raters..."
+msgstr "_Kraters"
+
+# src/interface.c:2679
+#: src/interface.c:2697
+msgid "_Digital Filter..."
+msgstr "_Digitaal Filter..."
+
+# src/interface.c:2703
+# src/interface.c:2691
+#: src/interface.c:2709
+msgid "_Erode..."
+msgstr "_Eroderen..."
+
+# src/interface.c:2715
+# src/interface.c:2703
+#: src/interface.c:2721
+msgid "_Fill..."
+msgstr "_Vullen..."
+
+# src/interface.c:2727
+# src/interface.c:2715
+#: src/interface.c:2733
+msgid "F_lowmap..."
+msgstr ""
+
+# src/interface.c:2739
+# src/interface.c:2727
+#: src/interface.c:2745
+msgid "F_old..."
+msgstr "V_ouwen..."
+
+# src/interface.c:2751
+# src/interface.c:2739
+#: src/interface.c:2757
+msgid "_Gaussian Hill..."
+msgstr "_Guassiaanse Heuvel..."
+
+# src/interface.c:2445
+# src/interface.c:246
+#: src/interface.c:2769
+msgid "_Mosaic..."
+msgstr "_Mosaic..."
+
+# src/interface.c:2763
+# src/interface.c:2751
+#: src/interface.c:2781
+msgid "_Radial Scale..."
+msgstr ""
+
+# src/interface.c:2639
+# src/interface.c:2763
+#: src/interface.c:2793
+msgid "Rasteri_ze..."
+msgstr "_Verrasteren..."
+
+# src/interface.c:2775
+# src/interface.c:2775
+#: src/interface.c:2805
+msgid "Ro_ughen..."
+msgstr ""
+
+# src/interface.c:2787
+# src/interface.c:2787
+#: src/interface.c:2817
+msgid "_Smooth..."
+msgstr ""
+
+# src/interface.c:158
+# src/interface.c:174
+#: src/interface.c:2829
+#, fuzzy
+msgid "S_pherical Map..."
+msgstr ""
+
+# src/interface.c:2799
+# src/interface.c:2799
+#: src/interface.c:2841
+msgid "T_errace..."
+msgstr ""
+
+# src/interface.c:2811
+# src/interface.c:2811
+#: src/interface.c:2853
+msgid "T_ile..."
+msgstr ""
+
+# src/interface.c:2823
+# src/interface.c:2823
+#: src/interface.c:2865
+msgid "_Transform..."
+msgstr ""
+
+# src/interface.c:2833
+# src/interface.c:2833
+#: src/interface.c:2875
+msgid "Objects"
+msgstr "Objecten"
+
+# src/interface.c:2851
+# src/interface.c:2851
+#: src/interface.c:2893
+msgid "_Place..."
+msgstr "_Plaatsen"
+
+# src/interface.c:2863
+# src/interface.c:2863
+#: src/interface.c:2905
+msgid "_Remove All"
+msgstr "_Alle verwijderen"
+
+# src/interface.c:2875 src/interface.c:8744
+# src/interface.c:2875 src/interface.c:8786
+#: src/interface.c:2917 src/interface.c:8993
+msgid "_View"
+msgstr ""
+
+# src/interface.c:2893
+# src/interface.c:2893
+#: src/interface.c:2935
+msgid "Type"
+msgstr ""
+
+# src/interface.c:2911 src/interface.c:8764
+# src/interface.c:2911 src/interface.c:8806
+#: src/interface.c:2953 src/interface.c:9013
+msgid "2D _Plane"
+msgstr "2D _Vlak"
+
+# src/interface.c:2928 src/interface.c:8778
+# src/interface.c:2928 src/interface.c:8820
+#: src/interface.c:2970 src/interface.c:9027
+msgid "2D _Contour"
+msgstr ""
+
+# src/interface.c:2945 src/interface.c:8792
+# src/interface.c:2945 src/interface.c:8834
+#: src/interface.c:2987 src/interface.c:9041
+msgid "3D _Wire"
+msgstr "3D _Draadmodel"
+
+# src/interface.c:2962 src/interface.c:8806
+# src/interface.c:2962 src/interface.c:8848
+#: src/interface.c:3004 src/interface.c:9055
+msgid "3D _Height"
+msgstr "3D _Hoogte"
+
+# src/interface.c:2979 src/interface.c:8820
+# src/interface.c:2979 src/interface.c:8862
+#: src/interface.c:3021 src/interface.c:9069
+msgid "3D _Light"
+msgstr ""
+
+# src/interface.c:3006
+# src/interface.c:3006
+#: src/interface.c:3048
+msgid "_Auto Rotate"
+msgstr "_Auto Roteer"
+
+# src/interface.c:3019 src/interface.c:8834
+# src/interface.c:3019 src/interface.c:8876
+#: src/interface.c:3061 src/interface.c:9083
+msgid "_Colormap"
+msgstr "_Kleurmap"
+
+# src/interface.c:3039 src/interface.c:8854
+# src/interface.c:3039 src/interface.c:8896
+#: src/interface.c:3081 src/interface.c:9103
+msgid "_Land"
+msgstr ""
+
+# src/interface.c:3056 src/interface.c:8868
+# src/interface.c:3056 src/interface.c:8910
+#: src/interface.c:3098 src/interface.c:9117
+msgid "_Desert"
+msgstr "_Woestijn"
+
+# src/interface.c:3073 src/interface.c:8882
+# src/interface.c:3073 src/interface.c:8924
+#: src/interface.c:3115 src/interface.c:9131
+msgid "_Grayscale"
+msgstr "_Grijsschaal"
+
+# src/interface.c:3090 src/interface.c:8896
+# src/interface.c:3090 src/interface.c:8938
+#: src/interface.c:3132 src/interface.c:9145
+msgid "_Heat"
+msgstr "_Hitte"
+
+# src/interface.c:3129 src/interface.c:9828
+# src/interface.c:3129 src/interface.c:9871
+#: src/interface.c:3171 src/interface.c:10142
+msgid "Move"
+msgstr "Verplaats"
+
+# src/interface.c:3130
+# src/interface.c:3130
+#: src/interface.c:3172
+msgid "Move objects"
+msgstr "Verplaats objecten"
+
+# src/interface.c:3144
+# src/interface.c:3144
+#: src/interface.c:3186
+msgid "Rectangle"
+msgstr "Rechthoek"
+
+# src/interface.c:3145
+# src/interface.c:3145
+#: src/interface.c:3187
+msgid "Select rectangular regions"
+msgstr ""
+
+# src/interface.c:3158
+# src/interface.c:3158
+#: src/interface.c:3200
+msgid "Ellipse"
+msgstr "Ellips"
+
+# src/interface.c:3159
+# src/interface.c:3159
+#: src/interface.c:3201
+msgid "Select elliptical regions"
+msgstr ""
+
+# src/interface.c:3172
+#: src/interface.c:3214
+msgid "Square Zoom"
+msgstr ""
+
+# src/interface.c:3173
+#: src/interface.c:3215
+msgid "Select square region and zoom"
+msgstr ""
+
+# src/interface.c:3186 src/tterrainview.c:1064
+#: src/interface.c:3228 src/tterrainview.c:1066
+msgid "Crop"
+msgstr ""
+
+# src/interface.c:3187
+#: src/interface.c:3229
+msgid "Select rectangular region and crop"
+msgstr ""
+
+# src/interface.c:3174
+# src/interface.c:3202
+#: src/interface.c:3244
+msgid "Replace"
+msgstr "Vervang"
+
+# src/interface.c:3175
+# src/interface.c:3203
+#: src/interface.c:3245
+msgid "Replace previous selection"
+msgstr "Vervang vorige selectie"
+
+# src/interface.c:3189 src/interface.c:9466
+# src/interface.c:3217 src/interface.c:9508
+#: src/interface.c:3259 src/interface.c:9779
+msgid "Add"
+msgstr "Toevoegen"
+
+# src/interface.c:3190
+# src/interface.c:3218
+#: src/interface.c:3260
+msgid "Add to previous selection"
+msgstr "Voeg toe aan vorige selectie"
+
+# src/interface.c:3203 src/interface.c:9469
+# src/interface.c:3231 src/interface.c:9511
+#: src/interface.c:3273 src/interface.c:9782
+msgid "Subtract"
+msgstr ""
+
+# src/interface.c:3204
+# src/interface.c:3232
+#: src/interface.c:3274
+msgid "Subtract from previous selection"
+msgstr ""
+
+# src/interface.c:3424
+# src/interface.c:3467
+#: src/interface.c:3515
+msgid "Level Connector"
+msgstr ""
+
+#: src/interface.c:3534 src/interface.c:3767 src/interface.c:4198
+#: src/interface.c:4435 src/interface.c:4659 src/interface.c:5045
+#: src/interface.c:5437 src/interface.c:6216 src/interface.c:6446
+#: src/interface.c:6676 src/interface.c:6908 src/interface.c:7161
+#: src/interface.c:9213 src/interface.c:9877 src/interface.c:10161
+#: src/interface.c:10487 src/interface.c:11384 src/interface.c:13152
+#: src/interface.c:13396 src/interface.c:14459 src/interface.c:14562
+#: src/interface.c:15079 src/interface.c:15301 src/interface.c:15512
+msgid "Preview"
+msgstr ""
+
+#: src/interface.c:3578 src/interface.c:3811 src/interface.c:4242
+#: src/interface.c:4479 src/interface.c:4703 src/interface.c:5089
+#: src/interface.c:5481 src/interface.c:6260 src/interface.c:6490
+#: src/interface.c:6720 src/interface.c:6952 src/interface.c:7205
+#: src/interface.c:9257 src/interface.c:9922 src/interface.c:10205
+#: src/interface.c:10531 src/interface.c:11428 src/interface.c:13197
+#: src/interface.c:13440 src/interface.c:14503 src/interface.c:15124
+#: src/interface.c:15345 src/interface.c:15556
+msgid "Use preview"
+msgstr "Gebruike preview"
+
+# src/interface.c:3496 src/interface.c:3729 src/interface.c:4160
+# src/interface.c:4397 src/interface.c:4621 src/interface.c:4993
+# src/interface.c:6312 src/interface.c:6542 src/interface.c:9900
+# src/interface.c:10224
+# src/interface.c:3539 src/interface.c:3772 src/interface.c:4203
+# src/interface.c:4440 src/interface.c:4664 src/interface.c:5050
+# src/interface.c:6451 src/interface.c:6681 src/interface.c:9943
+# src/interface.c:10267
+#: src/interface.c:3587 src/interface.c:3820 src/interface.c:4251
+#: src/interface.c:4488 src/interface.c:4712 src/interface.c:5098
+#: src/interface.c:6499 src/interface.c:6729 src/interface.c:10214
+#: src/interface.c:10540 src/interface.c:15565
+msgid "Options"
+msgstr "Opties"
+
+# src/interface.c:3513
+# src/interface.c:3556
+#: src/interface.c:3604
+msgid "Iteration count"
+msgstr "Aantal herhalingen"
+
+# src/interface.c:3657
+# src/interface.c:3700
+#: src/interface.c:3748
+msgid "Craters"
+msgstr "Kraters"
+
+#: src/interface.c:3847 src/interface.c:4739 src/interface.c:5125
+#: src/interface.c:14993
+msgid "Center X"
+msgstr ""
+
+#: src/interface.c:3858 src/interface.c:4749 src/interface.c:5135
+#: src/interface.c:15019
+msgid "Center Y"
+msgstr ""
+
+# src/interface.c:3830
+# src/interface.c:3873
+#: src/interface.c:3921
+msgid "Number of craters"
+msgstr "Aantal kraters"
+
+# src/interface.c:3840
+# src/interface.c:3883
+#: src/interface.c:3931
+msgid "Crater radius"
+msgstr "Straal van krater"
+
+# src/interface.c:3850
+# src/interface.c:3893
+#: src/interface.c:3941
+msgid "Crater height"
+msgstr "Hoogte van krater"
+
+#: src/interface.c:3951
+msgid "Crater coverage"
+msgstr ""
+
+#: src/interface.c:4006 src/interface.c:14757
+msgid "Wrap"
+msgstr ""
+
+#: src/interface.c:4031
+msgid "Generate New Seed"
+msgstr ""
+
+#: src/interface.c:4179
+msgid "Fill"
+msgstr "Vul"
+
+# src/interface.c:4179
+# src/interface.c:4222
+#: src/interface.c:4270
+msgid "Elevation to fill up to"
+msgstr ""
+
+# src/interface.c:4189 src/interface.c:6823
+# src/interface.c:4232 src/interface.c:6962 src/interface.c:14286
+#: src/interface.c:4280 src/interface.c:7010 src/interface.c:14572
+msgid "Tightness factor"
+msgstr ""
+
+# src/interface.c:4325
+# src/interface.c:4368
+#: src/interface.c:4416
+msgid "Fold"
+msgstr "Vouw"
+
+# src/interface.c:4414
+# src/interface.c:4457
+#: src/interface.c:4505
+msgid "Fold offset"
+msgstr ""
+
+# src/interface.c:4549
+# src/interface.c:4592
+#: src/interface.c:4640
+msgid "Gaussian Hill"
+msgstr "Gaussiaanse Heuvel"
+
+# src/interface.c:4691
+# src/interface.c:4734
+#: src/interface.c:4782
+msgid "Hill radius"
+msgstr "Heuvel-straal"
+
+# src/interface.c:4731 src/interface.c:5132
+# src/interface.c:4774 src/interface.c:5210
+#: src/interface.c:4822 src/interface.c:5258
+msgid "Scale factor"
+msgstr ""
+
+# src/interface.c:4741
+# src/interface.c:4784
+#: src/interface.c:4832
+msgid "Radius factor"
+msgstr "Straal factor"
+
+# src/interface.c:4751 src/interface.c:5142
+# src/interface.c:4794 src/interface.c:5220
+#: src/interface.c:4842 src/interface.c:5268
+msgid "Smoothing factor"
+msgstr ""
+
+# src/interface.c:4761
+# src/interface.c:4804
+#: src/interface.c:4852
+msgid "Delta scale factor"
+msgstr ""
+
+# src/interface.c:4932
+# src/interface.c:4978
+#: src/interface.c:5026
+msgid "Radial Scale"
+msgstr ""
+
+# src/interface.c:5063
+# src/interface.c:5120
+#: src/interface.c:5168
+msgid "Scale Start Distance"
+msgstr ""
+
+# src/interface.c:5084
+# src/interface.c:5141
+#: src/interface.c:5189
+msgid "Scale End Distance"
+msgstr ""
+
+# src/interface.c:5175
+# src/interface.c:5253
+#: src/interface.c:5301
+msgid "Invert scale factor"
+msgstr ""
+
+#: src/interface.c:5418
+msgid "Mirror"
+msgstr "Spiegel"
+
+# src/interface.c:5361
+# src/interface.c:5442
+#: src/interface.c:5490
+msgid "Axis"
+msgstr "As"
+
+# src/interface.c:5378
+# src/interface.c:5459
+#: src/interface.c:5507
+msgid "Horizontal"
+msgstr "Horizontaal"
+
+# src/interface.c:5388
+# src/interface.c:5469
+#: src/interface.c:5517
+msgid "Vertical"
+msgstr "Vertikaal"
+
+#: src/interface.c:5526
+msgid "Top left to bottom right"
+msgstr ""
+
+#: src/interface.c:5535
+msgid "Bottom left to top right"
+msgstr ""
+
+# src/interface.c:5548
+# src/interface.c:5635
+#: src/interface.c:5683
+msgid "Terraform Options"
+msgstr "Terraform Opties"
+
+#: src/interface.c:5711
+msgid "Executable"
+msgstr ""
+
+# src/interface.c:5615
+# src/interface.c:5702
+#: src/interface.c:5750
+msgid "povray"
+msgstr ""
+
+# src/interface.c:5617
+# src/interface.c:5704
+#: src/interface.c:5752
+msgid "..."
+msgstr ""
+
+# src/interface.c:5635 src/interface.c:7788
+# src/interface.c:5722 src/interface.c:7937
+#: src/interface.c:5770 src/interface.c:8060
+msgid "POV-Ray"
+msgstr ""
+
+# src/interface.c:5660
+# src/interface.c:5747
+#: src/interface.c:5795
+msgid "Max undo states"
+msgstr ""
+
+# src/interface.c:5677
+# src/interface.c:5764
+#: src/interface.c:5812
+msgid ""
+"Changes to this option won't\n"
+"affect already open windows"
+msgstr ""
+
+# src/interface.c:5685
+# src/interface.c:5772
+#: src/interface.c:5820
+msgid "Undo"
+msgstr ""
+
+# src/interface.c:5748
+# src/interface.c:5835
+#: src/interface.c:5883
+msgid ""
+"Adjust the gamma until both\n"
+"squares are the same brightness"
+msgstr ""
+
+# src/interface.c:5756
+# src/interface.c:5843
+#: src/interface.c:5891
+msgid "Gamma"
+msgstr ""
+
+# src/interface.c:5773
+# src/interface.c:5860
+#: src/interface.c:5908
+msgid "Default terrain size"
+msgstr "Standaard terrein grootte"
+
+# src/callbacks.c:3604 src/interface.c:5894 src/interface.c:11840
+#: src/callbacks.c:3924 src/interface.c:5942 src/interface.c:12110
+msgid "Faulting Synthesis"
+msgstr ""
+
+# src/interface.c:5903
+#: src/interface.c:5951
+msgid "Perlin Synthesis"
+msgstr "Perlin Synthese"
+
+# src/interface.c:786 src/interface.c:1627 src/interface.c:1929
+# src/interface.c:5930
+#: src/interface.c:5978
+#, fuzzy
+msgid "Generation"
+msgstr ""
+
+# src/interface.c:5902
+# src/interface.c:6041
+#: src/interface.c:6089
+msgid "Would you like Terraform to search for the POV-Ray executable?"
+msgstr "Wilt u Terraform het programma POVRay laten zoeken?"
+
+# src/interface.c:6010
+# src/interface.c:6149
+#: src/interface.c:6197
+msgid "Rotate"
+msgstr "Roteren"
+
+# src/interface.c:6082
+# src/interface.c:6221
+#: src/interface.c:6269
+msgid "Rotation Clockwise (degrees)"
+msgstr ""
+
+# src/interface.c:6099
+# src/interface.c:6238
+#: src/interface.c:6286
+msgid "90"
+msgstr ""
+
+# src/interface.c:6109
+# src/interface.c:6248
+#: src/interface.c:6296
+msgid "180"
+msgstr ""
+
+# src/interface.c:6118
+# src/interface.c:6257
+#: src/interface.c:6305
+msgid "270"
+msgstr ""
+
+# src/interface.c:6240
+# src/interface.c:6379
+#: src/interface.c:6427
+msgid "Roughen"
+msgstr ""
+
+# src/interface.c:6337 src/interface.c:6567
+# src/interface.c:6476 src/interface.c:6706
+#: src/interface.c:6524 src/interface.c:6754
+msgid "Adjustment factor"
+msgstr ""
+
+# src/interface.c:6355 src/interface.c:6585
+# src/interface.c:6494 src/interface.c:6724
+#: src/interface.c:6542 src/interface.c:6772
+msgid "Big sampling grid"
+msgstr ""
+
+# src/interface.c:6470
+# src/interface.c:6609
+#: src/interface.c:6657
+msgid "Smooth"
+msgstr ""
+
+# src/interface.c:6702
+# src/interface.c:6841
+#: src/interface.c:6889
+msgid "Terrace"
+msgstr "Terras"
+
+# src/interface.c:6801 src/interface.c:7671
+# src/interface.c:6940 src/interface.c:7820
+#: src/interface.c:6988
+msgid "Number of levels"
+msgstr ""
+
+# src/interface.c:6844
+# src/interface.c:6983
+#: src/interface.c:7031
+msgid "Adjust waterlevel"
+msgstr ""
+
+# src/interface.c:6955
+# src/interface.c:7094
+#: src/interface.c:7142
+msgid "Tile"
+msgstr ""
+
+# src/interface.c:7044
+# src/interface.c:7183
+#: src/interface.c:7231 src/interface.c:15371
+msgid "Edge tile offset"
+msgstr ""
+
+# src/interface.c:7220
+# src/interface.c:7360
+#: src/interface.c:7422
+msgid "Render Options"
+msgstr "Render Opties"
+
+# src/interface.c:7273
+# src/interface.c:7413
+#: src/interface.c:7475
+msgid ""
+"Press the mouse button at the camera location and drag to where it should "
+"point"
+msgstr ""
+
+# src/interface.c:7294
+# src/interface.c:7434
+#: src/interface.c:7496 src/interface.c:7610
+msgid "Camera"
+msgstr ""
+
+# src/interface.c:7304
+# src/interface.c:7444
+#: src/interface.c:7506
+msgid "Look at"
+msgstr ""
+
+#: src/interface.c:7576
+msgid "Observe sealevel when generating position"
+msgstr ""
+
+# src/interface.c:7391
+# src/interface.c:7531
+#: src/interface.c:7593
+msgid "Elevation offset"
+msgstr ""
+
+# src/interface.c:7435
+# src/interface.c:7575
+#: src/interface.c:7637
+msgid "Render width (pixels)"
+msgstr ""
+
+#: src/interface.c:7658
+msgid "Y Scale Factor"
+msgstr ""
+
+# src/interface.c:7544
+# src/interface.c:7684
+#: src/interface.c:7704
+msgid "North direction (degrees)"
+msgstr ""
+
+# src/interface.c:1128
+# src/interface.c:7735
+#: src/interface.c:7729
+#, fuzzy
+msgid "Auto-render"
+msgstr "4e orde"
+
+# src/interface.c:7595
+# src/interface.c:7744
+#: src/interface.c:7738
+msgid "Scene"
+msgstr ""
+
+# src/interface.c:7569
+# src/interface.c:7709
+#: src/interface.c:7754
+msgid "Clouds"
+msgstr "Wolken"
+
+# src/interface.c:7578
+# src/interface.c:7718
+#: src/interface.c:7763
+msgid "Fog"
+msgstr "Mist"
+
+# src/interface.c:7946
+# src/interface.c:8095 src/interface.c:13975
+#: src/interface.c:7772
+msgid "Fog Parameters"
+msgstr "Mist Parameters"
+
+# src/interface.c:7578
+# src/interface.c:7718
+#: src/interface.c:7829
+#, fuzzy
+msgid "Fog Alt"
+msgstr "Mist"
+
+#: src/interface.c:7841
+msgid "Fog Offset"
+msgstr ""
+
+# src/interface.c:10666 src/interface.c:10740
+# src/interface.c:12855
+#: src/interface.c:7853
+msgid "Distance Factor"
+msgstr "Afstands factor"
+
+#: src/interface.c:7865
+msgid "Atmosphere"
+msgstr "Atmosfeer"
+
+# src/interface.c:11463
+# src/interface.c:11506
+#: src/interface.c:7881
+msgid "Filled Sea"
+msgstr "Gevulde Zee"
+
+# src/interface.c:1496
+# src/interface.c:1554
+#: src/interface.c:7890
+msgid "Sea Parameters"
+msgstr "Zee Parameters"
+
+#: src/interface.c:7936
+msgid "Water Clarity"
+msgstr "Water Helderheid"
+
+# src/interface.c:7498
+# src/interface.c:7638
+#: src/interface.c:7948
+msgid "Sealevel"
+msgstr "Zeeniveau"
+
+#: src/interface.c:7960
+msgid "Sea"
+msgstr "Zee"
+
+# src/interface.c:7713
+# src/interface.c:7862
+#: src/interface.c:7985
+msgid "Terrain theme"
+msgstr "Terrein thema"
+
+# src/interface.c:7737 src/interface.c:10601
+# src/interface.c:7886 src/interface.c:10644
+#: src/interface.c:8009 src/interface.c:10914
+msgid "empty"
+msgstr "leeg"
+
+# src/interface.c:7750
+# src/interface.c:7899
+#: src/interface.c:8022
+msgid "Lighting level"
+msgstr ""
+
+# src/interface.c:7774
+# src/interface.c:7923
+#: src/interface.c:8046
+msgid "Plastic model"
+msgstr ""
+
+# src/interface.c:7777
+# src/interface.c:7926
+#: src/interface.c:8049
+msgid "Earth sky"
+msgstr "Aarde Lucht"
+
+# src/interface.c:7780
+# src/interface.c:7929
+#: src/interface.c:8052
+msgid "Earth sky w/ sunbeams (medium quality, slow)"
+msgstr ""
+
+# src/interface.c:7783
+# src/interface.c:7932
+#: src/interface.c:8055
+msgid "Earth sky w/ sunbeams (high quality, very slow)"
+msgstr ""
+
+# src/interface.c:2945 src/interface.c:8792
+# src/interface.c:2945 src/interface.c:8834
+#: src/interface.c:8076
+msgid "3d Wireframe"
+msgstr "3D Draadmodel"
+
+# src/interface.c:7637
+# src/interface.c:7786
+#: src/interface.c:8092
+msgid "Resolution"
+msgstr "Resolutie"
+
+# src/interface.c:7654
+# src/interface.c:7803
+#: src/interface.c:8110
+msgid "Contour Line Map"
+msgstr "Contourlijnenkaart"
+
+# src/interface.c:3830
+# src/interface.c:3873
+#: src/interface.c:8126
+msgid "Number of Levels"
+msgstr "Aantal Niveaus"
+
+# src/interface.c:7927
+# src/callbacks.c:4234 src/interface.c:8076
+#: src/callbacks.c:4554 src/interface.c:8283
+msgid "Erode"
+msgstr "Erodeer"
+
+# src/interface.c:7946
+# src/interface.c:8095 src/interface.c:13975
+#: src/interface.c:8302 src/interface.c:14246
+msgid "Erosion Parameters"
+msgstr "Erosie Parameters"
+
+# src/interface.c:7985
+# src/interface.c:8134
+#: src/interface.c:8341
+msgid "Maximum flowmap age"
+msgstr ""
+
+# src/interface.c:8006
+# src/interface.c:8155 src/interface.c:14024
+#: src/interface.c:8362 src/interface.c:14295
+msgid "Elevation threshold"
+msgstr ""
+
+# src/interface.c:8027
+# src/interface.c:8176 src/interface.c:14014
+#: src/interface.c:8383 src/interface.c:14285
+msgid "Number of iterations"
+msgstr "Aantal Iteraties"
+
+# src/interface.c:8037
+# src/interface.c:8186 src/interface.c:14045
+#: src/interface.c:8393 src/interface.c:14316
+msgid "Trim local peaks"
+msgstr ""
+
+# src/interface.c:8054
+# src/interface.c:8203
+#: src/interface.c:8410
+msgid "Save animation"
+msgstr "Bewaar animatie"
+
+# src/interface.c:8070
+# src/interface.c:8219
+#: src/interface.c:8426
+#, c-format
+msgid "erode-%d.tga"
+msgstr ""
+
+# src/interface.c:8080
+# src/interface.c:8229
+#: src/interface.c:8436
+msgid "Frame count"
+msgstr ""
+
+# src/interface.c:8099
+# src/interface.c:8248
+#: src/interface.c:8455
+msgid "Flowmap Controls"
+msgstr ""
+
+# src/interface.c:8124 src/interface.c:8287
+# src/interface.c:8273 src/interface.c:8436
+#: src/interface.c:8480 src/interface.c:8643
+msgid "Single flow direction"
+msgstr ""
+
+# src/interface.c:8133 src/interface.c:8296
+# src/interface.c:8282 src/interface.c:8445
+#: src/interface.c:8489 src/interface.c:8652
+msgid "Multiple flow direction"
+msgstr ""
+
+# src/interface.c:7374 src/interface.c:8150 src/interface.c:8305
+# src/interface.c:7514 src/interface.c:8299 src/interface.c:8454
+#: src/interface.c:8506 src/interface.c:8661
+msgid "Observe sealevel"
+msgstr ""
+
+# src/interface.c:8251
+# src/interface.c:8400 src/interface.c:13923
+#: src/interface.c:8607 src/interface.c:14194
+msgid "Flowmap"
+msgstr ""
+
+# src/interface.c:8270
+# src/interface.c:8419
+#: src/interface.c:8626
+msgid "Flowmap Type"
+msgstr ""
+
+# src/callbacks.c:2644 src/interface.c:8402
+# src/callbacks.c:3121 src/interface.c:8551
+#: src/callbacks.c:3441 src/interface.c:8758
+msgid "Scale"
+msgstr "Schaal"
+
+# src/interface.c:8422
+# src/interface.c:8571
+#: src/interface.c:8778
+msgid "Half size"
+msgstr ""
+
+# src/interface.c:8431
+# src/interface.c:8580
+#: src/interface.c:8787
+msgid "Double size"
+msgstr "Dubbele Grootte"
+
+# src/interface.c:8450
+# src/interface.c:8599
+#: src/interface.c:8806
+msgid "Local fractal scaling"
+msgstr "Lokale fractal schaling"
+
+# src/interface.c:8461
+# src/interface.c:8610
+#: src/interface.c:8817
+msgid "Global fractal scaling"
+msgstr "Globale fractal schaling"
+
+# src/interface.c:8684
+# src/interface.c:8726
+#: src/interface.c:8933
+msgid "Save Height Field As..."
+msgstr "Sla terrein op als..."
+
+# src/interface.c:8944
+# src/interface.c:8986
+#: src/interface.c:9194
+msgid "Undo Tree"
+msgstr ""
+
+# src/interface.c:9016
+# src/interface.c:9058
+#: src/interface.c:9266
+msgid "Undo History"
+msgstr "Geschiedenis"
+
+# src/interface.c:9151
+# src/interface.c:9193
+#: src/interface.c:9421
+msgid "External Program Error"
+msgstr ""
+
+# src/support_modified.c:105 src/support_modified.c:144
+# src/interface.c:12531 src/interface.c:13661 src/support.c:121
+# src/support_modified.c:105 src/support_modified.c:144
+#: src/interface.c:9462 src/interface.c:12801 src/interface.c:13932
+#: src/support.c:121 src/support_modified.c:105 src/support_modified.c:144
+#, c-format
+msgid "Couldn't find pixmap file: %s"
+msgstr ""
+
+# src/interface.c:9169
+# src/interface.c:9211
+#: src/interface.c:9471
+msgid "A problem has been detected while starting POV-Ray."
+msgstr ""
+
+# src/interface.c:9179
+# src/interface.c:9221
+#: src/interface.c:9481
+msgid "Error log"
+msgstr "Fout log"
+
+# src/interface.c:9179
+# src/interface.c:9221
+#: src/interface.c:9541 src/interface.c:15228
+msgid "Save Error Log"
+msgstr "Bewaar fout log"
+
+# src/callbacks.c:2416 src/interface.c:9239
+# src/callbacks.c:2764 src/interface.c:9281
+#: src/callbacks.c:2963 src/interface.c:9549
+msgid "Show Details"
+msgstr "Toon Details"
+
+# src/callbacks.c:408 src/interface.c:9323
+# src/callbacks.c:592 src/interface.c:9365
+#: src/callbacks.c:766 src/interface.c:9636
+msgid "Merge"
+msgstr "Samenvoegen"
+
+# src/interface.c:9395 src/interface.c:9502
+# src/interface.c:9437 src/interface.c:9544 src/interface.c:12717
+# src/interface.c:12786 src/interface.c:13845 src/interface.c:13914
+#: src/interface.c:9708 src/interface.c:9815 src/interface.c:12988
+#: src/interface.c:13057 src/interface.c:14116 src/interface.c:14185
+#: src/interface.c:14829 src/interface.c:14899
+msgid ">>"
+msgstr ""
+
+# src/interface.c:9404
+# src/interface.c:9446 src/interface.c:12726 src/interface.c:13854
+#: src/interface.c:9717 src/interface.c:12997 src/interface.c:14125
+#: src/interface.c:14838
+msgid "Top Frame"
+msgstr ""
+
+# src/interface.c:9472
+# src/interface.c:9514
+#: src/interface.c:9785
+msgid "Multiply"
+msgstr "Vermenigvuldigen"
+
+# src/interface.c:9475
+# src/interface.c:9517
+#: src/interface.c:9788
+msgid "Divide"
+msgstr "Delen"
+
+# src/interface.c:9478
+# src/interface.c:9520
+#: src/interface.c:9791
+msgid "Minimum"
+msgstr ""
+
+# src/interface.c:9481
+# src/interface.c:9523
+#: src/interface.c:9794
+msgid "Maximum"
+msgstr ""
+
+# src/interface.c:9511
+# src/interface.c:9553 src/interface.c:12795
+#: src/interface.c:9824 src/interface.c:13066 src/interface.c:14908
+msgid "Bottom Frame"
+msgstr ""
+
+# src/interface.c:9720
+# src/interface.c:9763
+#: src/interface.c:10034
+msgid "Native Render"
+msgstr ""
+
+# src/interface.c:9740 src/interface.c:10072
+# src/interface.c:9783 src/interface.c:10115
+#: src/interface.c:10054 src/interface.c:10386
+msgid "Not fully implemented"
+msgstr "Niet geheel geimplementeerd"
+
+# src/interface.c:9919
+# src/interface.c:9962
+#: src/interface.c:10233
+msgid "X offset"
+msgstr ""
+
+# src/interface.c:9929
+# src/interface.c:9972
+#: src/interface.c:10243
+msgid "Y offset"
+msgstr ""
+
+# src/interface.c:10053
+# src/interface.c:10096
+#: src/interface.c:10367
+msgid "Print Preview"
+msgstr ""
+
+# src/interface.c:10154
+# src/interface.c:10197
+#: src/interface.c:10468
+msgid "Select By Height"
+msgstr "Selecteer op Hoogte"
+
+# src/interface.c:10255
+# src/interface.c:10298
+#: src/interface.c:10571
+msgid "Floor"
+msgstr "Ondergrens"
+
+# src/interface.c:10265
+# src/interface.c:10308
+#: src/interface.c:10581
+msgid "Ceiling"
+msgstr "Bovengrens"
+
+# src/interface.c:10382
+# src/interface.c:10425
+#: src/interface.c:10695
+msgid "Feather Selection"
+msgstr ""
+
+# src/interface.c:10392
+# src/interface.c:10435
+#: src/interface.c:10705
+msgid "Feather Options"
+msgstr ""
+
+# src/interface.c:10412
+# src/interface.c:10455
+#: src/interface.c:10725
+msgid "Radius"
+msgstr "Straal"
+
+# src/interface.c:10558
+# src/interface.c:10601
+#: src/interface.c:10871
+msgid "Place Objects"
+msgstr "Objecten plaatsen"
+
+# src/interface.c:10585
+# src/interface.c:10628
+#: src/interface.c:10898
+msgid "Object name"
+msgstr "object naam"
+
+# src/interface.c:10616
+# src/interface.c:10659
+#: src/interface.c:10929
+msgid "Elevation"
+msgstr "Hoogte"
+
+# src/interface.c:10626
+# src/interface.c:10669
+#: src/interface.c:10939
+msgid "Placement"
+msgstr "Plaatsing"
+
+# src/interface.c:10636
+# src/interface.c:10679
+#: src/interface.c:10949
+msgid "Min"
+msgstr ""
+
+# src/interface.c:10646
+# src/interface.c:10689
+#: src/interface.c:10959
+msgid "Density"
+msgstr "Dichtheid"
+
+# src/interface.c:10656
+# src/interface.c:10699
+#: src/interface.c:10969
+msgid "Max"
+msgstr ""
+
+# src/interface.c:10666 src/interface.c:10740
+# src/interface.c:10709 src/interface.c:10783 src/interface.c:12341
+#: src/interface.c:10979 src/interface.c:11053 src/interface.c:12611
+msgid "Variance"
+msgstr "Variantie"
+
+# src/interface.c:10730
+# src/interface.c:10773
+#: src/interface.c:11043
+msgid "Object scale"
+msgstr "Object schaal"
+
+# src/interface.c:10750 src/interface.c:10760
+# src/interface.c:10793 src/interface.c:10803
+#: src/interface.c:11063 src/interface.c:11073
+msgid "X"
+msgstr ""
+
+# src/interface.c:10833 src/interface.c:10843
+# src/interface.c:10876 src/interface.c:10886
+#: src/interface.c:11146 src/interface.c:11156
+msgid "Y"
+msgstr ""
+
+# src/interface.c:10853 src/interface.c:10863
+# src/interface.c:10896 src/interface.c:10906
+#: src/interface.c:11166 src/interface.c:11176
+msgid "Z"
+msgstr ""
+
+# src/interface.c:10873
+# src/interface.c:10916
+#: src/interface.c:11186
+msgid "Vary size proportionally"
+msgstr "Vari�er grootte proportioneel"
+
+# src/interface.c:10881
+# src/interface.c:10924
+#: src/interface.c:11194
+msgid "Vary the direction of placed objects"
+msgstr "Varie�r de richting van de geplaatste objecten"
+
+# src/interface.c:10889
+# src/interface.c:10932
+#: src/interface.c:11202
+#, c-format
+msgid "The terrain size is (%i,%i,%i)"
+msgstr ""
+
+# src/interface.c:10922
+# src/interface.c:10965
+#: src/interface.c:11235
+msgid "Specify seed"
+msgstr ""
+
+# src/interface.c:11052
+# src/interface.c:11095
+#: src/interface.c:11365
+msgid "Transform"
+msgstr ""
+
+# src/interface.c:11143
+# src/interface.c:11186
+#: src/interface.c:11456
+msgid "Sea threshold"
+msgstr "Zee threshold"
+
+# src/interface.c:11164
+# src/interface.c:11207
+#: src/interface.c:11477
+msgid "Sea depth"
+msgstr "Zeediepte"
+
+# src/interface.c:11185
+# src/interface.c:11228
+#: src/interface.c:11498
+msgid "Power factor (below sealevel)"
+msgstr "Macht (beneden zeeniveau)"
+
+# src/interface.c:11207
+# src/interface.c:11250
+#: src/interface.c:11520
+msgid "Power factor (above sealevel)"
+msgstr "Macht (boven zeeniveau)"
+
+# src/interface.c:11229
+# src/interface.c:11272
+#: src/interface.c:11542
+msgid "Sea drop-off"
+msgstr ""
+
+# src/interface.c:11250
+# src/interface.c:11293
+#: src/interface.c:11563
+msgid "Transfer Function"
+msgstr "Transfer Functie"
+
+# src/interface.c:11377
+# src/interface.c:11420
+#: src/interface.c:11690
+msgid "Error"
+msgstr "Fout"
+
+# src/interface.c:11389
+# src/interface.c:11432
+#: src/interface.c:11702
+msgid "error text"
+msgstr ""
+
+# src/interface.c:11453
+# src/interface.c:11496
+#: src/interface.c:11766
+msgid "File Options"
+msgstr "Bestands Opties"
+
+# src/interface.c:11463
+# src/interface.c:11506
+#: src/interface.c:11776
+msgid "File type:"
+msgstr "Bestands type:"
+
+# src/interface.c:11491
+# src/interface.c:11534
+#: src/interface.c:11804
+msgid "Export View"
+msgstr ""
+
+# src/interface.c:11546
+# src/interface.c:11589
+#: src/interface.c:11859
+msgid "Choose Terrain"
+msgstr "Kies Terrein"
+
+# src/interface.c:11885
+#: src/interface.c:12155
+msgid "Faulting Method"
+msgstr "Breuk methode"
+
+# src/interface.c:11901
+#: src/interface.c:12171
+msgid "Line"
+msgstr "Lijn"
+
+# src/interface.c:11904
+#: src/interface.c:12174
+msgid "sin Line"
+msgstr "sin Lijn"
+
+# src/interface.c:11907
+#: src/interface.c:12177
+msgid "cos Line"
+msgstr "cos Lijn"
+
+# src/interface.c:11910
+#: src/interface.c:12180
+msgid "Circles"
+msgstr "Cirkels"
+
+# src/interface.c:11913
+#: src/interface.c:12183
+msgid "Squares"
+msgstr "Vierkanten"
+
+# src/interface.c:11916
+#: src/interface.c:12186
+msgid "Particles"
+msgstr "Deeltjes"
+
+# src/interface.c:12010
+#: src/interface.c:12280
+msgid "Cycles"
+msgstr "Cycli"
+
+# src/interface.c:12038
+#: src/interface.c:12308
+msgid "Use Constant Size"
+msgstr "Gebruik constante grootte"
+
+# src/interface.c:5548
+# src/interface.c:12213
+#: src/interface.c:12483
+msgid "Terrain Information"
+msgstr "Terrein Informatie"
+
+# src/interface.c:12232
+#: src/interface.c:12502
+msgid "Histogram"
+msgstr ""
+
+# src/interface.c:5548
+# src/interface.c:12276
+#: src/interface.c:12546
+msgid "General Information"
+msgstr "Algemene Informatie"
+
+# src/interface.c:3830
+# src/interface.c:12301
+#: src/interface.c:12571
+msgid "Number of Points"
+msgstr "Aantal Punten"
+
+# src/interface.c:12311
+#: src/interface.c:12581 src/interface.c:14593
+msgid "Width"
+msgstr "Breedte"
+
+#: src/interface.c:12591
+msgid "Height"
+msgstr "Hoogte"
+
+#: src/interface.c:12601
+msgid "Average"
+msgstr "Gemiddelde"
+
+# src/interface.c:12351
+#: src/interface.c:12621
+msgid "Skewness"
+msgstr "Scheefheid"
+
+#: src/interface.c:12631
+msgid "Fractal Dimension"
+msgstr ""
+
+# src/interface.c:12379
+#: src/interface.c:12649
+msgid "label244"
+msgstr ""
+
+# src/interface.c:12389
+#: src/interface.c:12659
+msgid "label247"
+msgstr ""
+
+# src/interface.c:12399
+#: src/interface.c:12669
+msgid "label248"
+msgstr ""
+
+# src/interface.c:12409
+#: src/interface.c:12679
+msgid "label250"
+msgstr ""
+
+# src/interface.c:12419 src/interface.c:12429
+#: src/interface.c:12689 src/interface.c:12699
+msgid "label272"
+msgstr ""
+
+# src/interface.c:12439
+#: src/interface.c:12709
+msgid "label273"
+msgstr ""
+
+# src/interface.c:12540 src/interface.c:13670
+#: src/interface.c:12810 src/interface.c:13941
+msgid "default text"
+msgstr ""
+
+# src/callbacks.c:443 src/interface.c:12645
+#: src/callbacks.c:443 src/interface.c:12916
+msgid "Join"
+msgstr "Verbinden"
+
+#: src/interface.c:13126
+msgid "Distance"
+msgstr "Afstand"
+
+# src/interface.c:13106
+#: src/interface.c:13377
+msgid "Digital Filter"
+msgstr "Digitaal Filter"
+
+# src/interface.c:13186
+#: src/interface.c:13457
+msgid "Filter Values"
+msgstr "Filter Waarden"
+
+#: src/interface.c:13776
+msgid "Min Elevation"
+msgstr "Minimale Hoogte"
+
+#: src/interface.c:13803
+msgid "Max Elevation"
+msgstr "Maximale Hoogte"
+
+# src/interface.c:11546
+# src/interface.c:13773
+#: src/interface.c:14044
+msgid "Erode terrain"
+msgstr "Erodeer Terrein"
+
+#: src/interface.c:14440
+msgid "Rasterize"
+msgstr "Verraster"
+
+#: src/interface.c:14551
+msgid "Adjust size parameter"
+msgstr "Verander grootte-parameter"
+
+# src/interface.c:7737 src/interface.c:10601
+# src/interface.c:7886 src/interface.c:10644
+#: src/interface.c:14603
+msgid "Depth"
+msgstr "Diepte"
+
+#: src/interface.c:14968
+msgid "Controls"
+msgstr ""
+
+#: src/interface.c:15045
+msgid "Scalefac"
+msgstr ""
+
+#: src/interface.c:15071
+msgid "Bloom instead of Twist"
+msgstr ""
+
+#: src/interface.c:15282
+msgid "Spherical Map"
+msgstr ""
+
+#: src/interface.c:15493
+msgid "Mosaic"
+msgstr ""
+
+# src/interface.c:11164
+# src/interface.c:11207
+#: src/interface.c:15592
+msgid "Cell depth"
+msgstr "Cel diepte"
+
+#: src/interface.c:15602 src/interface.c:15612
+msgid "grid units"
+msgstr "grid eenheden"
+
+#: src/interface.c:15644
+msgid "Cell width"
+msgstr "cell breedte"
+
+#: src/callbacks.c:598
+msgid "Warp"
+msgstr "Verdraaien"
+
+# src/callbacks.c:637
+# src/callbacks.c:822 src/callbacks.c:4124
+#: src/callbacks.c:996 src/callbacks.c:4444
+msgid "An error occurred while saving the file."
+msgstr "Fout bij het opslaan van het bestand."
+
+# src/callbacks.c:706
+# src/callbacks.c:891
+#: src/callbacks.c:1065
+msgid "There was an error executing The GIMP"
+msgstr "Fout bij het uitvoeren van The GIMP"
+
+# src/callbacks.c:750
+# src/callbacks.c:935
+#: src/callbacks.c:1109
+msgid "Clone"
+msgstr "Kloon"
+
+# src/callbacks.c:1409
+# src/callbacks.c:1692
+#: src/callbacks.c:1883
+msgid "Invert"
+msgstr "Inverteren"
+
+# src/callbacks.c:1635
+# src/callbacks.c:1962
+#: src/callbacks.c:2153
+msgid "[No Themes Installed]"
+msgstr "[Geen Thema's Ge�stalleerd]"
+
+# src/callbacks.c:1707
+# src/callbacks.c:2034
+#: src/callbacks.c:2225
+msgid "An error occurred while opening the file."
+msgstr "Fout bij openen van bestand."
+
+# src/callbacks.c:1871
+# src/callbacks.c:2161
+#: src/callbacks.c:2352
+msgid "There was an error executing POV-Ray"
+msgstr "Fout bij het uitvoeren van POV-Ray"
+
+# src/callbacks.c:1964
+# src/callbacks.c:2301
+#: src/callbacks.c:2498
+msgid "Show Logo"
+msgstr "Toon Logo"
+
+# src/callbacks.c:1989
+# src/callbacks.c:2326
+#: src/callbacks.c:2523
+msgid "Download POV-Ray..."
+msgstr ""
+
+# src/callbacks.c:2072
+# src/callbacks.c:2420
+#: src/callbacks.c:2620
+msgid "There was an error while saving the file."
+msgstr ""
+
+# src/callbacks.c:2418
+# src/callbacks.c:2766
+#: src/callbacks.c:2965
+msgid "Hide Details"
+msgstr "Details verbergen"
+
+# src/callbacks.c:2872
+# src/callbacks.c:3349
+#: src/callbacks.c:3669
+msgid "[No Objects Installed]"
+msgstr "[Geen Objecten Ge�stalleerd]"
+
+# src/callbacks.c:2879
+# src/callbacks.c:3356
+#: src/callbacks.c:3676
+#, c-format
+msgid "The terrain size is X=%.2f Y=%.2f Z=%.2f"
+msgstr ""
+
+#: src/callbacks.c:3825 src/callbacks.c:3916 src/callbacks.c:3976
+#: src/callbacks.c:4053
+msgid "Regenerate"
+msgstr "Regenereer"
+
+# src/callbacks.c:3028 src/callbacks.c:3088 src/callbacks.c:3165
+# src/callbacks.c:3506 src/callbacks.c:3597 src/callbacks.c:3657
+# src/callbacks.c:3734
+#: src/callbacks.c:3826 src/callbacks.c:3917 src/callbacks.c:3977
+#: src/callbacks.c:4054
+msgid "Finish"
+msgstr "Voltooien"
+
+#: src/callbacks.c:4061
+msgid "Perlin Noise"
+msgstr "Perlin ruis"
+
+# src/callbacks.c:3294
+# src/callbacks.c:3880
+#: src/callbacks.c:4200
+msgid "There was an error while exporting the view."
+msgstr ""
+
+# src/callbacks.c:3424
+# src/callbacks.c:4017
+#: src/callbacks.c:4337
+msgid "Roll Again"
+msgstr ""
+
+# src/callbacks.c:706
+# src/callbacks.c:891
+#: src/callbacks.c:4679
+#, fuzzy
+msgid "There was an error writing the file."
+msgstr "Fout bij het uitvoeren van The GIMP"
+
+# src/support.c:130
+#: src/support.c:130
+#, c-format
+msgid "Error loading pixmap file: %s"
+msgstr ""
+
+# src/support_modified.c:121
+# src/support_modified.c:121
+#: src/support_modified.c:121
+#, c-format
+msgid "Couldn't create pixmap from file: %s"
+msgstr ""
+
+# src/tterrain.c:133
+#: src/tterrain.c:135
+msgid " (not saved)"
+msgstr ""
+
+# src/tterrainview.c:1045
+#: src/tterrainview.c:1047
+msgid "Zoom"
+msgstr ""
+
+# src/tundo.c:336
+#: src/tundo.c:336
+msgid "Available States"
+msgstr ""
+

@@ -1,0 +1,201 @@
+<html>
+<head>
+<title>FAQ: Writing Your Own Templates</title>
+</head>
+<body bgcolor=#ffffff text=#000000 alink=#000000 vlink=#000000 link=#000000>
+<h1>FAQ: Writing Your Own Templates</h1>
+<p>Terraform FAQ, version 0.1 Jun. 09, 2000 by <a href="mailto:foxx@mail.utexas.edu">David A. Bartold</a> modeled after the Hacking Terraform FAQ</p>
+<p>Terraform FAQ, version 0.1.1 Mar. 10, 2001 by <a href="mailto:foxx@mail.utexas.edu">David A. Bartold</a> updated for Terraform 0.8.0+</p>
+
+<ul>
+<li><a href="#0">0. Foreword</a>
+<li><a href="#1">1. How Terraform renders a POV-Ray scene</a>
+<ul>
+<li><a href="#1.1">1.1 Parameters</a>
+<li><a href="#1.2">1.2 Which parameters are defined where</a>
+</ul>
+<li><a href="#2">2. POV-Ray data files</a>
+<ul>
+<li><a href="#2.1">2.1 Your kit of parts</a>
+</ul>
+<li><a href="#3">3. How the world is set up</a>
+<ul>
+<li><a href="#3.1">3.1 Where is the land and water</a>
+<li><a href="#3.2">3.2 Where is the texture on the land</a>
+</ul>
+<li><a href="#4">4. Creating your own template</a>
+<li><a href="#5">5. Conclusion</a>
+</ul>
+
+<hr>
+<a name="0">
+<h1>0: Foreword</h1>
+<p>Terraform allows you to design landscape shapes however you
+   want using height field operations.  If you want to change the land's
+   color, or its texture, and there isn't a template file available to your
+   liking, you can write your own.  Terraform comes with a few templates
+   describing the texture of the land and its surrounding celestial bodies.
+   These templates are in the form of *.pov files typically located in the
+   /usr/shared/terraform directory.  The template files can be sampled by
+   right clicking on a Height Field and then clicking HF > Render Options
+   > PovRay > POV template file.  The ones included at the time of this
+   writing are: bare_rock, earth_basic, earth_canyon, and earth_green.
+   This document covers how to design your own template file and assumes
+   you already understand povray scene file syntax, have looked at a
+   povray file exported by Terraform.  Also, it'd be a good idea to
+   look over defaults.inc as a reference describing all the parameters.</p>
+
+<hr>
+<a name="1">
+<h1>1: How Terraform renders a POV-Ray scene</h1>
+<p>Terraform renders a POV-Ray scene by first creating a temporary
+   *.pov file in your /tmp directory.  Then it writes a temporary heightfield
+   to that directory.  It calls the "povray" executable, passing
+   the temporary *.pov file and an include path that typically points to
+   /usr/share/terraform.  The temporary *.pov file contains #declared
+   parameters followed by a #include of the template file.</p>
+
+<a name="1.1">
+<h1>1.1: Parameters</h1>
+<p>There are quite a few parameters Terraform passes to the template
+   file.  The most important of them include: TF_HEIGHT_FIELD, TF_WATER_LEVEL,
+   TF_X_SCALE, TF_Y_SCALE, TF_Z_SCALE, TF_CAMERA_LOCATION, and
+   TF_CAMERA_LOOK_AT.  The first one is a height field object
+   declaration, the last two are vectors used for setting up the camera,
+   and the rest of the parameters in the above list are floats.
+   Many other parameters are available to the template file, some of
+   which are booleans.  You need not implement every parameter.</p>
+
+<a name="1.2">
+<h1>1.2: Which parameters are defined where</h1>
+<p>There's only one parameter that Terraform does not
+   explicitly define in the temporary povray file it exports:
+   TF_LANDSCAPE_TEXTURE.  That parameter will be defined by the
+   template file as we soon will see.  For more information on
+   individual parameters, see the defaults.inc file for more documentation.</p>
+
+<hr>
+<a name="2">
+<h1>2: POV-Ray data files</h1>
+<p>
+These are the files used by the template system to define a scene:
+<ul>
+<li>*.pov-- These are the top-level template files themselves.  They
+    may make use of the *.inc files as described below.
+<li>defaults.inc-- #declares any parameter that hasn't yet been defined.
+<li>*_landscape.inc-- defines TF_LANDSCAPE_TEXTURE for a particular environment.
+<li>earth_sky.inc, earth_water.inc-- creates objects for an earth sky and
+    seas, respectively.  Note that these include files actually create objects,
+    unlike your typical *.inc file, therefore all available parameters should be
+    previously defined before #including one of these files.
+<li>generic_land.inc-- declares an object for the land as well as defines a
+    camera.  The camera is positioned relative to the land, that is why
+    it's in the same file.  Again, it actually creates objects, not just
+    #declares, so make sure all parameters are defined before #including it.
+</ul>
+</p>
+
+<a name="2.1">
+<h1>2.1: Your kit of parts</h1>
+<p>The files mentioned in section 2 are there for you to use.  Feel free to
+   #include them in your template file.  You are also encouraged to create
+   new parts.  Create a nice martian landscape texture you wish to share?
+   Put it in a file named mars_rocky_landscape.inc and post it on Terraform's
+   email list.  Try to be consistant with the naming scheme.  Most of the
+   files are named along the lines of plant_shortdescription*.*.  If you
+   do contribute parts, it'd be nice to send at least one template *.pov
+   file that makes use of them, too.  Once there are a multitude of
+   parts, it will be possible to mix and match pieces as needed.
+   Imagine being able to render a martian landscape with
+   an earth sky as well as an extra moon with a ring around it.  Cool..</p>
+
+<hr>
+<a name="3">
+<h1>3: How the world is set up</h1>
+<p>The sky spheres, sun, and moon are centered around the origin &lt;0, 0, 0>.
+   Generally, the distance from the origin to, say, a sun, should always
+   be proportional to vlength (&lt;TF_X_SCALE, TF_Y_SCALE, TF_Z_SCALE>).
+   You can always break the rules if a heavenly body has, say, an elliptical
+   path, but always try and make the ellipse proportional to the aforemensioned
+   value.  Otherwise, changing the scale in Terraform may cause scaling
+   problems.</p>
+
+<a name="3.1">
+<h1>3.1: Where is the land and water</h1>
+<p>The land is centered on the XZ plane from
+   &lt;-TF_X_SCALE / 2.0, 0.0, -TF_Z_SCALE / 2.0> to
+   &lt;TF_X_SCALE / 2.0, TF_Y_SCALE, TF_Z_SCALE / 2.0>.
+
+   In relation to the actual Targa height field, the lower left-hand corner
+   of the *.tga file corresponds to &lt;-TF_X_SCALE / 2.0, y,
+   -TF_Z_SCALE / 2.0>.  The sea floor maps to y=0, sealevel maps
+   to y=(TF_Y_SCALE * TF_WATER_LEVEL), and the highest peak maps
+   to y=TF_Y_SCALE.
+</p>
+
+<a name="3.2">
+<h1>3.2: Where is the texture on the land</h1>
+<p>If you use a texture_map for the land (i.e. do a
+   #declare TF_LANDSCAPE_TEXTURE = texture { texture_map { ... } }),
+   0.0 maps to the bottom of the sea, TF_WATER_LEVEL
+   maps to sealevel, and 1.0 maps to the highest peak.  See
+   earth_green_landscape.inc on how to stretch the landscape texture to
+   keep the sealevel at the right position.  It also employs a trick
+   to reduce the likelihood of texture wraparound by mapping the texture_map
+   from 0.0 to 0.1 and then scaling by 10.0 afterwards.  It'd be nice if
+   povray had a pattern that didn't apply some sort of repetition/reflection
+   function but it doesn't.
+</p>
+
+<hr>
+<a name="4">
+<h1>4: Creating your own template</h1>
+<p>
+First create a *.pov file and copy these lines into it:
+<pre>
+// Include Povray standard include files.
+#include "colors.inc"
+#include "skies.inc"
+
+// Set any unassigned parameters to their default values.
+#include "defaults.inc"
+
+// Override default texture.
+#declare TF_LANDSCAPE_TEXTURE = texture
+{
+  pigment { color rgb &lt;0.8, 0.4, 0.1&gt; }
+}
+
+// Add an earth sky, sun, moon, and stars.
+#include "earth_sky.inc"
+
+// Create water.
+#include "earth_water.inc"
+
+// Create the land and camera.
+#include "generic_land.inc"
+</pre>
+</p>
+<p>
+Note that you should declare TF_LANDSCAPE_TEXTURE after #including
+defaults.inc.  That's because your texture may rely on the TF_WATER_LEVEL
+parameter.  Next, copy this *.pov file into your /usr/share/terraform/themes
+directory.  Generate a height field and then render it using this template
+file.  You can select your theme from the Edit > Options > POV-Ray >
+Terrain theme combo box.  You can modify the texture to suit your tastes.
+Play around with it for a bit.  If you are feeling comfortable
+creating your own landscape textures, try something more difficult,
+such as designing a martian sky.  Try using the files that come with
+Terraform as a starting point for making your own.
+</p>
+
+<hr>
+<a name="5">
+<h1>5: Conclusion</h1>
+<p>It's not hard to create basic land textures.  Once you get the hang
+   of the parts already available and understand how to use them, you
+   can modify them to create your own terrain patterns and even your
+   own worlds.  But most of all, be creative and have fun.</p>
+
+</body>
+</html>

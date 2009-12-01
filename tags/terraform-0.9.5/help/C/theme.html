@@ -1,0 +1,343 @@
+<HTML>
+<HEAD><TITLE>Terraform Themes Users Guide</TITLE></HEAD>
+
+<BODY BGCOLOR=#FFFFFF TEXT=#000000 LINK=#000000 ALINK=#000000 VLINK=#000000>
+<H1>Terraform Themes Users Guide</H1>
+
+<I>Author: Raymond Ostertag</I>,
+
+<P>
+This is the user's guide for terraform's themes and objects. Terraform use POV-Ray as descripting language for writing them.
+</P>
+
+<HR NOSHADE>
+
+<H2>Table of Contents</H2>
+<UL>
+<LI><A HREF="#Intro">Introduction</A>
+<LI><A HREF="#Themes">User themes</A>
+     <UL>
+      <LI><A HREF="#Clouds">Clouds</A>
+      <LI><A HREF="#Skycolor">Skycolor</A>
+      <LI><A HREF="#Stars">Stars</A>
+      <LI><A HREF="#Earth">Earth texture</A>
+      <LI><A HREF="#Moon">Moon Image</A>
+      <LI><A HREF="#Background">Background Image</A>
+     </UL>
+<LI><A HREF="#MoreThemes">Complex themes</A>
+     <UL>
+      <LI><A HREF="#Fog">Fog</A>
+      <LI><A HREF="#Water">Water</A>
+      <LI><A HREF="#Sky">Sky Type</A>
+      <LI><A HREF="#Lights">Lights</A>
+     </UL> 
+<LI><A HREF="#Objects">Objects</A>
+     <UL>
+      <LI><A HREF="#multiObjects">Multiple Objects</A>
+      <LI><A HREF="#singleObjects">Single Objects</A>
+     </UL> 
+<LI><A HREF="#Advanced">Advanced scripting</A>
+<LI><A HREF="#Links">Some useful links</A>
+</UL>
+
+<A NAME="Intro">
+<H2>Introductions</H2>
+<P>
+Terraform use POV-Ray as descripting language for writing the themes or objects. The basis of this language is very simple to 
+understand, the dificulty is to learn all the features that POV-Ray provide and the fine settings of the paramaters. 
+Some themes use only the <b>Textures </b> features and it's possible for a beginner to write them. 
+This document is separated in four sections : user themes easy to write and images, more complex themes, objects and finally 
+advanced scripting.
+<P>
+In Terraform almost everything is themable. The first thing to do is to understand the organisation of the POV-Ray files.
+The files coming with your installation are in <i>/usr/share/terraform/</i> or <i>/usr/local/share/terraform/</i>. You can read them but
+please dont modify them are you can get quickly in trouble. The best way is to create the new theme in your home directory. There
+is a <i>.terraform</i> directory in your home directory, go and put your personal POV-Ray files there. There is 3 sub-directories :
+<b>image_maps</b> is for the images not for the themes, <b>include</b> is the rigth directory and <b>objects</b> is only for objects
+not for themes. Well change to the <i>include</i> directory. Here you can put a copy of the parameters file <i>defaults.inc</i> and 
+change the parameters from there. The most important thing it's that now we are seeing the directories used for the themes : 
+<i>atmospheres</i>, <i>earth_textures</i>, <i>skies</i> and <i>water</i>
+
+<A NAME="Themes">
+<H2>User themes</H2>
+<P>
+In the directory <i>include/skies/include</i> you find themes for clouds, skycolor and stars. Those themes are all used in the 
+<i>Earth Regular Sky</i> Sky Type. Some other Sky Type might use them but it's not always true.
+<br>In the directory <i>earth_textures</i> you find themes for the terrain. For further information on how to describe a texture or
+pigment declaration read the dedicated chapter in the <A HREF="#Links">POV-Ray manual</A>.
+
+<A NAME="Clouds">
+<H3>Clouds</H3>
+<P>
+A cloud theme is a texture declaration. The form is :
+<pre>
+#declare TF_clouds = texture { TEXTURE_DECLARATION }
+</pre>
+<p>
+It's important to keep the name TF_clouds. The other important thing is to keep a part of the texture transparent, <b>the filter
+values of the colors can not be always 0</b>. This texture is applied on a sphere and behind this sphere there is objects 
+(moon, sun) other textured spheres (stars, sky) and you won't see them if there is no transparency in your clouds texture. 
+The worse thing wiil to have the ligths behind a no transparent sphere : your image will be black.
+<br>How the internal texture declaration is made depend of what you want. There is some sample scripts given with POV-Ray. You
+can use the material editor of Truevision there is some clouds given with this program (just remove the material declaration
+level).
+<br>This theme is automatically scanned and available in the dialog boxes. For a succesful scan keep the prefix <b>clouds_</b>
+for the name of the file.
+
+<A NAME="Skycolor">
+<H3>Skycolor</H3>
+<P>
+A skycolor theme is a set of sixteen colors declaration. The form is for each color :
+<pre>
+#declare *_color   = < Red value, Green value, Blue value > * TF_SKY_COLORATION ; 
+</pre>
+<p>
+Make a copy of the sample file <i>skycolor_earth.inc</i> and rename it for exemple <i>skycolor_mars.inc</i>. All you need to do
+is to edit the color and change them following your wishes. The colors are blend to produce the sky. There is three sections :
+colors at noon, at night and day transition, at night. TF_SKY_COLORATION is a global parameter that change the 
+coloration of all the skies. It can be changed from the file <i>defaults.inc</i>. 
+<br>This theme can not be changed from the dialog boxes, you have to edit the file <i>defaults.inc</i> and change the 
+TF_SKY_COLORDESCRIPTION option.
+
+<A NAME="Stars">
+<H3>Stars</H3>
+<P>
+A star theme is a pigment declaration. The pigment is a sub-level of a texture declaration. The form is :
+<pre>
+#declare stars_pigment = pigment { PIGMENT_DECLARATION }
+</pre>
+<p>
+It's important to keep the name <i>stars_pigment</i>. The other important thing is to add the <i>stars_transmit</i> in the transmit
+value of the colors where there is stars and 1 where there is no stars. This texture is applied on a sphere and behind this sphere
+there is the sky. If you forget zone to give the transmit value 1 where there is no stars the sky will be affected. The value <i>
+stars_transmit</i> is different at nigth or day time, at night you see the stars, at day there are not visible, between day and
+nigth there is a blend factor.
+<br>How the internal pigment declaration is made depend of what you want. There is some sample scripts given with POV-Ray. You
+can use the material editor of Truevision there is some clouds given with this program (just remove the material and texture declaration
+level).
+<br>This theme is automatically scanned and available in the dialog boxes. For a succesful scan keep the prefix <b>stars_</b>
+for the name of the file.
+
+<A NAME="Earth">
+<H3>Earth texture</H3>
+<P>
+A earth theme is a texture declaration. The form is :
+<pre>
+#declare TF_clouds = texture { TEXTURE_DECLARATION }
+</pre>
+<P>
+In older version of Terraform it was the only thing who was themable. If you made some, there are always avalaible.
+It's important to keep the name TF_LANDSCAPE_TEXTURE. This texture is applied on a the Height-field. You can
+declare a simple texture or declare a more complex texture_map using a gradient Y. In the last case you can
+then use the TF_WATER_LEVEL parameter to create a texture depending on the level of the water. 
+Some other parameters like TF_LANDSCAPE_TURBULENCE and TF_LANDSCAPE_DISTRIBUTION can also
+be added somewhere in your texture.
+There is some scripts (simple or complex) given with Terraform, you could start from one of this or use the material editor 
+of Truevision (just remove the material level).
+<br>This theme is automatically scanned and available in the dialog boxes. For a succesful scan just put it in a
+<i>earth_texture</i> directory.
+
+<A NAME="Moon">
+<H3>Moon Image</H3>
+<P>
+A real map of the moon is applied to the moon object. The map is in the <i>image_maps</i> directory. The format is PNG. 
+The width of the image must be the double of the height to avoid deformations. You can find several nice maps on the web
+(<A HREF="#Links">Resources page</A>), almost all with the good size but in JPEG format, just change the format with 
+Gimp or ImageMagick. Put the new map in the <i>image_maps</i> directory. This map can not be changed from the dialog boxes, 
+you have to edit the file <i>defaults.inc</i> and change the TF_MOON_IMAGE option.
+<br>Some control parameters TF_MOON_Y_ROT and TF_MOON_Z_ROT from the <i>defaults.inc</i> file can be used to 
+control with point of the map you see with the camera. 
+TF_MOON_Y_ROT = 0 and TF_MOON_Z_ROT = 0 show the what-you-see side of the moon
+TF_MOON_Y_ROT = 180 and TF_MOON_Z_ROT = 0 show the dark side of the moon.
+If you render a map of the earth instead of the moon and want see a specific point of the earth you should know is geographical 
+positions and then change the rotations like the following TF_MOON_Y_ROT = latitude coord as E20=20 W20=-20
+TF_MOON_Z_ROT = longitude coord as N0=90 S0=-90.
+
+<A NAME="Background">
+<H3>Background Image</H3>
+<P>
+The image mapped on the background plane for the <i>Mapped Sky</i> Sky Type can be changed. The map is in the 
+<i>image_maps</i> directory. The format is TGA. The width is 16/9 of the height to avoid deformations, some valid sizes
+are 1600x900, 800x450, 400x225. There is <A HREF="#Links">some exemples</A> on the web. If you made a nice 
+picture of a sunset and you'd like as background in Terraform then crop it at a valid size and save it as TGA format. 
+Put the TGA file in the <i>image_maps</i> directory. The background image can not be changed from the dialog boxes, 
+you have to edit the file <i>defaults.inc</i> and change the TF_SKY_IMAGE option.
+<br>Some control parameters TF_SKY_IMAGE_SCALE and TF_SKY_IMAGE_ELEVATION_OFFSET from the 
+<i>defaults.inc</i> file can be used to control the good positionning of the background image.
+
+<A NAME="MoreThemes">
+<H2>Complex themes</H2>
+<P>
+
+There is still other themable parts in Terraform : Fog in </i>atmospheres</i>, Water in <i>water</i>, Lights in
+<i>skies/include</i> and Sky Type in <i>skies</i>. 
+For further informations on the scripting language read the <A HREF="#Links">POV-Ray manual</A>.
+
+<A NAME="Fog">
+<H3>Fog</H3>
+<P>
+In the <i>atmospheres</i> directory there is main files beginning with the prefix <b>earth_</b> and other file to include
+in your fog theme. Typically the theme has this form :
+<pre>
+#if (TF_HAVE_FOG)
+  FOG_DECLARATION
+#end // TF_HAVE_FOG
+#if (TF_HAVE_GROUND_FOG)
+  #include "fog_ground.inc"
+#end // TF_HAVE_GROUND_FOG
+#if (TF_HAVE_RAINBOW)
+  #include "rainbow.inc"
+#end // TF_HAVE_RAINBOW
+</pre>
+First you write your fog description then you include the ground fog and the rainbow files. Of course if you'd like change the
+rainbow you should create a rainbow2.inc file and include it in a new earth_fog2.inc main file.
+<br>The parameters in the <i>Atmosphere</i> section of the <i>defaults.inc</i> file can be used as your convenience.
+<br>This theme is automatically scanned and available in the dialog boxes. For a succesful scan keep the prefix <b>earth_</b>
+for the name of the file.
+
+<A NAME="Water">
+<H3>Water</H3>
+<P>
+In the <i>water</i> directory there is themes files for the water beginning with the prefix <b>earth_</b>. 
+Typically the theme has this form :
+<pre>
+#if (TF_HAVE_WATER)
+  WATER_DECLARATION
+#end // TF_HAVE_WATER
+</pre>
+The water is an infinite plane with a texture applied on it. You must translate this plane at a Y level corresponding at the
+value : TF_WATER_LEVEL * TF_Y_SCALE. If you prefer some other object to simulate the water, for exemple a giant box, 
+keep in mind that the bounding of Height-field begin at the coordinate < 0,0,0 > and finish at < 1 * TF_X_SCALE, 1 * TF_Y_SCALE,
+ 1 * TF_Z_SCALE >. TF_WATER_LEVEL is a value between 0 and 1, that's logical. Until your plane or object is at the right place
+then texture it.
+<br>The parameters in the <i>Water</i> section of the <i>defaults.inc</i> file can be used as your convenience.
+<br>This theme is automatically scanned and available in the dialog boxes. For a succesful scan keep the prefix <b>earth_</b>
+for the name of the file. 
+
+<A NAME="Sky">
+<H3>Sky Type</H3>
+<P>
+In the <i>skies</i> directory there is files for the global sky description beginning with the prefix <b>earth_</b>. 
+Some files are very complex like the Earth Regular theme some others are much simple. The purpose of those files is
+to describe or arrange : 
+<ul>
+<li>the background sky ans stars
+<li>the lights
+<li>the celest object
+<li>the clouds
+</ul>
+The functionnality of the Terraform Sky Types are explained in the <a href="render.html#Sky"> render doc file</a>.
+You should not start from nothing but only make a copy and modify one of existing file to add or change what you need. 
+Keep in mind that the bounding of Height-field begin at the coordinate < 0,0,0 > and finish at < 1 * TF_X_SCALE, 1 * TF_Y_SCALE,
+ 1 * TF_Z_SCALE >. 
+<br>The parameters in the <i>Sky</i> section of the <i>defaults.inc</i> file can be used as your convenience.
+<br>This theme is automatically scanned and available in the dialog boxes. For a succesful scan just put it in the <i>skies</i> directory.
+
+<A NAME="Lights">
+<H3>Lights</H3>
+<P>
+In the <i>skies/include</i> directory there is files for the lights description beginning with the prefix <b>lights_</b>. 
+Lights files are not always themes. <i>lights_studio</i> is used in the <i>Earth Static</i> Sky Type, this is a fixed three lights
+system as used in Hollywood. <i>lights_toymodel</i> is used in the <i>Earth_Dynamic</i> Sky Type, this is a set of lights that
+simulate the sun or moon enlightment with an optionnal ambient enlightment. 
+<i>Ligths_standard</i> is a theme for the main <i>Earth Regular</i> Sky Type.
+Typically the theme has this form :
+<pre>
+#if (TF_HAVE_AMBIENT_LIGHT)
+  AMBIENT_LIGHT_DECLARATION
+#end // TF_HAVE_AMBIENT_LIGHT
+#if (TF_HAVE_CAMERA_LIGHT)
+  CAMERA_LIGHT_DECLARATION
+#end // TF_HAVE_CAMERA_LIGHT
+</pre>
+Keep in mind that the bounding of Height-field begin at the coordinate < 0,0,0 > and finish at < 1 * TF_X_SCALE, 1 * TF_Y_SCALE,
+ 1 * TF_Z_SCALE >. If you add some custom light point don't forget to scale the coordinate with the TF_XYZ_SCALE parameters.
+ The location camera can be obtain with the TF_CAMERA_LOCATION parameter. 
+<br>Some parameters related to the Lights in the <i>Sky</i> section of the <i>defaults.inc</i> file can be used as your convenience.
+<br>This theme can not be changed from the dialog boxes, you have to edit the file <i>defaults.inc</i> and change the 
+TF_LIGHTS_DESCRIPTION option.
+
+<A NAME="Objects">
+<H2>Objects</H2>
+<P>
+Objects can be multiple or single. Multiple objects are the standard of Terraform, they are listed
+in the <i>Place objects</i> dialog box. There is many parameters to let you choose how to
+spread them on the heigth-field. Single objects are called <i>TRACE</i> objects because a POV-Ray
+trace function is used to put them at the right place. They are not accessible through a
+menu or dialog box.
+</P>
+
+<A NAME="multiObjects">
+<H3>Multiple Objects</H3>
+<P>
+You can add objects in the <i>objects</i> directory. Every kind of object is acceptable at the condition that it can be read from
+the POV-Ray code. For exemple you can describe an object with the CSG features of POV-Ray or create an object with the 3D
+modeler Moonlight and export it in POV mesh format.
+The declaration of the object should finally have this form :
+<pre>
+#declare POV_OBJECT_ NAME = { any kind of POV object declaration }
+#macro OBJECT_NAME ()
+   object {  POV_OBJECT_NAME  }
+#end
+</pre>
+The name of the file should be OBJECT_NAME.inc (the same name as for the macro declaration).
+<br>Those objects are automatically scanned and available in the Object dialog box from the Operations menu. For a succesful scan 
+just put the file OBJECT_NAME.inc in the <i>object</i> directory.<br>Often the declaration of the
+object is separate in two files OBJECT_NAME_INC.txt and OBJECT_NAME.inc. The file OBJECT_NAME_INC.txt contain the object
+itself and can be then reused as Single object. 
+
+<A NAME="singleObjects">
+<H3>Single Objects</H3>
+<P>
+Single objects can be everywhere, on earth, water or in the air. A few parameters are needed
+to control the location of the object :
+<ul>
+<li>LOCAL_EYE_POINT : initial location of the object, absolute coordinates system similar as in the camera dialog 
+<li>LOCAL_CAMERA_RELATIV : you can change the coordinates system that they are relativ to camera location
+<li>LOCAL_CONSERVE_ELEVATION : if false the object fall down on the earth or water
+<li>LOCAL_OBJECT_FLOAT : if false the object can be on earth but under the water
+<li>LOCAL_OBJECT_SCALE : scale the object
+</ul>
+The single objects are listed in at the end of the <i>defaults.inc</i> file. You have to edit them.
+The declaration files for the object itself are located in the <i>include</i> directory and
+prefixed with the word TRACE.
+</P>
+
+<A NAME="Advanced">
+<H2>Advanced scripting</H2>
+<P>
+Advanced POV-Ray scripters can add their own scripts in Terraform. Terraform built dynamically the render process with the
+themes files and some static files as below :
+<ul>
+<li>defaults.inc , the parameter file is the first read
+<li>themes files like sky, fog, water, earth texture, objects : the dynamic part
+<li>generic_land.inc, the final declaration file.
+</ul>
+The best solution is to put in the last declaration file <I>generic_land.inc</i> an instruction
+<pre>
+#include "mycustom.inc"
+</pre>
+Terraform declare a lot of Library path, simply use the <i>include</i> directory to store your custom files, they'll be read. 
+Of course you can download and integrate all the <A HREF="#Links">POV resources</A> of the web. The <i>Trace</i> 
+instruction is useful to put individual objects at a specific place on the heigth-field. Just keep in mind the basic parameters :
+<ul>
+<li>TF_CAMERA_LOCATION, TF_CAMERA_LOOK_AT : coordinate of the camera with scaling
+<li>< 0,0,0 > <1,1,1> : bounding of the heigth-field without scaling
+<li>TF_X_SCALE, TF_Y_SCALE, TF_Z_SCALE : scales applied to the heigth-field,
+<li>TF_SCALE = < TF_X_SCALE, TF_Y_SCALE, TF_Z_SCALE > : global scale factor, sometimes useful
+<li>TF_WATER_LEVEL : level of the sea without scaling
+</ul>
+
+<A NAME="Links">
+<H2>Some useful links</H2>
+<P>
+<A HREF="http://www.povray.org/documentation/view/toc/">POV-Ray documentation, Table of contents</A>
+<br><A HREF="http://www.povray.org/documentation/view/71/">POV-Ray documentation, Chapter Simple Texture Options</A>
+<br><A HREF="http://www.povray.org/documentation/view/76/">POV-Ray documentation, Advanced Texture Options</A>
+<br><A HREF="http://razafindralambo.free.fr/terraform-fr/ressource1.php?lang=en">Resources for Background Images</A>
+<br><A HREF="http://razafindralambo.free.fr/terraform-fr/ressource2.php?lang=en">Resources for Moon images</A>
+<br><A HREF="http://razafindralambo.free.fr/terraform-fr/ressource5.php?lang=en">Resources for POV scripts</A>
+</P>
+
+</BODY>
+</HTML>

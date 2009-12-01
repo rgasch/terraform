@@ -1,0 +1,119 @@
+Terraform was written by Robert Gasch (Robert_Gasch@peoplesoft.com) and 
+has borrowed code and ideas from the following packages/people (in no 
+particular order): 
+
+GPL Code: 
+--------
+The 3D display engine is based on code from John Beale's (beale@best.com) 
+excellent HF-Lab package. The original code structure from HF-Lab is 
+still more or less in place, but I have added color support to the 
+display engine as well as some other extras. Also the low level the 
+IO code has it's origins in HF-Lab and/or gforge (another cool program 
+John wrote) as well as a few of the transformations. John has a web page 
+at http://shell3.ba.best.com/~beale
+
+The random number generator originally appeared in "Toward a Universal
+Random Number Generator" by George Marsaglia and Arif Zaman (Florida State 
+University Report: FSU-SCRI-87-50 (1987)). It was later modified by F. James 
+and published in "A Review of Pseudo-random Number Generators". This C 
+language version was written by Jim Butler, and was based on a FORTRAN 
+program posted by David LaSalle of Florida State University. John Beale 
+also added some code to this. 
+
+The crater code is adapted from gforge and is originally Copyright (C) 1995 
+by Heiko Eissfeldt (heiko@colossus.escape.de).
+
+The recursive diamond subdivision code is based on the generation subroutine 
+from Leo Sutic's Voxel engine, which can be found at http://www.sutic.nu/voxels/ 
+
+The Connect code was written by kari@kivisalo.net. It is the same code which 
+is used in Leveller. Kari can be found at www.kivisalo.net .
+
+The initial TGA file reading code was written by me (RNG). The new version 
+is basically a hack based on the plug-ins/common/tga.c file distributed 
+with the GIMP. This code was written by Gordon Matzigkeit <gord@gnu.ai.mit.edu>.
+
+OpenGL code based on the meshview demo Nate Robins (ndr@pobox.com). Nate has 
+a web page at http://www.pobox.com/~ndr.  Gtkglmm code derived from examples 
+written by Karl Nelson <kenelson@ece.ucdavis.edu>. 
+
+The contour line code was thought of after some discussions with 
+Cloister Bell (cloister@hhhh.org). I wrote a first, rather crude version 
+which he has since then improved to give much better results. He also 
+contributed the code which writes the contour lines to PostScript files 
+and comes up with tons of good suggestions. As far as I can tell (via 
+email) he also seems to be a really nice guy. 
+
+The code to export the HeightFieldModel to the ACAD modeller file format
+was written by Ronald Reckel (reckel@stud.montefiore.ulg.ac.be).
+
+The Print Settings dialog adapted from the C code in dia 
+(http://www.lysator.liu.se/~alla/dia/). I've translated it to Gtk-- and
+changed a few things, but the basic layout is still the same. 
+
+The Rotate Dialog layout was taken from the GIMP rotate plug-in
+by Sven Neumann, neumanns@uni-duesseldorf.de. The layout is 
+still the same as in the original plug-in, but I've rewritten 
+the code in Gtk--.
+
+The About Dialog is based upon the gimp about dialog. I've rewritten 
+it in Gtk-- and put it into a more OO design, but the basic idea and 
+concept are stolen from the GIMP. 
+
+The code in tf_error.c is a slighly changed version of gerror.c of 
+GLib (version 1.2.3). 
+
+Much of the code in configure.in is taken from the configure.in 
+file shipped with Gtk--. 
+
+The realistic POVRay rendering files were conceived by David A. Bartold
+(foxx@mail.utexas.edu)
+
+
+Non-GPL Code (or code where no specific Copyright policy was mentioned):
+------------
+The 3D modeling code (and preview rotation) is based on code from 
+Jonathan Belson's (jon@dookie.demon.co.uk) landscape package. Here 
+also the basic code structure still shows some resemblance to the 
+original but I've changed it around quite a bit and also added 
+some stuff. While it doesn't mention a specific copyright policy, it 
+says "Landscape is freely distributable, and you can feel free to 
+study it, change it, or use bits of it in your own freely distributable 
+programs." Jonathan has a web page at http://www.dookie.demon.co.uk
+
+The 4-layerd Perlin noise generation code is taken/adapted from 
+John Ratcliff (jratcliff@verant.com) who placed his code under 
+the public domain. 
+
+The iterative subdivision generation code is adapted from the 
+spectral synthesis Java applet written by Carl Burke, which in 
+turn is based on code and suggestions from Paul Martz 
+(pmartz@dsd.es.com), James McNeill (mcneja@wwc.edu) and Andrea 
+Griffini. You can find it (and lots of other (terrain) info) at 
+http://www.geocities.com/Area51/6902/terrain.html
+
+The Fast Fourier Transform code is originally by RC Singleton and 
+has since been modified by a number of people (most notably Mark 
+Olesen and John Beale). See MathFFTN_c.cc for details. This piece 
+of code doesn't mention a copyright policy, but other people have 
+used the same piece of code in GPL'd programs, so I figure I'm OK here. 
+
+The DEM and GTOPO30 file read code was ripped from Mark Stock's dem2pgm.c 
+(which again is based on dem2tga.c by Jon Larimer) and gtop2pgm.c. I changed 
+the DEM code around a bit (the original code didn't build an in-memory image 
+but wrote directly to an output file) while adopting the GTOPO30 code more 
+verbatim. You can find dem2pgm.c and a number of other utilites in his 
+hftools package at http://www-personal.umich.edu/~mstock/pages/hftools.html
+
+
+--------------------
+-- Many thanks to --
+--------------------
+Peter Mattis, Spencer Kimball and Josh MacDonald for GTK+ and GIMP
+Tero Pulkkinen, Guillaume Laurent, Havoc Pennington and Karl Neslon for GTK--
+
+All the people who replied to my questions on the various mailing lists.
+
+Ocram ed Naah and his 17 brothers for a few useful and countless useless 
+suggestions (such as a fly-through Klingon-Homeworld version of terraform).
+

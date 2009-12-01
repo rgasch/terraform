@@ -1,0 +1,363 @@
+<HTML>
+<HEAD><TITLE>Terraform Guide Utilisateur</TITLE></HEAD>
+
+<BODY BGCOLOR=#FFFFFF TEXT=#000000 LINK=#000000 ALINK=#000000 VLINK=#000000>
+<H1>Terraform Guide Utilisateur</H1>
+
+<P>
+<I>Auteur: Robert Gasch</I>,
+<I>Mis à jour par David A. Bartold</I>
+<I>, Koos Jan Niesink</I>
+<I>, Raymond Ostertag</I>
+</P>
+<P>
+Voici le guide utilisateur de terraform, un modeleur/générateur
+interactif de terrain numérique.
+</P>
+
+<P>
+Note du traducteur : voyez aussi la documentation francophone ne faisant
+pas partie de la distribution de Terraform qui est disponible
+sur le site <u><a href="http://terraform.tuxfamily.org/">Terraform.tuxfamily.org</a></u>
+</P>
+
+<HR NOSHADE>
+
+<H2>Table des matières</H2>
+<UL>
+<LI><A HREF="#FAQ">FAQ (Foire Aux Questions)</A>
+<LI><A HREF="#Tutorial">Tutoriel</A>
+<LI><A HREF="#MainWindow">La fenêtre Principale</A>
+    <UL>
+    <LI><A HREF="#New">Générer un nouveau terrain</A>
+        <UL>
+        <LI><A HREF="#PerlinNoise">Bruit «Perlin»</A>
+        <LI><A HREF="#Spectral">Spectral</A>
+        <LI><A HREF="#Subdivision">Sous-division</A>
+        <LI><A HREF="#Random">Aléatoire</A>
+        </UL>
+    <LI><A HREF="#Merge">Fusionner deux ou plusieurs terrains</A>
+    <LI><A HREF="#MainOptions">Le Dialogue des options globales</A>
+    </UL>
+<LI><A HREF="#TerrainWindow">La fenêtre du Terrain</A>
+    <UL>
+    <LI><A HREF="#Views">Vues</A>
+    <LI><A HREF="#Rendering">Rendre l'image</A>
+        <UL>
+        <LI><A HREF="#RenderOptions">Le dialogue des options de scène et de rendu</A>
+        <LI><A HREF="#POVRay">Rendre l'image avec POV-Ray</A>
+        </UL>
+    <LI><A HREF="#Basic">Transformations de base du terrain</A>
+        <UL>
+        <LI><A HREF="#Invert">Inversion</A>
+        <LI><A HREF="#Mirror">Miroir</A>
+        <LI><A HREF="#Move">Déplacement</A>
+        <LI><A HREF="#Rotate">Rotation</A>
+        <LI><A HREF="#Scale">Mise à l'échelle</A>
+        </UL>
+    <LI><A HREF="#Specialized">Transformations spéciales du terrain</A>
+        <UL>
+        <LI><A HREF="#Connect">Connexion</A>
+        <LI><A HREF="#Craters">Cratères</A>
+        <LI><A HREF="#Erode">Érosion</A>
+        <LI><A HREF="#Fill">Remplissage</A>
+        <LI><A HREF="#Flowmap">Carte d'écoulement</A>
+        <LI><A HREF="#Fold">Bordure</A>
+        <LI><A HREF="#GaussianHill">Colline gaussienne</A>
+        <LI><A HREF="#RadialScale">Échelle radiale</A>
+	<LI><A HREF="#Rasterize">Pixéliser</A>
+        <LI><A HREF="#Roughen">Rendre rugueux</A>
+        <LI><A HREF="#Smooth">Lissage</A>
+        <LI><A HREF="#Terrace">Terrasse</A>
+        <LI><A HREF="#Tile">Motif jointif</A>
+        <LI><A HREF="#Transform">Transformation</A>
+        </UL>
+    <LI><A HREF="#Objects">Objets</A>
+        <UL>
+        <LI><A HREF="#Show">Montrer</A>
+        <LI><A HREF="#Place">Mettre en place</A>
+        <LI><A HREF="#RemoveAll">Enlever tout</A>
+        <LI><A HREF="#MoveObjects">Déplacer</A>
+        </UL>
+    <LI><A HREF="#Advanced">Sujets avancés</A>
+        <UL>
+	<LI><A HREF="#Adding_Files">Ajouter vos propres scènes et objets</A>
+        <LI><A HREF="#Hacking">Développer Terraform</A>
+        <LI><A HREF="#Templates">Ajouter des thèmes et des objets POV-Ray</A>
+        </UL>
+    </UL>
+</UL>
+
+<A NAME="FAQ">
+<H2>FAQ (Foire Aux Questions)</H2>
+<P>
+Les réponses aux principales questions posées sont disponibles dans le <A HREF="faq.html">document FAQ</A>
+</P>
+
+<A NAME="Tutorial">
+<H2>Tutoriel</H2>
+<P>
+Un petit <A HREF="tutorial.html">tutoriel</A> est disponible pour les débutants.
+</P>
+
+<A NAME="MainWindow">
+<H2>Fenêtre principale</H2>
+<P>
+La fenêtre Principale permet à l'utilisateur d'ouvrir de nouvelles fenêtres pour les terrains. Un terrain peut être chargé ou créé d'après plusieurs algorithmes. La fenêtre des Options accessible depuis la fenêtre Principale contient plusieurs paramètres globaux tel que l'emplacement de l'exécutable POV-Ray et le nombre maximum d'Annuler. 
+</P>
+
+<A NAME="New">
+<H3>Générer un nouveau terrain</H3>
+<P>
+La façon la plus simple de générer un nouveau terrain est de sélectionner  "Aléatoire" dans le menu. Cela va automatiquement sélectionner un ou plusieurs algorithmes différents d'après un paramètre généré aléatoirement et créer un nouveau terrain pour vous.
+</P>
+
+<A NAME="PerlinNoise">
+<H4>Bruit «Perlin»</H4>
+<P>
+La fonction de bruit composé Perlin est calculée en prenant la somme de plusieurs octaves de bruit. Pour produire une octave de bruit à deux dimensions, un réseau de nombres aléatoires est interpolé. La distance entre points est déterminée par la fréquence. 
+</P>
+
+<A NAME="Spectral">
+<H4>Synthèse spectrale
+</H4>
+<P>
+La synthèse spectrale implique de remplir un tableau avec des données aléatoires.  Le tableau alimente une fonction de transformation inverse de Fourier pour générer le terrain.
+</P>
+
+<A NAME="Subdivision">
+<H4>Sous-division</H4>
+<P>
+L'algorithme de subdivision donne initiallement des valeurs aléatoires à des points extérieurs puis ces points sont utilisés pour calculer un point intérieur. Par exemple, l'algorithme récursif positionne les quatres coins du terrain à des valeurs aléatoires. La valeur du point central est déterminée par la moyenne des quatres coins plus un nombre aléatoire. Le nombre aléatoire est multiplié par la taille du carré de façon à ce que les grandes distances aient de grandes variations. Finalement l'algorithme divise le carré en quatre quarts et continue récursivement sur chacun d'entre eux.
+</P>
+
+<A NAME="Random">
+<H4>Aléatoire</H4>
+<P>
+Génère un nouveau terrain en utilisant un algorithme choisi au hasard. La taille du terrain sera de 400 x 400 pixels.
+</P>
+
+<A NAME="Merge">
+<H3>Fusionner deux ou plusieurs terrains</H3>
+<P>
+Multiplie deux terrains par différents coefficients et les combinent en utilisant un opérateur tel qu'addition. La hauteur des terrains fusionnés reste comprise entre le point 0.0 et le point 1.0
+</P>
+
+<A NAME="MainOptions">
+<H3>Le dialogue des Options globales</H3>
+<P>
+Fournit des réglages généraux de l'application tels que le nom de l'exécutable POV-Ray, le nombre maximum d'annuler et le gamma.
+</P>
+
+<A Name="TerrainWindow">
+<H2>La fenêtre du terrain</H2>
+<P>
+<I>[À rédiger]</I>
+</P>
+
+<A NAME="Views">
+<H3>Vues</H3>
+<P>
+<I>[À rédiger]</I>
+</P>
+
+<A NAME="Rendering">
+<H3>Rendre l'image</H3>
+<P>
+Terraform utilise POV-Ray pour réaliser ses rendus. C'est important qu'une version récente de POV-Ray soit
+installée sur votre machine. Vous pouvez télécharger la dernière version de POV-Ray à
+<a href="http://www.povray.org">http://www.povray.org/</a> ou dans le fenêtre principale du menu Fichier
+choisissez le dialogue des <i>Options</i> et l'onglet <i>POV-Ray</i> et cliquez sur <i>Télécharger POV-Ray</i>.
+</P>
+
+<A NAME="RenderOptions">
+<H4>Le dialogue des options de scène et de rendu</H4>
+<P>
+Le <a href="render.html">Guide Utilisateur du Rendu</a> vous explique les options du rendu et des scènes.
+</P>
+
+<A NAME="POVRay">
+<H4>Faire un rendu avec POV-Ray</H4>
+<P>
+Exporte le terrain vers POV-Ray et appelle l'exécutable POV-Ray spécifié dans la fenêtre des options principales.
+POV-Ray doit être capable de trouver ses fichiers de bibliothèque. Soyez certain d'avoir un fichier <i>.povrayrc</i> correct dans votre répertoire utilisateur.
+</P>
+
+<A NAME="Basic">
+<H3>Transformations de base du terrain</H3>
+<P>
+Ce menu fournit les opérations essentielles que vous attendez d'un programme de manipulation de terrain.
+</P>
+
+<A NAME="Invert">
+<H4>Inversion</H4>
+<P>
+Inverse le terrain courant, laisse le niveau de l'eau inchangé.
+</P>
+
+<A NAME="Mirror">
+<H4>Miroir</H4>
+<P>
+Symétrie du terrain  suivant un parmi quatre axes. Horizontal (-), vertical (|), haut-gauche bas-droite (\) ou bas-gauche haut-droite (/). C'est pratique pour laisser les caractéristiques générales du paysage inchangées tout en changeant sa configuration.
+</P>
+
+<A NAME="Move">
+<H4>Déplacement</H4>
+<P>
+Décale le terrain en reliant les contours. Utile pour déplacer une montagne vers une position désirée. Si le terrain n'a pas été généré avec Synthèse spectrale, il peut être préférable d'exécuter d'abord le filtre Motif.
+</P>
+
+<A NAME="Rotate">
+<H4>Rotation</H4>
+<P>
+Tourne le terrain par increments de 90 degrés. 
+</P>
+
+<A NAME="Scale">
+<H4>Mise à l'échelle</H4>
+<P>
+Permet soit de doubler ou de réduire de moitié la taille du terrain courant. Un algorithme fractal est utilisé pour doubler la taille du terrain. 
+</P>
+
+<A NAME="Specialized">
+<H3>Transformations spéciales du terrain</H3>
+<P>
+Ces opérations réalisent des fonctions spéciales sur le terrain.
+</P>
+
+<A NAME="Connect">
+<H4>Connexion</H4>
+<P>
+C'est le 'level connector plug-in' tel qu'utilisé dans l'éditeur de terrain  'leveller for MS Windows'. Il régularise et adoucit le terrain sélectionné. 
+</P>
+
+<A NAME="Craters">
+<H4>Cratères</H4>
+<P>
+Place le nombre indiqué de cratères sur le terrain d'après les paramètres spécifiés. C'est une version légèrement modifiée du 'hf-lab crate' de John Beale . Dans la boîte de dialogue du cratère, si vous réduisez le nombre de cratère à 1, vous pouvez indiquer la position exacte du cratère. Les cratères sont placés seulement dans les zones sélectionnées. Un cratère est entièrement créé même s'il empiète sur une zone non sélectionnée.
+</P>
+
+<A NAME="Erode">
+<H4>Érosion</H4>
+<P>
+Ce programme calcule la carte d'écoulement et ensuite l'utilise pour éroder le terrain, rafraîchissant la carte d'écoulement à intervalles réguliers ( échangeant ainsi de la précision pour de la vitesse ). C'est un peu plus rapide que le code de John Beale mais ça nécessite encore du travail.
+</P>
+
+<A NAME="Fill">
+<H4>Remplissage</H4>
+<P>
+Rempli le terrain jusqu'au niveau d'élévation indiqué en utilisant le paramètre Etroitesse pour déterminer de combien les points altérés sont autorisés à dévier de l'élévation spécifiée.
+</P>
+
+<A NAME="Flowmap">
+<H4>Carte d'écoulement</H4>
+<P>
+Cette fonction calcule la carte d'écoulement du terrain courant ( voyez le code pour plus de détails ). Vous pouvez choisir entre l'algorithme Direction simple d'écoulement ( qui est raisonnablement rapide ) et l'algorithme Direction multiple d'écoulement ( qui est sacrément long ). Sur mon AMD K6 -233 Direction simple prend environ 2.5 secondes tandis que le Direction multiple prend 30 minutes pour un terrain de 400x400.
+</P>
+
+<A NAME="Fold">
+<H4>Bordure</H4>
+<P>
+L'option Bordure vous permet de créer une marge au bord du terrain qui est submergée sous le niveau de la mer. Ceci est pratique pour forcer un terrain (généré) à s'intégrer dans une scène avec un horizon ou niveau de la mer prévisible et c'est probablement en procédant par petits pas qu'on l'utilise au mieux.
+</P>
+
+<A NAME="GaussianHill">
+<H4>Colline gaussienne</H4>
+<P>
+Ceci créé une colline en forme de courbe de Gauss à l'endroit et avec les paramètres indiqués. Vous pouvez utiliser les 1er et 2ème boutons de la souris pour régler les paramètres de position.
+</P>
+
+<A NAME="RadialScale">
+<H4>Échelle radiale</H4>
+<P>
+A partir d'un point réduit/augmente le terrain alentour de façon circulaire. Peut-être utilisé pour faire toutes sortes de formes circulaires. Nécessite encore un peu de travail.
+</P>
+
+<A NAME="Rasterize">
+<H4>Pixéliser</H4>
+<P>
+Ce filtre découpe la hauteur du terrain en petites sections rectangulaires. Le facteur d'étroitesse détermine la pixelisation du terrain.
+</P>
+
+<A NAME="Roughen">
+<A NAME="Smooth">
+<H4>Rendre rugueux et Lissage
+</H4>
+<P>
+Utilise la ' moyenne des voisins ' pour rendre le terrain plus ou moins rugueux. Le facteur détermine combien de rugosité numérique est appliquée au terrain. Si vous sélectionnez Large grille d'échantillonage tous les 8 carrés contigus sont utilisés. S'il n'est pas invoqué, les 4 carrés directement contigus sont utilisés pour calculer la rugosité.
+</P>
+
+<A NAME="Terrace">
+<H4>Terrasse</H4>
+<P>
+Divise le terrain en n niveaux spécifiés avec le facteur Proximité spécifié.
+</P>
+
+<A NAME="Tile">
+<H4>Motif jointif</H4>
+<P>
+Rend le terrain courant reproductible à l'infini sans discontinuité. Nécessite encore un peu de travail.
+</P>
+
+<A NAME="Transform">
+<H4>Transformation</H4>
+<P>
+Transformation applique une transformation parabolique au terrain courant tel que l'élévation du terrain devienne statistiquement similaire à la terre.  Les bords terrestres s'aplatissent puis tombent brusquement vers le plancher océanique.
+</P>
+
+<A NAME="Objects">
+<H3>Objets</H3>
+<P>
+</P>
+
+<A NAME="Show">
+<H4>Montrer</H4>
+<P>
+Voici les <a href="show_objects.html">objets standards</a> disponibles dans Terraform.
+</P>
+
+<A NAME="Place">
+<H4>Mettre en place</H4>
+<P>
+Place les objets d'un type particulier sur le terrain.
+</P>
+
+<A NAME="RemoveAll">
+<H4>Enlever tout</H4>
+<P>
+Enleve tous les objets du terrain.
+</P>
+
+<A NAME="MoveObjects">
+<H4>Déplacer</H4>
+<P>
+Dans la 2D plane. Sélectionnez le bouton Pointeur de la barre d'outils et déplacez les objets alentours par glisser-déposer. 
+</P>
+
+<A NAME="Advanced">
+<H3>Sujets avancés</H3>
+<P>
+<I>[À rédiger]</I>
+</P>
+
+<A NAME="Adding_Files">
+<H4>Ajouter vos propres fichiers de scènes et objets</H4>
+<P>
+C'est possible d'ajouter vos propres scènes et objets avec Terraform. Tout est thémable et c'est possible de changer les textures du terrain, le ciel, l'eau, l'éclairage, et plus encore... vous pouvez ajouter des thèmes et objets. Terraform utilise POV-Ray comme langage descriptif pour faire ceci, vous devez avoir quelques bases de ce langage pour comprendre les thèmes existants.
+Allez dans le répertoire ~/.terraform et créez les sous-répertoires "objects", "themes" et "includes" (s'ils n'existent pas). Maintenant vous pouvez placer les fichiers dans les répertoires correspondants pour qu'ils soient accessibles par Terraform. Si un fichier apparait deux fois sous le même nom dans votre répertoire utilisateur et dans les fichiers systèmes de Terraform c'est celui de votre répertoire utilisateur qui sera pris en compte.
+</P>
+
+<A NAME="Hacking">
+<H4>Développer Terraform</H4>
+<P>
+Voyez le document <A HREF="hacking.html">ModifierTerraform</A> pour de plus amples informations.
+</P>
+
+<A NAME="Templates">
+<H4>Ajouter des thèmes et des objets POV-Ray</H4>
+<P>
+Voyez le document <A HREF="theme.html">Guide utilisateur des thèmes</A> pour de plus amples informations sur les thèmes et les objets dans Terraform.
+</P>
+
+</BODY>
+</HTML>

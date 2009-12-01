@@ -1,0 +1,120 @@
+// grass_flowers.inc Plugin - Creates a mesh object representing a patch of grass
+// Grass Plugin for POVRay
+// by Gordon (gbentley@birdcameron.com.au)
+
+#local XI = 0;
+#if (PatShape=1)
+    #local XStart = PatRad*-1;
+    #local XEnd = PatRad;
+    #local YStart = PatRad*-1;
+    #local YEnd = PatRad;
+#end
+
+#local XSteps = (XEnd-XStart)/XStep;
+#local YSteps = (YEnd-YStart)/YStep;
+
+#local ZT0 = ZPos - MeanBladeWidth/4; // Just below the ground
+
+// Mesh object definition starts here
+
+mesh{
+#while (XI < XSteps)
+       #local YI = 0;
+       #while (YI < YSteps)
+          #local XOff = XStart + (XStep * (XI + ((rand(R1)*XStepRand*2)-XStepRand)));
+          #local YOff = YStart + (YStep * (YI + ((rand(R1)*YStepRand*2)-YStepRand)));
+          #if (PatShape=1)
+              #if (((XOff*XOff)+(YOff*YOff))>(sqrt(rand(R1))*PatRad*PatRad))
+                  #local NumBlades = 0;
+                  #local FlowerFlag = 0;
+              #else
+                   #local NumBlades = MinBlades + ((MaxBlades-MinBlades)*rand(R1));
+                   #local FlowerFlag = 1;
+              #end
+          #else
+              #local NumBlades = MinBlades + ((MaxBlades-MinBlades)*rand(R1));
+              #local FlowerFlag = 1;
+          #end
+          #local BladeNum = 1;
+          #while (BladeNum <= NumBlades)
+              #local BladeAngle = MinAngle + ((MaxAngle-MinAngle)*rand(R1));
+              #local BladeHeight = MeanBladeHeight*(1+((rand(R1)-0.5)*HeightVar*2));
+              #local BladeWidth = MeanBladeWidth*(1+((rand(R1)-0.5)*WidthVar*2));
+              #local BladeBearing = rand(R1)*360;
+              #local BladeCurve = MinCurve + ((MaxCurve-MinCurve)*rand(R1));
+              #local BladeSegs = MinBladeSegs + ((MaxBladeSegs-MinBladeSegs)*rand(R1));
+              #local CurvePerSeg = BladeCurve/BladeSegs;
+              #local SegCurve = CurvePerSeg;
+              #local PT0 = <XOff, YOff, ZT0>;
+              #local SegLen = BladeHeight * (pow(1.25,BladeSegs-1)/(pow(1.25,BladeSegs)-1)) *(1.25-1);
+              #local SegTaper = (SegLen/BladeHeight)/pow(1.25,BladeSegs);
+              #local SegWidth = BladeWidth * (1-SegTaper);
+              #local PT1 = PT0 + vrotate(<BladeWidth,0,0>,<0,0,BladeBearing>);
+              #local PT3 = PT0 + vrotate(<0,0,SegLen>,<BladeAngle,0,BladeBearing>);
+              #local PT2 = PT3 + vrotate(<SegWidth,0,0>,<0,0,BladeBearing>);
+              #local NT0 = vrotate(<0,-1,0>,<BladeAngle/2,0,BladeBearing>);
+              #local NT1 = vrotate(<0,-1,0>,<(BladeAngle+SegCurve)/2,0,BladeBearing>);
+              #local BladeSeg = 0;
+              #while (BladeSeg<BladeSegs-1)
+                    smooth_triangle{
+                       PT0, NT0,
+                       PT1, NT0,
+                       PT2, NT1
+                       texture{ Grass_Text}
+                     }
+                     smooth_triangle{
+                       PT2, NT1,
+                       PT3, NT1,
+                       PT0, NT0
+                       texture{ Grass_Text}
+                     }
+                     #local SegLen = SegLen /1.25;
+                     #local PT0 = PT3;
+                     #local PT1 = PT2;
+                     #local NT0 = NT1;
+                     #local NT1 = vrotate(
+                                      vrotate(
+                                        vrotate(NT1
+                                               ,<0,0,BladeBearing*-1>
+                                               )
+                                             ,<CurvePerSeg,0,0>
+                                             )
+                                           ,<0,0,BladeBearing>
+                                           );
+                     #local PT3 = PT0 + vrotate(vrotate(<0,0,SegLen>, <SegCurve,0,0>), <BladeAngle,0,BladeBearing>);
+                     #local PT2 = PT3 + vrotate(<SegWidth,0,0>,<0,0,BladeBearing>);
+                     #declare SegCurve = SegCurve + CurvePerSeg;
+                     #declare SegTaper = SegTaper * 1.25;
+                     #declare SegWidth = SegWidth - (BladeWidth * SegTaper);
+                     #declare BladeSeg = BladeSeg + 1;
+                     #declare NumTri = NumTri + 2;
+                #end
+              smooth_triangle{
+                PT0, NT0,
+                PT1, NT0,
+                (PT2+PT3)/2, NT1
+                texture{ Grass_Text}
+              }
+              #declare BladeNum = BladeNum + 1;
+              #declare NumTri = NumTri + 1;
+          #end
+          #if (FlowerFlag=1)
+              #if (rand(R1)<FlowerProb)
+                      #include "grass_flowers_inc2.txt"
+              #end
+          #end
+#debug concat("Number of triangles = ", str(NumTri,0,0),"\n")
+          #local YI = YI + 1;
+       #end
+       #local XI = XI + 1;
+#end
+texture{ Grass_Text}
+}
+
+
+
+
+
+
+
+

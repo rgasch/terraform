@@ -1,0 +1,17 @@
+Terraform Meta-README
+---------------------
+
+Read docs/README.txt for a general overview.
+Read docs/FAQ.txt for answers to common questions.
+
+
+Terraform Install Tips 
+----------------------
+
+"make install" will attempt to install the data files in your shared 
+resource area, typically something like /usr/local/share/terraform. 
+
+To install the terraform data file under your $HOME directory. 
+You can do a "make install_home" to install the terraform data 
+files under your $HOME directory. 
+

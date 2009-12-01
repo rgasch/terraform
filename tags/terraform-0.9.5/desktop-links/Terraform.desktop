@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Terraform Terrain Editor
+Comment=Generate and edit terrains suitable for raytracing
+Exec=terraform 
+TryExec=terraform
+Icon=terraform.png
+Terminal=false
+MultipleArgs=false
+Type=Application

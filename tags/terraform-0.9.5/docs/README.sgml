@@ -1,0 +1,216 @@
+<!doctype book PUBLIC "-//Davenport//DTD DocBook V3.0//EN" [
+<!entity docownerFirst	"Robert">
+<!entity docownerLast	"Gasch">
+<!entity docownermail	"rng@chello.nl">
+<!entity tfversion	"0.6.6.">
+<!entity wwwterraform	"http://terraform.sourceforge.net">
+<!entity wwwgtk		"http://www.gtk.org">
+<!entity wwwgtkmm	"http://gtkmm.sourceforge.net">
+<!entity wwwgtkthemes	"http://gtk.themes.org">
+<!entity wwwgtkbuffet	"http://metalab.unc.edu/pub/Linux/X11/apps/">
+<!entity wwwimlib	"http://www.labs.redhat.com/imlib">
+<!entity wwwgnome	"http://www.gnome.org">
+<!entity wwwgimp	"http://www.gimp.org">
+<!entity wwwgcc		"http://www.gni.ai.mit.edu/software/gcc/gcc.html">
+<!entity wwwegcs	"http://egcs.cygnus.com">
+<!entity wwwdocbook	"http://www.oasis-open.org/docbook">
+<!entity wwwdocbooktut	"http://nis-www.lanl.gov/~rosalia/mydocs/docbook-intro.html">
+<!entity wwwgnu		"http://www.gnu.org">
+<!entity wwwgnuGPL	"http://www.gnu.org/copyleft/gpl.html">
+]>
+
+<book id="Index">
+  <bookinfo>
+    <title>Terraform README</title>
+    <titleabbrev>README</titleabbrev>
+    <edition>v&tfversion</edition>
+    <authorgroup>
+      <author>
+	<firstname>&docownerFirst</firstname>
+	<surname>&docownerLast</surname>
+	<authorblurb>
+	  <para><email>&docownermail</email></para>
+	  <para><email>&wwwterraform</email></para>
+	</authorblurb>
+      </author>
+    </authorgroup>
+    <date>April 7, 2000</date>
+    <abstract>
+      <para>This is the README file for Terraform, an interactive fractal 
+	landscape modeller/viewer. </para>
+    </abstract>
+  </bookinfo>
+
+  <chapter id="README">
+    <title>README</title>
+      
+    <sect1>
+      <title>Author and Copyright</title>
+      <para>Terraform was written by Robert Gasch 
+	(<emphasis>Robert_Gasch@peoplesoft.com)</emphasis>
+        and is copyright by the author.
+      </para>
+      <para> Parts of this program are based on code from other software
+        released under the GPL and/or other licence policy. See the file
+        AUTHORS for details. The author gratefully acknowledges the 
+	contributions these people (unknowingly) prodvided.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Distribution Policy</title>
+      <para>Terraform is available from it's home page 
+	<ulink url="&wwwterraform;">&wwwterraform</ulink> and released under 
+	the <ulink url="&wwwgnuGPL;">GNU GPL</ulink>. 
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Guarantees</title>
+      <para>Terraform should work all right <emphasis>but</emphasis>
+	No representations are made about the suitability of this software
+	for any purpose. This software is provided "as is" without express
+	or implied warranty.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>What is terraform?</title>
+      <para>Terraform is an interactive fractal landscape generator/viewer.
+	It's written using the GTK widget set and as such has a non-sucking
+	graphical user interface.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Version Number</title>
+      <para> The current version number is &tfversion . This is software under
+	development and should be considered 'Beta'. For more detailed 
+	information of the changes for each version please check the 	
+	<filename>Changelog</filename> document.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>What libraries does terraform use?</title>
+      <para>Terraform requires libglib 1.2.x, libgtk 1.2.x and libgtkmm
+        (gtk--, the C++ Gtk wrapper) 1.1.10 (or newer) and (optionally) 
+	imlib 1.8.x. Terraform does <emphasis>not</emphasis> (yet) use 
+	the gnome libraries.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>What systems does terraform support?</title>
+      <para>Terraform should run on any UNIX type system with the proper
+        libraries installed. For the latest details on these matters, 
+	consult the FAQ.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>What kind of hardware do I need?</title>
+      <para>Background: I typically work with height fields sized 400x400. The
+	following advice is based on height fields of that size. Of course
+	a 100x100 height field will be much less CPU/RAM hungry (about 16
+	times) but so small that it's almost useless.
+      </para>
+      <para>CPU: I'm running terraform on an PII Celeron running at 540Mhz 
+	with 128MB RAM. I would think that for reasonable performance you at least
+	want something like a Pentium 133 or better. Of course faster is better and 
+	slower is worse. If you want to use fetures like interactive or automatic
+	rotation, you probably want something like a Pentium 300 or better.
+	For (auto) rotation with a high wireframe resolution, you probably
+	want the fastest possible CPU you can find. When using these modes on my 
+	machine, the X server requires more CPU than terraform and things get 
+	sluggish. There's a delay loop built in so that it won't just flood your CPU, 
+	but for high frame rates, even my machine could do better. My guess is that 
+	a commercial (optimized) X server would help here (I'm running XFree). I will
+	look at possible performance optimizations later, once the base is
+	stable (things like Xshm and a better (interruptable) drawing loop).
+      </para>
+      <para>X-Windows: My X-Server is running at 16bpp, something which is
+	probably a good idea. I havn't actually gotten around to seeing
+	how terraform runs under 8bpp, but it's probably ugly.
+      </para>
+      <para>Compiling the code: Compiling the code can take quite a bit of
+	memory, depending on the optimization level used. I've seen the
+	process compiling TFWindow.cc peak at around 30MB of memory when
+	compiling without optimization and around 98MB of memory when
+	using -O2. If you have the memory, enable -O2 optimization by
+	adding it to TF_CXXFLAGS in src/Makefile.
+      </para>
+      <para>Memory: Running terraform does not require large amounts of
+	memory. Here is a tabele outlining memory requirements under
+	the different display modes:
+      <informaltable frame="all">
+	<emphasis>Memory image size</emphasis>
+	<tgroup cols="4">
+	  <thead>
+	    <row>
+		<entry>HF Size</entry>
+		<entry>default</entry>
+		<entry>fastWire (reduced*)</entry>
+		<entry>fastWire</entry>
+	    </row>
+	  </thead>
+	  <tbody>
+	    <row>
+	 	<entry>400x400</entry>
+	 	<entry>3.8M</entry>
+	 	<entry>4.1M</entry>
+	 	<entry>5.3M</entry>
+	    </row>
+	    <row>
+	 	<entry>800x800</entry>
+	 	<entry>6.1M</entry>
+	 	<entry>7.3M</entry>
+	 	<entry>11M</entry>
+	    </row>
+	    <row>
+	 	<entry>1600x1600</entry>
+	 	<entry>14M</entry>
+	 	<entry>19M</entry>
+	 	<entry>35M</entry>
+	    </row>
+	  </tbody>
+	</tgroup>
+      </informaltable>
+	* = fast wireframe drawn at 1/2 of default resolution
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>How do I get started?</title>
+      <para>cd into the directory where you've installed the source, type
+	<command>./configure</command>. If configure balks at your 
+	supporting libraries, you'll have to go back and compile or 
+	install the proper version. 
+      </para>
+      <para>You should now be able to type <command>make</command> and build 
+	the executables. Once this is done you can type 
+	<command>make install</command> to install the Terraform
+	executable and any supporting files it needs. If you want to change
+	any of the startup defaults, you can copy the file <filename>system.terraformrc</filename>
+	to <filename>$HOME/.terraformrc</filename>. Try 
+	<command>terraform --helprc</command> or
+	<command>terraform --installrc</command> for more details.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>What command line options does Terraform understand?</title>
+      <para>For a list of supported command line options, type 
+	<command>terraform --help</command>.
+      </para>
+    </sect1>
+
+    <sect1>
+      <title>Where can I find the answer to ...?</title>
+      <para>Check the FAQ, it might just answer your question.
+      </para>
+    </sect1>
+
+  </chapter>
+
+</book>
