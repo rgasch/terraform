@@ -3,7 +3,7 @@
 %define RELEASE		1
 %define rel		%{?CUSTOM_RELEASE} %{!?CUSTOM_RELEASE:%RELEASE}
 %define prefix		/usr/local
-%define gnome_datadir	
+%define gnome_datadir	/usr/local/share
 
 Summary: An interactive fractal landscape generator
 Name: terraform
