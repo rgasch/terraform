@@ -6,9 +6,7 @@ While we don't have a lot of time to dedicate to this, we are making slow and st
 
 The current state of the program is that if you do a checkout from SVN you should be able to compile it using a modern gnome/glade environment and get a reasonably stable and well behaved application. There are still some issues to resolve, but the basics now seem to work quite well.  
 
+= New Release!!! =
+After some more build-related fixes there's now a new release of terraform, version 0.9.5. Functionally it is more or less the same as the old release from 2001, but the source code has been modularized and updated so that it compiles and runs on an up-to-date GNOME and glade-3 install. Hopefully this will be the starting shot to a new era of active development and functional improvements. 
 
-== Fixes applied so far ==
-  * Fixed configuration & compilation issues
-  * Fixed various crashes at application startup
-  * Fixed terraform hanging after spawning an external povray rendering
-  * Added dynamic wireframe grid resolution changing based on mousewheel events
+I would appreciate any help and fixes people can offer since I'm pretty bogged down with work. Happy terraforming. 
