@@ -1,0 +1,3 @@
+Terraform is an open source interactive height field generation and manipulation program, giving you the ability to generate random terrain and transform it. Terraform runs under Linux and other UNIX systems under the X11 Windowing system. It uses the GNOME desktop platform and thus has a (more or less) consistent graphical user interface which doesn't require use of the command line.
+
+Terraform allows you to generate random terrain using a number of algorithms and then selectively change the terrain using a variety of transformations. Where possible, the transformations provide a real-time preview, giving you instant feedback on the effect of any parameter changes.
